@@ -5,8 +5,8 @@
 
 This file uses Mark Down syntax. For more information see [here]([https://www.markdownguide.org/basic-syntax/)](https://www.markdownguide.org/basic-syntax/)).
 
-STUDENT NAME = "Your name"
-STUDENT ID = "Your ID"
+STUDENT NAME =  Adrian Paul Limpiado Balunan
+STUDENT ID = 157346
 
 ## Project description
 
