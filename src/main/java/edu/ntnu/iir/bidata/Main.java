@@ -1,4 +1,4 @@
-package edu.ntnu.iir.bidata; // Skriv dette i hver fil
+package edu.ntnu.iir.bidata;
 
 import java.util.Scanner;
 
@@ -32,7 +32,7 @@ public class Main {
             valg = scanner.nextInt();
             scanner.nextLine();
 
-            switch (valg) { 
+            switch (valg) {  
                 case 1:
                     d.toString();
                     break;
