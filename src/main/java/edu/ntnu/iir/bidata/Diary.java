@@ -24,22 +24,32 @@ public class Diary {
     @Override
     public String toString(){
         System.out.println("---------------------------");
+        System.out.println("");
+
         diaryEntries.forEach(entry -> {
             System.out.println("#-------#");
+            System.out.println(entry.getId());
             System.out.println(entry.getTitle());
             System.out.println(entry.getReleaseDate());
             System.out.println("");
             System.out.println(entry.getContent());
             System.out.println("#-------#");
+            System.out.println("");
+
 
             try {
-                Thread.sleep(1000/diaryEntries.size());
+                Thread.sleep(200*diaryEntries.size());
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         });
+
+        System.out.println("");
         System.out.println("---------------------------");
         return "Antall innlegg: " + diaryEntries.size();
     }
-
+    // Delete
+    public void deleteEntry (int inputID){
+        diaryEntries.removeIf(x -> x.getId() == inputID);
+    }
 }
