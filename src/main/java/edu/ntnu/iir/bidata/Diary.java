@@ -20,17 +20,15 @@ public class Diary {
     public void addEntry (DiaryEntry entry){
         diaryEntries.add(entry);
     }
-    // ToString
-    @Override
-    public String toString(){
+    // See all
+    public String seeAll(){
         System.out.println("---------------------------");
         System.out.println("");
 
         diaryEntries.forEach(entry -> {
             System.out.println("#-------#");
-            System.out.println(entry.getId());
-            System.out.println(entry.getTitle());
-            System.out.println(entry.getReleaseDate());
+            System.out.println(entry.getId() + ": " + entry.getTitle());
+            System.out.println(entry.getAuthorName() + ": " + entry.getReleaseDate());
             System.out.println("");
             System.out.println(entry.getContent());
             System.out.println("#-------#");
@@ -38,7 +36,7 @@ public class Diary {
 
 
             try {
-                Thread.sleep(200*diaryEntries.size());
+                Thread.sleep(1000*diaryEntries.size());
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

@@ -2,7 +2,7 @@ package edu.ntnu.iir.bidata;
 import java.time.LocalDateTime;
 import java.util.Random;
 
-public class DiaryEntry {
+public class DiaryEntry  {
     /**
      * Klassen representerer et dagbok-innlegg
      * @auther Adrian Balunan
@@ -12,15 +12,15 @@ public class DiaryEntry {
     private static int nextId = 1;
     private final int Id;
     private String title;
-    private String author;
+    private author author;
     private String content;
 
-    public DiaryEntry(String title, String content, String author){
+    public DiaryEntry(author author, String title, String content){
+        this.author = author;
         this.releaseDate =  LocalDateTime.now();
         this.Id = nextId++;
         this.title = title;
         this.content = content;
-        this.author = author;
     }
     // Getter
     public LocalDateTime getReleaseDate (){
@@ -32,8 +32,8 @@ public class DiaryEntry {
     public String getContent (){
         return content;
     }
-    public String getAuthor (){
-        return author;
+    public String getAuthorName (){
+        return author.getAuthor_name() ; 
     }
     public int getId (){
         return Id;
