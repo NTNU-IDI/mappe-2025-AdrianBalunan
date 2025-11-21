@@ -15,21 +15,28 @@ public class Main {
         authorRegistry Authors = new authorRegistry();
         Authors.addAuthor(author1);
 
-        System.out.println("");
+        System.out.print("Add filler content? (y/n): ");
+        String fillerChoice = scanner.nextLine();
+        if (fillerChoice.equalsIgnoreCase("y")){
+            // Filler content:
+            author author2 = new author("Adrian Balunan");
+            Authors.addAuthor(author2);
 
+            DiaryEntry entry1 = new DiaryEntry (author2, "Første innlegget", "Dette er det første innlegget i dagboken min!");
+            Diary1.addEntry(entry1);
+
+            author author3 = new author("Ola Nordmann");
+            Authors.addAuthor(author3);
+
+            DiaryEntry entry2 = new DiaryEntry (author3, "Andre innlegget", "Dette er det andre innlegget i dagboken min!");
+            Diary1.addEntry(entry2);
+        }
+        System.out.println("");
 
         // Start
         start(scanner, Diary1, Authors);
     }
     public static void start(Scanner scanner, Diary d, authorRegistry Authors){
-        // Filler content:
-        author author1 = new author("Adrian Balunan");
-        Authors.addAuthor(author1);
-
-        DiaryEntry entry1 = new DiaryEntry (author1, "Første innlegget", "Dette er det første innlegget i dagboken min!");
-        d.addEntry(entry1);
-
-
         // While-loop
         int valg = 0;
         do {
