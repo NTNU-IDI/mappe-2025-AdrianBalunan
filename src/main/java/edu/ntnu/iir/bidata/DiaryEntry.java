@@ -77,6 +77,14 @@ public class DiaryEntry  {
     }
 
     /**
+     * Getter-method for getting the author ID
+     * @return
+     */
+    public int getAuthorID (){
+        return author.getAuthor_Id() ; 
+    }
+
+    /**
      * Getter-method for getting the ID
      * @return
      */

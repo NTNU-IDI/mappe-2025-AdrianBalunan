@@ -5,12 +5,18 @@ import java.util.Scanner;
 public class Main {
     public static void init(Scanner scanner){
         // Make 
-        System.out.print("What would you like to name your Diary: ");
+        System.out.print("What would you like to name your Diary (Press enter for default name: SportsDiary): ");
         String inputName = scanner.nextLine();
+        if (inputName.isEmpty()){
+            inputName = "Sports-Diary";
+        }
         Diary Diary1 = new Diary(inputName);
 
-        System.out.print("Write down the authors name (you can add or delete later): ");
+        System.out.print("Write down the authors name (you can add or delete later)(Press enter for default: John Doe): ");
         String authorName = scanner.nextLine();
+        if (authorName.isEmpty()){
+            authorName = "John Doe";
+        }
         author author1 = new author(authorName);
         authorRegistry Authors = new authorRegistry();
         Authors.addAuthor(author1);
@@ -24,6 +30,12 @@ public class Main {
 
             DiaryEntry entry1 = new DiaryEntry (author2, "Første innlegget", "Dette er det første innlegget i dagboken min!");
             Diary1.addEntry(entry1);
+
+            DiaryEntry entry3 = new DiaryEntry (author2, "Noe innlegg", "Noe tilfeldig skal stå her eller noe slikt!");
+            Diary1.addEntry(entry3);
+
+            DiaryEntry entry4 = new DiaryEntry (author2, "Denne forfatteren", "Denne forfatteren har mange innlegg i denne dagboken!");
+            Diary1.addEntry(entry4);
 
             author author3 = new author("Ola Nordmann");
             Authors.addAuthor(author3);
@@ -48,18 +60,21 @@ public class Main {
             System.out.println("\n------- Main Menu -------");
             System.out.println("Diary: " + d.getDiaryName());
             System.out.println("1  See all diary-entries");
-            System.out.println("2. Add an entry");
-            System.out.println("3. Delete an Entry");
+            System.out.println("2  See all diary-entries by spesific author");
+
+            System.out.println("3. Add an entry");
+            System.out.println("4. Delete an Entry");
             System.out.println("------");
-            System.out.println("4. See all authors");
-            System.out.println("5. Add an author");
-            System.out.println("6. Delete an author");
-            System.out.println("------");
-            System.out.println("7. Quit");
+            System.out.println("5. See all authors");
+            System.out.println("6. See author statistics");
+            System.out.println("7. Add an author");
+            System.out.println("8. Delete an author");
+            System.out.println("---------------------");
+            System.out.println("9. Quit");
 
 
 
-            System.out.print("Enter your number of choice (1-7):");
+            System.out.print("Enter your number of choice (1-9):");
             valg = scanner.nextInt();
             scanner.nextLine();
             System.out.println("");
@@ -69,13 +84,20 @@ public class Main {
                     d.seeAll();
                     break;
                 case 2:
+                    Authors.seeAll();
+                    System.out.print("\nWrite down the Author ID you want to see all entries from: ");
+                    int authorId = scanner.nextInt();
+                    scanner.nextLine();
+                    d.seeAllByAuthor(authorId, Authors);
+                    break;
+                case 3:
                     System.out.print("Add your title: ");
                     String name = scanner.nextLine();
 
 
                     Authors.seeAll();
                     System.out.print("\nWrite down the Author ID you want to assign to this entry: ");
-                    int authorId = scanner.nextInt();
+                    authorId = scanner.nextInt();
                     author foundAuthor = Authors.getAuthorByID(authorId);
                     scanner.nextLine();
 
@@ -85,7 +107,7 @@ public class Main {
                     d.addEntry(dEntry);
             
                     break;
-                case 3:
+                case 4:
                     d.seeAll();
                     System.out.print("Write the specified ID for the Entry you want to delete it: ");
                     int inputID = scanner.nextInt();
@@ -93,27 +115,35 @@ public class Main {
                     d.deleteEntry(inputID);
                     break;
 
-                case 4:
+                case 5:
                     Authors.seeAll();
                     break;
-                case 5:
+                case 7:
                     System.out.print("Write the author's name you want to add: ");
                     String author_name = scanner.nextLine();
                     author newAuthor = new author(author_name);
+
                     Authors.addAuthor(newAuthor);
                     break;
                 case 6:
+                    d.showAuthorStatistics();
+                    break;
+                case 8:
                     Authors.seeAll();
                     System.out.print("Write the specified Author ID you want to delete: ");
                     int authorID = scanner.nextInt();
                     scanner.nextLine();
+
                     Authors.DeleteByID(authorID);
+                    break;
+                case 9:
+                    System.out.println("Exiting the program. Goodbye!");
                     break;
                 default:
                     System.out.println("Invalid input, please try again");
                     break;
             }
-        } while (valg != 7);   
+        } while (valg != 9);   
     }
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
