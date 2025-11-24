@@ -156,6 +156,12 @@ public class Main {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+            System.out.println("\n------- Search Functions: -------");
+            System.out.println(d.getDiaryName());
+            System.out.println("1. See all diary-entries by spesific author");
+            System.out.println("2. See all diary-entries");
+            System.out.println("3. Add an entry");
+            System.out.println("4. Quit");
         }
         while (valg2 != 2);
     }

@@ -1,5 +1,6 @@
 package edu.ntnu.iir.bidata;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * This class represents an DiaryEntry, with apporirate attributes and methods
@@ -13,7 +14,7 @@ public class DiaryEntry  {
      */
 
     /* Release date of the entry in LocalDateTime*/
-    private LocalDateTime releaseDate;
+    private String releaseDate;
 
     /** Accessible and available Id_counter, makes sure that after each occurrence of an DiaryEntry as a unique ID */
     private static int nextId = 1;
@@ -31,14 +32,20 @@ public class DiaryEntry  {
     private String content;
 
     /**
-     * Contructur for the DiaryEntry class, with input parameters.
+     * Contructur for the DiaryEntry class, with input parameters. 
+     * Relase date is automatically set to the current date and time, and custimized using a formatter
+     * 
+     * 
      * @param author input author
      * @param title input title
      * @param content input content
      */
     public DiaryEntry(author author, String title, String content){
         this.author = author;
-        this.releaseDate =  LocalDateTime.now();
+        
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+        this.releaseDate =  LocalDateTime.now().format(formatter);
+        
         this.Id = nextId++;
         this.title = title;
         this.content = content;
@@ -48,7 +55,7 @@ public class DiaryEntry  {
      * Getter-methods for getting the release date
      * @return
      */
-    public LocalDateTime getReleaseDate (){
+    public String getReleaseDate (){
         return releaseDate;
     }
     
