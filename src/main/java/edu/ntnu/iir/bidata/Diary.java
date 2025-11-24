@@ -1,8 +1,9 @@
 package edu.ntnu.iir.bidata;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Diary class contains the name of the diary and a list of diary entries.
@@ -143,9 +144,15 @@ public class Diary {
      * @param endingDate Ending date 
      */
     public void seeAllBetweenDates(String startDate, String endingDate) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDate start = LocalDate.parse(startDate, formatter);
+        LocalDate end = LocalDate.parse(endingDate, formatter);
+
         List<DiaryEntry> filitedentries = diaryEntries.stream()
-                .filter(e -> e.getReleaseDate().substring(0, 10).compareTo(startDate) >= 0
-                        && e.getReleaseDate().substring(0, 10).compareTo(endingDate) <= 0)
+                .filter(e -> {
+                    LocalDate date = LocalDate.parse(e.getReleaseDate().substring(0, 10), formatter);
+                    return !date.isBefore(start) && !date.isAfter(end);
+                })
                 .toList();
         if (filitedentries.isEmpty()) {
             System.out.println("No entries between the spesified dates");
@@ -234,7 +241,7 @@ public class Diary {
                 e.printStackTrace();
             }
 
-            System.out.println("#----" + entry.getId() + "---#");
+            System.out.println("#---" + entry.getId() + "---#");
             System.out.println(entry.getTitle());
             System.out.println(entry.getAuthorName());
             System.out.println(entry.getReleaseDate());
@@ -244,7 +251,7 @@ public class Diary {
             System.out.println("");
 
             try {
-                Thread.sleep(200);
+                Thread.sleep(500);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

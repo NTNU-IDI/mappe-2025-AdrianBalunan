@@ -9,6 +9,7 @@ public class author {
     /**
      * Author attributes:
      */
+    
     /** Accessible and available Id_counter, makes sure that after each occurrence of an author as a unique ID */
     private static int author_nextId = 1;
     
