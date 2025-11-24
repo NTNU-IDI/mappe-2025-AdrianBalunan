@@ -43,9 +43,26 @@ public class DiaryEntry  {
     public DiaryEntry(author author, String title, String content){
         this.author = author;
         
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy (HH:mm:ss)");
         this.releaseDate =  LocalDateTime.now().format(formatter);
-        
+
+        this.Id = nextId++;
+        this.title = title;
+        this.content = content;
+    }
+
+    /**
+     * Contructur for the DiaryEntry class, with input parameters AND with custom release date.
+     * Used only with filler content, for better representation. Hours, minutes and seconds will be 00:00:00
+     * 
+     * @param author input author
+     * @param title input title
+     * @param content input content
+     * @param releaseDate input release date. Hours, minutes and seconds to 00:00:00
+     */
+    public DiaryEntry(author author, String title, String content, String releaseDate){
+        this.author = author;        
+        this.releaseDate =  releaseDate + " (00:00:00)";
         this.Id = nextId++;
         this.title = title;
         this.content = content;

@@ -28,19 +28,19 @@ public class Main {
             author author2 = new author("Adrian Balunan");
             Authors.addAuthor(author2);
 
-            DiaryEntry entry1 = new DiaryEntry (author2, "Første innlegget", "Dette er det første innlegget i dagboken min!");
+            DiaryEntry entry1 = new DiaryEntry (author2, "Første innlegget", "Dette er det første innlegget i dagboken min!", "23-10-2024");
             Diary1.addEntry(entry1);
 
-            DiaryEntry entry3 = new DiaryEntry (author2, "Noe innlegg", "Noe tilfeldig skal stå her eller noe slikt!");
+            DiaryEntry entry3 = new DiaryEntry (author2, "Noe innlegg", "Noe tilfeldig skal stå her eller noe slikt!", "30-10-2024");
             Diary1.addEntry(entry3);
 
-            DiaryEntry entry4 = new DiaryEntry (author2, "Denne forfatteren", "Denne forfatteren har mange innlegg i denne dagboken!");
+            DiaryEntry entry4 = new DiaryEntry (author2, "Denne forfatteren", "Denne forfatteren har mange innlegg i denne dagboken!", "31-10-2024");
             Diary1.addEntry(entry4);
 
             author author3 = new author("Ola Nordmann");
             Authors.addAuthor(author3);
 
-            DiaryEntry entry2 = new DiaryEntry (author3, "Andre innlegget", "Dette er det andre innlegget i dagboken min!");
+            DiaryEntry entry2 = new DiaryEntry (author3, "Andre innlegget", "Dette er det andre innlegget i dagboken min!" , "30-10-2025");
             Diary1.addEntry(entry2);
         }
         System.out.println("");
