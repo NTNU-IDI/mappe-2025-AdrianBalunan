@@ -117,76 +117,41 @@ public class Diary {
      * @param Authors
      */
     public void seeAllByAuthor(int authorId, authorRegistry Authors) {
-        System.out.println("---------------------------");
         author foundAuthor = Authors.getAuthorByID(authorId);
 
         if (foundAuthor == null) {
             System.out.println("No author found with Id of, " + authorId + ".");
         } else {
             System.out.println("Found author with id, " + authorId + ": " + foundAuthor.getAuthor_name() + ".");
-            diaryEntries.stream()
+            List<DiaryEntry> filiteredAuthor = diaryEntries.stream()
                     .filter(x -> x.getAuthorID() == authorId)
-                    .forEach(x -> {
-                        System.out.println("#-------#");
-                        System.out.println(x.getId() + ": " + x.getTitle());
-                        System.out.println(x.getAuthorName() + ": " + x.getReleaseDate());
-                        System.out.println("");
-                        System.out.println(x.getContent());
-                        System.out.println("#-------#");
-                        System.out.println("");
-
-                        try {
-                            Thread.sleep(1000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    });
+                    .toList();
+            if (filiteredAuthor.isEmpty()){
+                System.out.println("Unfortunately, this author wasent published an entry");
+            } else {
+                System.out.println("# Entries by: " + foundAuthor.getAuthor_name());
+                Printout(filiteredAuthor);
+            }
         }
+        ;
     }
 
     /**
      * Search function that searches for entries between given DATES.
      * 
-     * @param startdato Startdate
-     * @param sluttdato
+     * @param startdate Start date
+     * @param endingDate Ending date 
      */
     public void seeAllBetweenDates(String startDate, String endingDate) {
         List<DiaryEntry> filitedentries = diaryEntries.stream()
-                .filter(e -> e.getReleaseDate().substring(0, 8).compareTo(startDate) >= 0
-                        && e.getReleaseDate().substring(0, 8).compareTo(endingDate) <= 0)
+                .filter(e -> e.getReleaseDate().substring(0, 10).compareTo(startDate) >= 0
+                        && e.getReleaseDate().substring(0, 10).compareTo(endingDate) <= 0)
                 .toList();
         if (filitedentries.isEmpty()) {
-            System.out.println("No entries found in this date");
+            System.out.println("No entries between the spesified dates");
         } else {
             System.out.println("# Entries between: " + startDate + " <-> " + endingDate + " #");
-            System.out.println("---------------------------");
-            System.out.println("");
-            filitedentries.forEach(entry -> {
-                try {
-                    Thread.sleep(200);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-                System.out.println("#----" + entry.getId() + "---#");
-                System.out.println(entry.getTitle());
-                System.out.println(entry.getAuthorName());
-                System.out.println(entry.getReleaseDate());
-                System.out.println("");
-                System.out.println(entry.getContent());
-                System.out.println("#-------#");
-                System.out.println("");
-
-                try {
-                    Thread.sleep(200 * diaryEntries.size());
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            });
-
-            System.out.println("");
-            System.out.println("---------------------------");
-
+            Printout(filitedentries);
         }
     }
 
@@ -197,42 +162,14 @@ public class Diary {
      */
     public void seeAllInDate(String Date) {
         List<DiaryEntry> filteredDates = diaryEntries.stream()
-                .filter(e -> e.getReleaseDate().substring(0, 8).equalsIgnoreCase(Date))
+                .filter(e -> e.getReleaseDate().substring(0, 10).equalsIgnoreCase(Date))
                 .toList();
         if (filteredDates.isEmpty()) {
             System.out.println("No entries found in this date");
         } else {
             System.out.println("# Entries found for: " + Date + " #");
-            System.out.println("---------------------------");
-            System.out.println("");
-            filteredDates.forEach(entry -> {
-                try {
-                    Thread.sleep(200);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-                System.out.println("#----" + entry.getId() + "---#");
-                System.out.println(entry.getTitle());
-                System.out.println(entry.getAuthorName());
-                System.out.println(entry.getReleaseDate());
-                System.out.println("");
-                System.out.println(entry.getContent());
-                System.out.println("#-------#");
-                System.out.println("");
-
-                try {
-                    Thread.sleep(200 * diaryEntries.size());
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            });
-
-            System.out.println("");
-            System.out.println("---------------------------");
-
+            Printout(filteredDates);
         }
-
     }
 
     /**
@@ -240,41 +177,16 @@ public class Diary {
      * 
      * @param word input word from user
      */
-    public void seeAllWithWord(String word){
-        List<DiaryEntry> filteredTest = diaryEntries.stream()
-            .filter(x -> x.getContent().contains(word))
-            .toList();
-        if (filitedentries.isEmpty()){
-            System.out.println("No entries found in this date");
+    public void seeAllWithWord(String word) {
+        List<DiaryEntry> filteredWord = diaryEntries.stream()
+                .filter(x -> x.getContent().contains(word))
+                .toList();
+        if (filteredWord.isEmpty()) {
+            System.out.println("No entries found that contains this word: " + word);
         } else {
             System.out.println("# All entries with content that includes this word: " + word + " #");
-            System.out.println("---------------------------");
-            System.out.println("");
-            filitedentries.forEach(entry -> {
-                try {
-                    Thread.sleep(200);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-                System.out.println("#----" + entry.getId() + "---#");
-                System.out.println(entry.getTitle());
-                System.out.println(entry.getAuthorName());
-                System.out.println(entry.getReleaseDate());
-                System.out.println("");
-                System.out.println(entry.getContent());
-                System.out.println("#-------#");
-                System.out.println("");
-
-                try {
-                    Thread.sleep(200 * diaryEntries.size());
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            });
-
-            System.out.println("");
-            System.out.println("---------------------------");    
+            Printout(filteredWord);
+        }
     }
 
     /**
@@ -304,5 +216,40 @@ public class Diary {
         }
         System.out.println("-----------------------------------------");
 
+    }
+
+    /**
+     * Helper functions that takes a (usually) streamlined list and prints the contents (usually DiaryEntry(s)) out.
+     * Used in the seeAll-- functions.
+     * 
+     * @param List Filiterd List
+     */
+    private static void Printout(List<DiaryEntry> List){
+        System.out.println("---------------------------");
+        System.out.println("");
+        List.forEach(entry -> {
+            try {
+                Thread.sleep(200);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            System.out.println("#----" + entry.getId() + "---#");
+            System.out.println(entry.getTitle());
+            System.out.println(entry.getAuthorName());
+            System.out.println(entry.getReleaseDate());
+            System.out.println("");
+            System.out.println(entry.getContent());
+            System.out.println("#-------#");
+            System.out.println("");
+
+            try {
+                Thread.sleep(200);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+        System.out.println("");
+        System.out.println("---------------------------");
     }
 }

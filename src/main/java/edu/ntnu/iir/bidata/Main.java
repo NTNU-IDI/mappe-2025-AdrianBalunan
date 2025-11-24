@@ -116,7 +116,7 @@ public class Main {
                     d.deleteEntry(inputID);
                     break;
                 case 5:
-                    Authors.seeAll();
+                    search(scanner, d, Authors);
                     break;
                 case 6:
                     Authors.seeAll();
@@ -159,11 +159,49 @@ public class Main {
             System.out.println("\n------- Search Functions: -------");
             System.out.println(d.getDiaryName());
             System.out.println("1. See all diary-entries by spesific author");
-            System.out.println("2. See all diary-entries");
-            System.out.println("3. Add an entry");
-            System.out.println("4. Quit");
+            System.out.println("2. See all diary-entries between two dates");
+            System.out.println("3. See all diary-entries from a spesific date");
+            System.out.println("4. See all diary-entries by keyword");
+            System.out.println("5. Quit");
+
+            System.out.print("Enter your number of choice (1-5):");
+            valg2 = scanner.nextInt();
+            scanner.nextLine();
+            System.out.println("");
+
+            switch (valg2) {
+                case 1:
+                    Authors.seeAll();
+                    System.out.print("\nWrite down the Author ID you want to see all entries from: ");
+                    int authorId = scanner.nextInt();
+                    scanner.nextLine();
+                    d.seeAllByAuthor(authorId, Authors);
+                    break;
+                case 2:
+                    System.out.print("Skriv inn første dato (DD-MM-YYYY):");
+                    String startDato = scanner.nextLine();
+                    System.out.print("Skriv inn andre dato (DD-MM-YYYY):");
+                    String sluttDato = scanner.nextLine();
+                    d.seeAllBetweenDates(startDato, sluttDato);
+                    break;
+                case 3:
+                    System.out.print("Skriv inn første dato (DD-MM-YYYY):");
+                    String Dato = scanner.nextLine();
+                    d.seeAllInDate(Dato);
+                    break;
+                case 4:
+                    System.out.print("Skriv inn søkeord:");
+                    String keyword = scanner.nextLine();
+                    d.seeAllWithWord(keyword);
+                    break;
+                case 5:
+                    System.out.println("Returning to main menu...");
+                    break;
+                default:
+                    break;
+            }
         }
-        while (valg2 != 2);
+        while (valg2 != 5);
     }
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
