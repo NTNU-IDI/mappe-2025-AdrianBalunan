@@ -61,16 +61,17 @@ public class Main {
             System.out.println("Diary: " + d.getDiaryName());
             System.out.println("1  See all diary-entries");
             System.out.println("2  See all diary-entries by spesific author");
-
             System.out.println("3. Add an entry");
             System.out.println("4. Delete an Entry");
             System.out.println("------");
-            System.out.println("5. See all authors");
-            System.out.println("6. See author statistics");
-            System.out.println("7. Add an author");
-            System.out.println("8. Delete an author");
+            System.out.println("5. Search entries");
+            System.out.println("------");
+            System.out.println("6. See all authors");
+            System.out.println("7. See author statistics");
+            System.out.println("8. Add an author");
+            System.out.println("9. Delete an author");
             System.out.println("---------------------");
-            System.out.println("9. Quit");
+            System.out.println("10. Quit");
 
 
 
@@ -114,21 +115,23 @@ public class Main {
                     scanner.nextLine();
                     d.deleteEntry(inputID);
                     break;
-
                 case 5:
                     Authors.seeAll();
                     break;
-                case 7:
+                case 6:
+                    Authors.seeAll();
+                    break;
+                case 8:
                     System.out.print("Write the author's name you want to add: ");
                     String author_name = scanner.nextLine();
                     author newAuthor = new author(author_name);
 
                     Authors.addAuthor(newAuthor);
                     break;
-                case 6:
+                case 7:
                     d.showAuthorStatistics();
                     break;
-                case 8:
+                case 9:
                     Authors.seeAll();
                     System.out.print("Write the specified Author ID you want to delete: ");
                     int authorID = scanner.nextInt();
@@ -136,7 +139,7 @@ public class Main {
 
                     Authors.DeleteByID(authorID);
                     break;
-                case 9:
+                case 10:
                     System.out.println("Exiting the program. Goodbye!");
                     break;
                 default:
@@ -144,6 +147,17 @@ public class Main {
                     break;
             }
         } while (valg != 9);   
+    }
+    public static void search(Scanner scanner, Diary d, authorRegistry Authors){
+        int valg2 = 0;
+        do {
+            try {
+                Thread.sleep(200);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        while (valg2 != 2);
     }
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
