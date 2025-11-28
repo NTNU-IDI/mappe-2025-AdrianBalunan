@@ -8,8 +8,6 @@ import java.io.PrintStream;
 import org.junit.Before;
 import org.junit.Test;
 
-import edu.ntnu.iir.bidata.author;
-import edu.ntnu.iir.bidata.authorRegistry;
 
 public class authorRegistryTest {
     private static authorRegistry Authors;

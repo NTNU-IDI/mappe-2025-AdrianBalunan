@@ -8,8 +8,7 @@ import java.time.format.DateTimeFormatter;
 import org.junit.Before;
 import org.junit.Test;
 
-import edu.ntnu.iir.bidata.DiaryEntry;
-import edu.ntnu.iir.bidata.author;
+
 
 /**
  * This class represents an DiaryEntry, with apporirate attributes and methods

@@ -29,7 +29,6 @@ public class Main {
             Authors.addAuthor(author2);
 
             DiaryEntry entry1 = new DiaryEntry (author2, "Første innlegget", "Dette er det første innlegget i dagboken min!", "23-10-2024");
-            System.out.println(entry1.toString());
             Diary1.addEntry(entry1);
 
             DiaryEntry entry3 = new DiaryEntry (author2, "Noe innlegg", "Noe tilfeldig skal stå her eller noe slikt!", "30-10-2024");
