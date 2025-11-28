@@ -1,8 +1,7 @@
 
-
 import java.util.Scanner;
 
-public class Main {
+public class MainTest {
     public static void init(Scanner scanner){
         // Make 
         System.out.print("What would you like to name your Diary (Press enter for default name: SportsDiary): ");
@@ -10,26 +9,25 @@ public class Main {
         if (inputName.isEmpty()){
             inputName = "Sports-Diary";
         }
-        Diary Diary1 = new Diary(inputName);
+        DiaryTest Diary1 = new DiaryTest(inputName);
 
         System.out.print("Write down the authors name (you can add or delete later)(Press enter for default: John Doe): ");
         String authorName = scanner.nextLine();
         if (authorName.isEmpty()){
             authorName = "John Doe";
         }
-        author author1 = new author(authorName);
-        authorRegistry Authors = new authorRegistry();
+        authorTest author1 = new authorTest(authorName);
+        authorRegistryTest Authors = new authorRegistryTest();
         Authors.addAuthor(author1);
 
         System.out.print("Add filler content? (y/n): ");
         String fillerChoice = scanner.nextLine();
         if (fillerChoice.equalsIgnoreCase("y")){
             // Filler content:
-            author author2 = new author("Adrian Balunan");
+            authorTest author2 = new authorTest("Adrian Balunan");
             Authors.addAuthor(author2);
 
             DiaryEntry entry1 = new DiaryEntry (author2, "Første innlegget", "Dette er det første innlegget i dagboken min!", "23-10-2024");
-            System.out.println(entry1.toString());
             Diary1.addEntry(entry1);
 
             DiaryEntry entry3 = new DiaryEntry (author2, "Noe innlegg", "Noe tilfeldig skal stå her eller noe slikt!", "30-10-2024");
@@ -38,7 +36,7 @@ public class Main {
             DiaryEntry entry4 = new DiaryEntry (author2, "Denne forfatteren", "Denne forfatteren har mange innlegg i denne dagboken!", "31-10-2024");
             Diary1.addEntry(entry4);
 
-            author author3 = new author("Ola Nordmann");
+            authorTest author3 = new authorTest("Ola Nordmann");
             Authors.addAuthor(author3);
 
             DiaryEntry entry2 = new DiaryEntry (author3, "Andre innlegget", "Dette er det andre innlegget i dagboken min!" , "30-10-2025");
@@ -49,7 +47,7 @@ public class Main {
         // Start
         start(scanner, Diary1, Authors);
     }
-    public static void start(Scanner scanner, Diary d, authorRegistry Authors){
+    public static void start(Scanner scanner, DiaryTest d, authorRegistryTest Authors){
         // While-loop
         int valg = 0;
         do {
@@ -100,7 +98,7 @@ public class Main {
                     Authors.seeAll();
                     System.out.print("\nWrite down the Author ID you want to assign to this entry: ");
                     authorId = scanner.nextInt();
-                    author foundAuthor = Authors.getAuthorByID(authorId);
+                    authorTest foundAuthor = Authors.getAuthorByID(authorId);
                     scanner.nextLine();
 
                     System.out.println("\nAdd your content:");
@@ -125,7 +123,7 @@ public class Main {
                 case 8:
                     System.out.print("Write the author's name you want to add: ");
                     String author_name = scanner.nextLine();
-                    author newAuthor = new author(author_name);
+                    authorTest newAuthor = new authorTest(author_name);
 
                     Authors.addAuthor(newAuthor);
                     break;
@@ -147,9 +145,9 @@ public class Main {
                     System.out.println("Invalid input, please try again");
                     break;
             }
-        } while (valg != 10);   
+        } while (valg != 9);   
     }
-    public static void search(Scanner scanner, Diary d, authorRegistry Authors){
+    public static void search(Scanner scanner, DiaryTest d, authorRegistryTest Authors){
         int valg2 = 0;
         do {
             try {

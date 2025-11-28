@@ -1,0 +1,6 @@
+{
+    "java.project.sourcePaths": [
+        "src/test/java/edu/ntnu/iir/bidata",
+        "src/main/java/edu/ntnu/iir/bidata"
+    ]
+}

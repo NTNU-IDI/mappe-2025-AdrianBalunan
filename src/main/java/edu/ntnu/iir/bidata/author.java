@@ -1,5 +1,3 @@
-package edu.ntnu.iir.bidata;
-
 /**
  * Author class contains the name of the author and associates an unqiue ID.
  * @author Adrian Balunan
@@ -26,6 +24,10 @@ public class author {
     public author(String author_name) {
         this.author_Id = author_nextId++;
         this.author_name = author_name;
+    }
+
+    public static void resetAuthorNextID(){
+        author_nextId = 1;
     }
 
     /**

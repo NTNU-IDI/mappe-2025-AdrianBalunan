@@ -1,4 +1,3 @@
-package edu.ntnu.iir.bidata;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -186,7 +185,7 @@ public class Diary {
      */
     public void seeAllWithWord(String word) {
         List<DiaryEntry> filteredWord = diaryEntries.stream()
-                .filter(x -> x.getContent().contains(word))
+                .filter(x -> x.getContent().toLowerCase().contains(word.toLowerCase()))
                 .toList();
         if (filteredWord.isEmpty()) {
             System.out.println("No entries found that contains this word: " + word);

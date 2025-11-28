@@ -1,4 +1,3 @@
-package edu.ntnu.iir.bidata;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -18,6 +17,10 @@ public class DiaryEntry  {
 
     /** Accessible and available Id_counter, makes sure that after each occurrence of an DiaryEntry as a unique ID */
     private static int nextId = 1;
+
+    public static void resetEntryNextID(){
+        nextId = 1;
+    }
 
     /** Actual unique ID for the DiaryEntry object */
     private final int Id;
@@ -123,7 +126,7 @@ public class DiaryEntry  {
      */
     @Override
     public String toString(){
-        return "ID: " + Id + ". ReleaseDate: " + releaseDate + ", Title: " + title + ", Author: "+ author + ", Content: " + content;
+        return "ID: " + Id + ". ReleaseDate: " + releaseDate + ", Title: " + title + ", Author: "+ author.getAuthor_name() + ", Content: " + content;
     }
 
 

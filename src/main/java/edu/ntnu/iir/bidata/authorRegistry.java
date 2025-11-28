@@ -1,4 +1,3 @@
-package edu.ntnu.iir.bidata;
 import java.util.ArrayList;
 
 /**
