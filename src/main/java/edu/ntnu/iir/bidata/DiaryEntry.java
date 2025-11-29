@@ -1,3 +1,5 @@
+package edu.ntnu.iir.bidata;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -118,6 +120,15 @@ public class DiaryEntry  {
     public int getId (){
         return Id;
     }
+
+    /**
+     * Getter-method for getting the ID
+     * @return
+     */
+    public author getAuthorObject(){
+        return author;
+    }
+
 
     /**
      * Unique toString method that prints out all attributes of the DiaryEntry object

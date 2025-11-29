@@ -1,3 +1,5 @@
+package edu.ntnu.iir.bidata;
+
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -91,7 +93,7 @@ public class Diary {
         diaryEntries.forEach(entry -> {
             System.out.println("#----" + entry.getId() + "---#");
             System.out.println(entry.getTitle());
-            System.out.println(entry.getAuthorName());
+            System.out.println(entry.getAuthorName() + "(" + entry.getAuthorID() + ")");
             System.out.println(entry.getReleaseDate());
             System.out.println("");
             System.out.println(entry.getContent());
@@ -142,10 +144,10 @@ public class Diary {
      * @param startdate Start date
      * @param endingDate Ending date 
      */
-    public void seeAllBetweenDates(String startDate, String endingDate) {
+    public void seeAllBetweenDates(String inputStart, String inputEnd){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        LocalDate start = LocalDate.parse(startDate, formatter);
-        LocalDate end = LocalDate.parse(endingDate, formatter);
+        LocalDate start = LocalDate.parse(inputStart, formatter);
+        LocalDate end = LocalDate.parse(inputEnd, formatter);
 
         List<DiaryEntry> filitedentries = diaryEntries.stream()
                 .filter(e -> {
@@ -156,7 +158,7 @@ public class Diary {
         if (filitedentries.isEmpty()) {
             System.out.println("No entries between the spesified dates");
         } else {
-            System.out.println("# Entries between: " + startDate + " <-> " + endingDate + " #");
+            System.out.println("# Entries between: " + start + " <-> " + end + " #");
             Printout(filitedentries);
         }
     }
@@ -201,11 +203,11 @@ public class Diary {
     public void showAuthorStatistics() {
         System.out.println("Total number of entries: " + diaryEntries.size());
         // Further statistics can be added here
-        List<String> authors = new ArrayList<>();
+        List<author> authors = new ArrayList<>();
         List<Integer> authorEntryCounts = new ArrayList<>();
 
         for (DiaryEntry entry : diaryEntries) {
-            String entryAuthor = entry.getAuthorName();
+            author entryAuthor = entry.getAuthorObject();
             if (!authors.contains(entryAuthor)) {
                 authors.add(entryAuthor);
                 authorEntryCounts.add(1);
@@ -218,7 +220,7 @@ public class Diary {
         System.out.println("----------- Author Statistics------------");
         System.out.println("| Entries Count | Author        ");
         for (int i = 0; i < authors.size(); i++) {
-            System.out.println("|   " + authorEntryCounts.get(i) + " ".repeat(2) + " || " + authors.get(i));
+            System.out.println("|   " + authorEntryCounts.get(i) + " ".repeat(2) + " || (ID: " + authors.get(i).getAuthor_Id() + "): " + authors.get(i).getAuthor_name());
         }
         System.out.println("-----------------------------------------");
 
