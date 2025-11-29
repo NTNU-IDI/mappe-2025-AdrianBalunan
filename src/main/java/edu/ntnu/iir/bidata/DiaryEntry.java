@@ -107,7 +107,7 @@ public class DiaryEntry {
   /**
    * Getter-method for getting the Author name.
    *
-   * @return
+   * @return Returns the Author of the entrys name
    */
   public String getAuthorName() {
     return Author.getAuthor_name();
@@ -116,25 +116,25 @@ public class DiaryEntry {
   /**
    * Getter-method for getting the Author ID.
    *
-   * @return
+   * @return Returns the author of the entrys ID
    */
-  public int getAuthorID() {
+  public int getAuthorId() {
     return Author.getAuthor_Id();
   }
 
   /**
    * Getter-method for getting the ID.
    *
-   * @return
+   * @return Returns the Entrys ID
    */
   public int getId() {
     return Id;
   }
 
   /**
-   * Getter-method for getting the ID.
+   * Getter-method for the actual Author Object
    *
-   * @return
+   * @return Returns all data (the object) about author.
    */
   public Author getAuthorObject() {
     return Author;
@@ -144,7 +144,7 @@ public class DiaryEntry {
    * Unique toString method that prints out all attributes of the DiaryEntry object The seeAll
    * method provides a better representation for the user, and therefore not used.
    *
-   * @return
+   * @return Fancy print
    */
   @Override
   public String toString() {

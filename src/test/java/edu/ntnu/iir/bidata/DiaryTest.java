@@ -1,5 +1,3 @@
-package edu.ntnu.iir.bidata;
-
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -8,10 +6,19 @@ import java.io.PrintStream;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Test file for the Diary-class.
+ * 
+ * @author Adrian Balunan
+ */
+
 public class DiaryTest {
   private AuthorRegistry Authors;
   public Diary diary;
 
+  /**
+   * Nessesary variables each test needs.
+   */
   @Before
   public void setup() {
     Author.resetNextId();
@@ -79,7 +86,7 @@ public class DiaryTest {
 
   @Test
   public void TestingPrintOut() {
-    PrintStream orignalOut = System.out;
+    final PrintStream orignalOut = System.out;
     ByteArrayOutputStream outcontent = new ByteArrayOutputStream();
 
     Author Author = new Author("Author");
@@ -97,7 +104,7 @@ public class DiaryTest {
   }
 
   @Test
-  public void TestingAllByAuthorNOTFOUND() {
+  public void TestingAllByAuthorNoTfOuNd() {
     PrintStream orignalOut = System.out;
     ByteArrayOutputStream outcontent = new ByteArrayOutputStream();
 
@@ -109,8 +116,8 @@ public class DiaryTest {
   }
 
   @Test
-  public void TestingAllByAuthorFOUNDandHasENTRIES() {
-    PrintStream orignalOut = System.out;
+  public void TestingAllByAuthorFoUnDandHasEnTrIeS() {
+    final PrintStream orignalOut = System.out;
     ByteArrayOutputStream outcontent = new ByteArrayOutputStream();
 
     Author Author = new Author("Author");
@@ -129,8 +136,8 @@ public class DiaryTest {
   }
 
   @Test
-  public void TestingAllByAuthorFOUNDandHasNOENTRIES() {
-    PrintStream orignalOut = System.out;
+  public void TestingAllByAuthorFoUnDandHasNoEnTrIeS() {
+    final PrintStream orignalOut = System.out;
     ByteArrayOutputStream outcontent = new ByteArrayOutputStream();
 
     Author Author = new Author("Author");
@@ -145,7 +152,7 @@ public class DiaryTest {
   }
 
   @Test
-  public void SearchBetweenDatesShouldGiveCorrectEntriesPOSITIVE() {
+  public void SearchBetweenDatesShouldGiveCorrectEntriesPoSiTiVe() {
     PrintStream orignalOut = System.out;
     ByteArrayOutputStream outcontent = new ByteArrayOutputStream();
 
@@ -159,7 +166,7 @@ public class DiaryTest {
   }
 
   @Test
-  public void SearchBetweenDatesShouldGiveCorrectEntriesNEGATIVE() {
+  public void SearchBetweenDatesShouldGiveCorrectEntriesNeGaTiVe() {
     PrintStream orignalOut = System.out;
     ByteArrayOutputStream outcontent = new ByteArrayOutputStream();
 
@@ -171,7 +178,7 @@ public class DiaryTest {
   }
 
   @Test
-  public void SearchByDateShouldGiveCorrectEntriesPOSITIVE() {
+  public void SearchByDateShouldGiveCorrectEntriesPoSiTiVe() {
     PrintStream orignalOut = System.out;
     ByteArrayOutputStream outcontent = new ByteArrayOutputStream();
 
@@ -185,7 +192,7 @@ public class DiaryTest {
   }
 
   @Test
-  public void SearchByDateShouldGiveCorrectEntriesNEGATIVE() {
+  public void SearchByDateShouldGiveCorrectEntriesNeGatIvE() {
     PrintStream orignalOut = System.out;
     ByteArrayOutputStream outcontent = new ByteArrayOutputStream();
 
@@ -213,7 +220,7 @@ public class DiaryTest {
   }
 
   @Test
-  public void SearchingEntryByKeyWordShouldGiveCorrectEntriesPOSITIVE() {
+  public void SearchingEntryByKeyWordShouldGiveCorrectEntriesPoSiTiVe() {
     PrintStream orignalOut = System.out;
     ByteArrayOutputStream outcontent = new ByteArrayOutputStream();
 
@@ -227,7 +234,7 @@ public class DiaryTest {
   }
 
   @Test
-  public void SearchingEntryByKeyWordShouldGiveCorrectEntriesNEGATIVE() {
+  public void SearchingEntryByKeyWordShouldGiveCorrectEntriesNeGaTiVe() {
     PrintStream orignalOut = System.out;
     ByteArrayOutputStream outcontent = new ByteArrayOutputStream();
 

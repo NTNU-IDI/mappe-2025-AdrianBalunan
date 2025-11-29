@@ -1,4 +1,3 @@
-package edu.ntnu.iir.bidata;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -10,9 +9,17 @@ import java.io.PrintStream;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Test file for the AuthorRegistry-class.
+ * 
+ * @author Adrian Balunan
+ */
 public class authorRegistryTest {
   private static AuthorRegistry Authors;
 
+  /**
+   * Create a AuthorRegistry object to test onwards.
+   */
   @Before
   public void setup() {
     Authors = new AuthorRegistry();
@@ -39,7 +46,7 @@ public class authorRegistryTest {
   }
 
   @Test
-  public void SearchingForADeletedItemShouldReturnAnExpection() {
+  public void SearchingForAnDeletedItemShouldReturnAnExpection() {
     Author author1 = new Author("Author1"); // ID: 1
     Authors.addAuthor(author1);
     Author author2 = new Author("Author2"); // ID: 2

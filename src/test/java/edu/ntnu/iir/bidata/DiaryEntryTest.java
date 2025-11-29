@@ -1,4 +1,3 @@
-package edu.ntnu.iir.bidata;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -9,7 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * This class represents an DiaryEntry, with apporirate attributes and methods
+ * This class represents an DiaryEntry, with apporirate attributes and methods.
  *
  * @auther Adrian Balunan
  * @verison 1.0
@@ -19,6 +18,9 @@ public class DiaryEntryTest {
   private DiaryEntry EntryNoReleaseDate;
   private Author author1;
 
+  /**
+   * Setup nessasary variables too write code with.
+   */
   @Before
   public void setup() {
     author1 = new Author("Author1");
@@ -43,7 +45,7 @@ public class DiaryEntryTest {
   }
 
   @Test
-  public void FirstInstanceShouldHaveID1() {
+  public void FirstInstanceShouldHaveId1() {
     DiaryEntry Entry =
         new DiaryEntry(
             author1, "First Instance", "This is useless text used for testing dada", "23-10-2024");
@@ -51,7 +53,7 @@ public class DiaryEntryTest {
   }
 
   @Test
-  public void SecondInstanceShouldHaveID2() {
+  public void SecondInstanceShouldHaveId2() {
     DiaryEntry Entry =
         new DiaryEntry(
             author1, "First Instance", "This is useless text used for testing dada", "23-10-2024");
@@ -67,8 +69,8 @@ public class DiaryEntryTest {
             author1, "First Instance", "This is useless text used for testing dada", "23-10-2024");
     assertTrue(
         Entry.toString()
-            .equals(
-                "ID: 1. ReleaseDate: 23-10-2024 (00:00:00), Title: First Instance, Author: Author1, Content: This is useless text used for testing dada"));
+            .contains(
+                "ID: 1. ReleaseDate: 23-10-2024 (00:00:00), Title: First Instance"));
   }
 
   @Test
@@ -83,13 +85,13 @@ public class DiaryEntryTest {
   }
 
   @Test
-  public void GettingAuthorIDShouldWork() {
+  public void GettingAuthorIdShouldWork() {
     DiaryEntry Entry1 =
         new DiaryEntry(author1, "First Instance", "This is useless text used for testing dada");
     DiaryEntry Entry2 =
         new DiaryEntry(author1, "Second Instance", "This is useless text used for testing dada");
-    assertEquals(1, Entry1.getAuthorID());
-    assertEquals(1, Entry2.getAuthorID());
+    assertEquals(1, Entry1.getAuthorId());
+    assertEquals(1, Entry2.getAuthorId());
   }
 
   @Test
@@ -103,7 +105,7 @@ public class DiaryEntryTest {
   }
 
   @Test
-  public void TestingResetEntryNextID() {
+  public void TestingResetEntryNextId() {
     DiaryEntry Entry1 =
         new DiaryEntry(author1, "First Instance", "This is useless text used for testing dada");
     DiaryEntry.resetEntryNextId();

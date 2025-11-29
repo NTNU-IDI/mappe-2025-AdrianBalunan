@@ -1,4 +1,3 @@
-package edu.ntnu.iir.bidata;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -6,21 +5,28 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Test file for the Author-class.
+ * 
+ * @author Adrian Balunan
+ */
+
+
 public class authorTest {
-  /** Attribute Tests */
+  /** Attribute Tests. */
   @Before
   public void reset() {
     Author.resetNextId();
   }
 
   @Test
-  public void FirstAuthorObjectIDShouldBeOne() {
+  public void FirstAuthorObjectIdShouldBeOne() {
     Author author1 = new Author("Author1");
     assertEquals(1, author1.getAuthor_Id());
   }
 
   @Test
-  public void SecondAuthorObjectIDShouldBeTwo() {
+  public void SecondAuthorObjectIdShouldBeTwo() {
     Author author1 = new Author("Author1");
     Author author2 = new Author("Author2");
     assertEquals(2, author2.getAuthor_Id());

@@ -6,7 +6,15 @@ import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Main method, UI and user input goes in here.
+ */
 public class Main {
+  /**
+   * Initalizes and creates variables and objects.
+   * 
+   * @param scanner Scanner object
+   */
   public static void init(Scanner scanner) {
     // Make
     System.out.print(
@@ -15,10 +23,10 @@ public class Main {
     if (inputName.isEmpty()) {
       inputName = "Sports-Diary";
     }
-    Diary Diary1 = new Diary(inputName);
+    final Diary Diary1 = new Diary(inputName);
 
     System.out.print(
-        "Write down the authors name (you can add or delete later)(Press enter for default: John Doe): ");
+        "Write down the authors name (Add or delete later)(Press enter for default: John Doe): ");
     String authorName = scanner.nextLine();
     if (authorName.isEmpty()) {
       authorName = "John Doe";
@@ -72,6 +80,13 @@ public class Main {
     start(scanner, Diary1, Authors);
   }
 
+  /**
+   * Starts the main menu sequence.
+   * 
+   * @param scanner Scanner Object made in init()
+   * @param d Diary Object made in init()
+   * @param Authors AuthorRegistry Object made in init()
+   */
   public static void start(Scanner scanner, Diary d, AuthorRegistry Authors) {
     // While-loop
     int valg = 0;
@@ -131,7 +146,7 @@ public class Main {
           break;
         case 3:
           System.out.print("Add your title: ");
-          String name = scanner.nextLine();
+          final String name = scanner.nextLine();
 
           Authors.seeAll();
           System.out.print("\nWrite down the Author ID you want to assign to this entry: ");
@@ -213,7 +228,7 @@ public class Main {
           }
 
           List<DiaryEntry> deletedAuthorEntries =
-              d.getEntries().stream().filter(x -> x.getAuthorID() == tempParse).toList();
+              d.getEntries().stream().filter(x -> x.getAuthorId() == tempParse).toList();
 
           for (DiaryEntry entry : deletedAuthorEntries) {
             d.deleteEntry(entry.getId());
@@ -229,6 +244,13 @@ public class Main {
       }
     } while (valg != 10);
   }
+  /**
+   * Branches from start(). It's an main menu option.
+   * 
+   * @param scanner Scanner Object made in init()
+   * @param d Diary Object made in init()
+   * @param Authors AuthorRegistry Object made in init()
+   */
 
   public static void search(Scanner scanner, Diary d, AuthorRegistry Authors) {
     int valg2 = 0;
@@ -296,7 +318,7 @@ public class Main {
 
           if (start.isAfter(end) || end.isBefore(start)) {
             System.out.println(
-                "Please type a valid date interval, the first date should be before the second date");
+                "Please type a valid interval, the first date should be before the second date");
             continue;
           }
 
@@ -337,6 +359,11 @@ public class Main {
       }
     } while (valg2 != 5);
   }
+  /**
+   * Main method, starts here.
+   * 
+   * @param args Java Start
+   */
 
   public static void main(String[] args) {
     Scanner scanner = new Scanner(System.in);

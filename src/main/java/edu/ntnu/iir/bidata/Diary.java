@@ -89,7 +89,7 @@ public class Diary {
         entry -> {
           System.out.println("#----" + entry.getId() + "---#");
           System.out.println(entry.getTitle());
-          System.out.println(entry.getAuthorName() + "(" + entry.getAuthorID() + ")");
+          System.out.println(entry.getAuthorName() + "(" + entry.getAuthorId() + ")");
           System.out.println(entry.getReleaseDate());
           System.out.println("");
           System.out.println(entry.getContent());
@@ -114,7 +114,7 @@ public class Diary {
    * @param authorId Id of the author
    * @param Authors AuthorRegistry object
    */
-  public void seeAllByAuthor(int authorId, AuthorRegistry Authors){
+  public void seeAllByAuthor(int authorId, AuthorRegistry Authors) {
 
     Author foundAuthor = Authors.getAuthorByID(authorId);
     if (foundAuthor == null) {
@@ -123,7 +123,7 @@ public class Diary {
       System.out.println(
           "Found Author with id, " + authorId + ": " + foundAuthor.getAuthor_name() + ".");
       List<DiaryEntry> filiteredAuthor =
-          diaryEntries.stream().filter(x -> x.getAuthorID() == authorId).toList();
+          diaryEntries.stream().filter(x -> x.getAuthorId() == authorId).toList();
       if (filiteredAuthor.isEmpty()) {
         System.out.println("Unfortunately, this Author wasent published an entry");
       } else {
