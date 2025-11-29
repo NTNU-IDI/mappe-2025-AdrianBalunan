@@ -93,7 +93,7 @@ public class Diary {
         diaryEntries.forEach(entry -> {
             System.out.println("#----" + entry.getId() + "---#");
             System.out.println(entry.getTitle());
-            System.out.println(entry.getAuthorName());
+            System.out.println(entry.getAuthorName() + "(" + entry.getAuthorID() + ")");
             System.out.println(entry.getReleaseDate());
             System.out.println("");
             System.out.println(entry.getContent());

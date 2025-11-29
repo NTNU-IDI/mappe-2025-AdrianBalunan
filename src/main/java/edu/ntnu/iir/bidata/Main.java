@@ -4,6 +4,8 @@ package edu.ntnu.iir.bidata;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -57,7 +59,7 @@ public class Main {
         int valg = 0;
         do {
             try {
-                Thread.sleep(2000);
+                Thread.sleep(1500);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } // SLeep for 1 second
@@ -147,7 +149,19 @@ public class Main {
                     }
                     scanner.nextLine();
 
-                    d.deleteEntry(userParse);
+                    boolean entryExists = false;
+                    for (DiaryEntry entry : d.getEntries()){
+                        if (entry.getId() == userParse){
+                            entryExists = true;
+                            return ;
+                        }
+                    }                    
+
+                    if (entryExists){
+                        d.deleteEntry(userParse);
+                    } else {
+                        System.out.println("Entry does not exist.");
+                    }
                     break;
                 case 5:
                     search(scanner, d, Authors);
@@ -168,16 +182,28 @@ public class Main {
                 case 9:
                     Authors.seeAll();
                     System.out.print("Write the specified Author ID you want to delete: ");
-                    
+
                     userInput = scanner.nextLine();
                     try {
                         userParse = Integer.parseInt(userInput);
                     } catch (Exception e) {
                         System.out.println("Please put a valid input next time");
                         continue;
-                    }                    
-                    scanner.nextLine();
+                    }  
+                    int tempParse = userParse;    
 
+                    if (Authors.getAuthorByID(tempParse) == null){
+                        System.out.println("Inputted Author does not exist");
+                        continue;
+                    }                    
+
+                    List<DiaryEntry> deletedAuthorEntries = d.getEntries().stream()
+                        .filter(x -> x.getAuthorID() == tempParse)
+                        .toList();
+
+                    for (DiaryEntry entry : deletedAuthorEntries){
+                        d.deleteEntry(entry.getId());
+                    }
                     Authors.DeleteByID(userParse);
                     break;
                 case 10:
@@ -203,7 +229,7 @@ public class Main {
             System.out.println("2. See all diary-entries between two dates");
             System.out.println("3. See all diary-entries from a spesific date");
             System.out.println("4. See all diary-entries by keyword");
-            System.out.println("5. Quit");
+            System.out.println("5. Return to main menu");
 
             System.out.print("Enter your number of choice (1-5):");
             valg2 = scanner.nextInt();
@@ -283,6 +309,7 @@ public class Main {
                     System.out.println("Returning to main menu...");
                     break;
                 default:
+                    System.out.println("Please input a valid choice");
                     break;
             }
         }
