@@ -1,3 +1,5 @@
+package edu.ntnu.iir.bidata;
+
 /**
  * Author class contains the name of the author and associates an unqiue ID.
  * @author Adrian Balunan

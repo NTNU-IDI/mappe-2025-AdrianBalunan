@@ -1,4 +1,5 @@
 
+package edu.ntnu.iir.bidata;
 
 import java.util.Scanner;
 
@@ -75,31 +76,53 @@ public class Main {
 
 
 
-            System.out.print("Enter your number of choice (1-9):");
-            valg = scanner.nextInt();
-            scanner.nextLine();
+            System.out.print("Enter your number of choice (1-10):");
+
+            String valgInput = scanner.nextLine();
+            try {
+                valg = Integer.parseInt(valgInput);
+            } catch (Exception e) {
+                System.out.println("Please put a valid input");
+                continue;
+            }
             System.out.println("");
 
+            String userInput = null;
+            int userParse = 0;
             switch (valg) {  
+
                 case 1:
                     d.seeAll();
                     break;
                 case 2:
                     Authors.seeAll();
-                    System.out.print("\nWrite down the Author ID you want to see all entries from: ");
-                    int authorId = scanner.nextInt();
+                    System.out.print("\nWrite down the Author ID you want to see all entries from:");
+                    
+                    userInput = scanner.nextLine();
+                    try {
+                        userParse = Integer.parseInt(userInput);
+                    } catch (Exception e) {
+                        System.out.println("Please put a valid input next time");
+                        continue;
+                    }
+
                     scanner.nextLine();
-                    d.seeAllByAuthor(authorId, Authors);
+                    d.seeAllByAuthor(userParse, Authors);
                     break;
                 case 3:
                     System.out.print("Add your title: ");
                     String name = scanner.nextLine();
 
-
                     Authors.seeAll();
                     System.out.print("\nWrite down the Author ID you want to assign to this entry: ");
-                    authorId = scanner.nextInt();
-                    author foundAuthor = Authors.getAuthorByID(authorId);
+                    userInput = scanner.nextLine();
+                    try {
+                        userParse = Integer.parseInt(userInput);
+                    } catch (Exception e) {
+                        System.out.println("Please put a valid input next time");
+                        continue;
+                    }
+                    author foundAuthor = Authors.getAuthorByID(userParse);
                     scanner.nextLine();
 
                     System.out.println("\nAdd your content:");
@@ -111,9 +134,17 @@ public class Main {
                 case 4:
                     d.seeAll();
                     System.out.print("Write the specified ID for the Entry you want to delete it: ");
-                    int inputID = scanner.nextInt();
+
+                    userInput = scanner.nextLine();
+                    try {
+                        userParse = Integer.parseInt(userInput);
+                    } catch (Exception e) {
+                        System.out.println("Please put a valid input next time");
+                        continue;
+                    }
                     scanner.nextLine();
-                    d.deleteEntry(inputID);
+
+                    d.deleteEntry(userParse);
                     break;
                 case 5:
                     search(scanner, d, Authors);
@@ -134,10 +165,17 @@ public class Main {
                 case 9:
                     Authors.seeAll();
                     System.out.print("Write the specified Author ID you want to delete: ");
-                    int authorID = scanner.nextInt();
+                    
+                    userInput = scanner.nextLine();
+                    try {
+                        userParse = Integer.parseInt(userInput);
+                    } catch (Exception e) {
+                        System.out.println("Please put a valid input next time");
+                        continue;
+                    }                    
                     scanner.nextLine();
 
-                    Authors.DeleteByID(authorID);
+                    Authors.DeleteByID(userParse);
                     break;
                 case 10:
                     System.out.println("Exiting the program. Goodbye!");
@@ -169,19 +207,45 @@ public class Main {
             scanner.nextLine();
             System.out.println("");
 
+            String userInput = null;
+            int userParse = 0;
             switch (valg2) {
                 case 1:
                     Authors.seeAll();
                     System.out.print("\nWrite down the Author ID you want to see all entries from: ");
-                    int authorId = scanner.nextInt();
+                    userInput = scanner.nextLine();
+                    try {
+                        userParse = Integer.parseInt(userInput);
+                    } catch (Exception e) {
+                        System.out.println("Please put a valid input next time");
+                        continue;
+                    }
                     scanner.nextLine();
-                    d.seeAllByAuthor(authorId, Authors);
+                    d.seeAllByAuthor(userParse, Authors);
                     break;
                 case 2:
                     System.out.print("Skriv inn første dato (DD-MM-YYYY):");
                     String startDato = scanner.nextLine();
                     System.out.print("Skriv inn andre dato (DD-MM-YYYY):");
                     String sluttDato = scanner.nextLine();
+
+                    System.out.println(startDato.length());
+                    System.out.println(sluttDato.length());
+                    System.out.println(startDato.charAt(2));
+                    System.out.println(sluttDato.charAt(2));
+                    System.out.println(startDato.charAt(5));
+                    System.out.println(sluttDato.charAt(5));
+
+
+
+
+                    if (startDato.length() != 10 || sluttDato.length() != 10 || sluttDato.charAt(2) != '-' || startDato.charAt(2) != '-' || sluttDato.charAt(5) != '-' || startDato.charAt(5) != '-'){
+                        System.out.println("Please type in your date at the spesified format, next time");
+                        continue;
+                    }
+
+
+
                     d.seeAllBetweenDates(startDato, sluttDato);
                     break;
                 case 3:

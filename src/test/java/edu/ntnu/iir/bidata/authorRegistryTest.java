@@ -1,3 +1,6 @@
+package edu.ntnu.iir.bidata;
+
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
@@ -22,7 +25,7 @@ public class authorRegistryTest {
         author author1 = new author("Author1");
         Authors.addAuthor(author1);
         assertFalse(Authors.getAuthors().isEmpty());
-        assertTrue(Authors.getAuthors().get(0).getAuthor_name() == "Author1");
+        assertTrue(Authors.getAuthors().get(0).getAuthor_name().equals("Author1"));
     }
     @Test 
     public void GivingAuthorIdShouldReturnTheCorrectAuthor(){
@@ -32,7 +35,7 @@ public class authorRegistryTest {
         Authors.addAuthor(author2);
         author author3 = new author("Author3"); // ID: 3
         Authors.addAuthor(author3);
-        assertTrue(Authors.getAuthorByID(2).getAuthor_Id() == 2);
+        assertEquals(2, Authors.getAuthorByID(2).getAuthor_Id());
     }
     @Test 
     public void SearchingForADeletedItemShouldReturnAnExpection(){
@@ -46,7 +49,7 @@ public class authorRegistryTest {
         assertThrows(NullPointerException.class, () -> {
             Authors.getAuthorByID(2).getAuthor_Id();
         });
-        assertTrue(Authors.getAuthorByID(3).getAuthor_Id() == 3);
+        assertEquals(3, Authors.getAuthorByID(3).getAuthor_Id());
     }
     @Test
     public void PrintingOutShouldCorrespond(){

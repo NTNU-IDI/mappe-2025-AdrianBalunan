@@ -1,3 +1,5 @@
+package edu.ntnu.iir.bidata;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
