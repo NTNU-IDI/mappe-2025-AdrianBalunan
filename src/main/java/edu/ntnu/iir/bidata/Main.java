@@ -1,6 +1,9 @@
 
 package edu.ntnu.iir.bidata;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class Main {
@@ -229,29 +232,47 @@ public class Main {
                     System.out.print("Skriv inn andre dato (DD-MM-YYYY):");
                     String sluttDato = scanner.nextLine();
 
-                    System.out.println(startDato.length());
-                    System.out.println(sluttDato.length());
-                    System.out.println(startDato.charAt(2));
-                    System.out.println(sluttDato.charAt(2));
-                    System.out.println(startDato.charAt(5));
-                    System.out.println(sluttDato.charAt(5));
-
-
-
-
                     if (startDato.length() != 10 || sluttDato.length() != 10 || sluttDato.charAt(2) != '-' || startDato.charAt(2) != '-' || sluttDato.charAt(5) != '-' || startDato.charAt(5) != '-'){
-                        System.out.println("Please type in your date at the spesified format, next time");
+                        System.out.println("Please type in your date at the spesified format.");
                         continue;
                     }
 
+                    LocalDate start = null;
+                    LocalDate end = null;
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
+                    try {
+                        start = LocalDate.parse(startDato, formatter);
+                        end = LocalDate.parse(startDato, formatter);
+                    } catch (DateTimeParseException e) {
+                        System.out.println("Please type in valid dates.");
+                    }
+            
+                    if (start.isAfter(end) || end.isBefore(start)){
+                        System.out.println("Please type a valid date interval, the first date should be before the second date");
+                        continue;
+                    }
 
                     d.seeAllBetweenDates(startDato, sluttDato);
                     break;
                 case 3:
                     System.out.print("Skriv inn første dato (DD-MM-YYYY):");
-                    String Dato = scanner.nextLine();
-                    d.seeAllInDate(Dato);
+                    String datoInput = scanner.nextLine();
+
+                    if (datoInput.length() != 10 || datoInput.charAt(2) != '-' || datoInput.charAt(5) != '-'){
+                        System.out.println("Please type in your date at the spesified format.");
+                        continue;
+                    }
+                    LocalDate datoParsed = null;
+                    formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
+                    try {
+                        datoParsed = LocalDate.parse(datoInput, formatter);
+                    } catch (DateTimeParseException e) {
+                        System.out.println("Please type in valid dates.");
+                    }
+
+                    d.seeAllInDate(datoInput);
                     break;
                 case 4:
                     System.out.print("Skriv inn søkeord:");

@@ -122,6 +122,15 @@ public class DiaryEntry  {
     }
 
     /**
+     * Getter-method for getting the ID
+     * @return
+     */
+    public author getAuthorObject(){
+        return author;
+    }
+
+
+    /**
      * Unique toString method that prints out all attributes of the DiaryEntry object
      * The seeAll method provides a better representation for the user, and therefore not used.
      * @return
