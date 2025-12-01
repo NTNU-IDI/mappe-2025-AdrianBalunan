@@ -1,3 +1,5 @@
+package edu.ntnu.iir.bidata;
+
 
 /**
  * Author class contains the name of the Author and associates an unqiue ID.

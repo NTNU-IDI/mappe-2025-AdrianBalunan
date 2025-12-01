@@ -157,7 +157,7 @@ public class Main {
             System.out.println("Please put a valid input next time");
             continue;
           }
-          Author foundAuthor = Authors.getAuthorByID(userParse);
+          Author foundAuthor = Authors.getAuthorById(userParse);
           scanner.nextLine();
 
           System.out.println("\nAdd your content:");
@@ -222,7 +222,7 @@ public class Main {
           }
           int tempParse = userParse;
 
-          if (Authors.getAuthorByID(tempParse) == null) {
+          if (Authors.getAuthorById(tempParse) == null) {
             System.out.println("Inputted Author does not exist");
             continue;
           }
@@ -233,7 +233,7 @@ public class Main {
           for (DiaryEntry entry : deletedAuthorEntries) {
             d.deleteEntry(entry.getId());
           }
-          Authors.DeleteByID(userParse);
+          Authors.deleteById(userParse);
           break;
         case 10:
           System.out.println("Exiting the program. Goodbye!");

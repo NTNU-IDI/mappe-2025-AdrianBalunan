@@ -116,7 +116,7 @@ public class Diary {
    */
   public void seeAllByAuthor(int authorId, AuthorRegistry Authors) {
 
-    Author foundAuthor = Authors.getAuthorByID(authorId);
+    Author foundAuthor = Authors.getAuthorById(authorId);
     if (foundAuthor == null) {
       System.out.println("No Author found with Id of, " + authorId + ".");
     } else {

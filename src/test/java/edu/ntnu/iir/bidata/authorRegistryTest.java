@@ -1,5 +1,6 @@
+package edu.ntnu.iir.bidata;
 
-import static org.junit.Assert.assertEquals;
+import static junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
@@ -14,7 +15,7 @@ import org.junit.Test;
  * 
  * @author Adrian Balunan
  */
-public class authorRegistryTest {
+public class AuthorRegistryTest {
   private static AuthorRegistry Authors;
 
   /**
@@ -42,7 +43,7 @@ public class authorRegistryTest {
     Authors.addAuthor(author2);
     Author author3 = new Author("Author3"); // ID: 3
     Authors.addAuthor(author3);
-    assertEquals(2, Authors.getAuthorByID(2).getAuthor_Id());
+    assertEquals(2, Authors.getAuthorById(2).getAuthor_Id());
   }
 
   @Test
@@ -53,13 +54,13 @@ public class authorRegistryTest {
     Authors.addAuthor(author2);
     Author author3 = new Author("Author3"); // ID: 3
     Authors.addAuthor(author3);
-    Authors.DeleteByID(2);
+    Authors.deleteById(2);
     assertThrows(
         NullPointerException.class,
         () -> {
-          Authors.getAuthorByID(2).getAuthor_Id();
+          Authors.getAuthorById(2).getAuthor_Id();
         });
-    assertEquals(3, Authors.getAuthorByID(3).getAuthor_Id());
+    assertEquals(3, Authors.getAuthorById(3).getAuthor_Id());
   }
 
   @Test
