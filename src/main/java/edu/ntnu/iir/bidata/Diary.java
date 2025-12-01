@@ -84,23 +84,27 @@ public class Diary {
     System.out.println("---------------------------");
     System.out.println("");
 
-    diaryEntries.forEach(
-        entry -> {
-          System.out.println("#----" + entry.getId() + "---#");
-          System.out.println(entry.getTitle());
-          System.out.println(entry.getAuthorName() + "(" + entry.getAuthorId() + ")");
-          System.out.println(entry.getReleaseDate());
-          System.out.println("");
-          System.out.println(entry.getContent());
-          System.out.println("#-------#");
-          System.out.println("");
+    if (diaryEntries.isEmpty()){
+      System.out.println("No entries found.");
+    } else {
+      diaryEntries.forEach(
+          entry -> {
+            System.out.println("#----" + entry.getId() + "---#");
+            System.out.println(entry.getTitle());
+            System.out.println(entry.getAuthorName() + "(" + entry.getAuthorId() + ")");
+            System.out.println(entry.getReleaseDate());
+            System.out.println("");
+            System.out.println(entry.getContent());
+            System.out.println("#-------#");
+            System.out.println("");
 
-          try {
-            Thread.sleep(200 * diaryEntries.size());
-          } catch (InterruptedException e) {
-            e.printStackTrace();
-          }
-        });
+            try {
+              Thread.sleep(200 * diaryEntries.size());
+            } catch (InterruptedException e) {
+              e.printStackTrace();
+            }
+          });
+    }
 
     System.out.println("");
     System.out.println("---------------------------");

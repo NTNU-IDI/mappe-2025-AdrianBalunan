@@ -15,6 +15,15 @@ public class Main {
    * @param scanner Scanner object
    */
   public static void init(Scanner scanner) {
+    // Welcome:
+    System.out.println(" ");
+    System.out.println("------------------");
+    System.out.println("- Welcome to your own digital (Sports) diary");
+    System.out.println("------------------");
+    System.out.println("You'll be able do add an entry, search for said entry and manage authors.");
+
+    pressToContinue(scanner);
+
     // Make
     System.out.print(
         "What would you like to name your Diary (Press enter for default name: SportsDiary): ");
@@ -34,7 +43,7 @@ public class Main {
     AuthorRegistry authors = new AuthorRegistry();
     authors.addAuthor(author1);
 
-    System.out.print("Add filler content? (y/n): ");
+    System.out.print("Add filler content? Recommended to test the systems functionality (y/n): ");
     String fillerChoice = scanner.nextLine();
     if (fillerChoice.equalsIgnoreCase("y")) {
       // Filler content:
@@ -73,7 +82,8 @@ public class Main {
               "30-10-2025");
       Diary1.addEntry(entry2);
     }
-    System.out.println("");
+    System.out.println(" ");
+    System.out.println("Loading the Main menu...");
 
     // Start
     start(scanner, Diary1, authors);
@@ -129,6 +139,11 @@ public class Main {
           d.seeAll();
           break;
         case 2:
+          if (authors.getAuthors().isEmpty()) {
+            System.out.println("No Authors have made an entry");
+            pressToContinue(scanner);
+            continue;
+          }
           authors.seeAll();
           System.out.print("\nWrite down the Author ID you want to see all entries from:");
 
@@ -137,78 +152,125 @@ public class Main {
             userParse = Integer.parseInt(userInput);
           } catch (Exception e) {
             System.out.println("Please put a valid input next time");
+            pressToContinue(scanner);
             continue;
           }
-
-          scanner.nextLine();
           d.seeAllByAuthor(userParse, authors);
           break;
         case 3:
+          if (authors.getAuthors().isEmpty()) {
+            System.out.println("No Authors are registered and therefore can't make an entry");
+            pressToContinue(scanner);
+          }
+          System.out.println("----- Adding an Entry -----");
+
+
           System.out.print("Add your title: ");
           final String name = scanner.nextLine();
 
           authors.seeAll();
-          System.out.print("\nWrite down the Author ID you want to assign to this entry: ");
+          System.out.print("Write down the Author ID you want to assign to this entry: ");
           userInput = scanner.nextLine();
           try {
             userParse = Integer.parseInt(userInput);
           } catch (Exception e) {
             System.out.println("Please put a valid input next time");
+            pressToContinue(scanner);
             continue;
           }
           Author foundAuthor = authors.getAuthorById(userParse);
-          scanner.nextLine();
 
-          System.out.println("\nAdd your content:");
+          System.out.println("Add your content:");
           String content = scanner.nextLine();
           DiaryEntry entry = new DiaryEntry(foundAuthor, name, content);
           d.addEntry(entry);
 
+          System.out.println(" ");
+          System.out.println("Success!");
+          pressToContinue(scanner);
+
           break;
         case 4:
+          if (d.getEntries().isEmpty()) {
+            System.out.println("No entry to delete.");
+            pressToContinue(scanner);
+            continue;
+          }
+          System.out.println("----- Deleting an Entry -----");
+
           d.seeAll();
           System.out.print("Write the specified ID for the Entry you want to delete it: ");
-
           userInput = scanner.nextLine();
           try {
             userParse = Integer.parseInt(userInput);
           } catch (Exception e) {
             System.out.println("Please put a valid input next time");
+            pressToContinue(scanner);
             continue;
           }
-          scanner.nextLine();
 
           boolean entryExists = false;
           for (DiaryEntry foundEntry : d.getEntries()) {
             if (foundEntry.getId() == userParse) {
               entryExists = true;
-              return;
             }
           }
 
           if (entryExists) {
+            System.out.println("Entry is found and deleted");
             d.deleteEntry(userParse);
+            pressToContinue(scanner);
           } else {
             System.out.println("Entry does not exist.");
+            pressToContinue(scanner);
           }
+
           break;
         case 5:
+          if (d.getEntries().isEmpty()) {
+            System.out.println("No entry registered, so no need to search ");
+            pressToContinue(scanner);
+            continue;
+          }
           search(scanner, d, authors);
           break;
         case 6:
-          authors.seeAll();
+          if (authors.getAuthors().isEmpty()) {
+            System.out.println("No Authors are registered");
+            pressToContinue(scanner);
+            continue;
+          } else {
+            authors.seeAll();
+            pressToContinue(scanner);
+          }
           break;
         case 8:
+          System.out.println("----- Adding an Author -----");
           System.out.print("Write the Author's name you want to add: ");
           String authorName = scanner.nextLine();
           Author newAuthor = new Author(authorName);
 
+          System.out.println("Author, " + newAuthor.getAuthorName() + " is added.");
           authors.addAuthor(newAuthor);
+          pressToContinue(scanner);
           break;
         case 7:
-          d.showAuthorStatistics();
+          if (d.getEntries().isEmpty()) {
+            System.out.println("Authors havent made an entry");
+            pressToContinue(scanner);
+            continue;
+          } else {
+            d.showAuthorStatistics();
+            pressToContinue(scanner);
+          }
           break;
         case 9:
+          if (authors.getAuthors().isEmpty()) {
+            System.out.println("No Author to delete.");
+            pressToContinue(scanner);
+            continue;
+          }
+          System.out.println("----- Deleting an Author -----");
           authors.seeAll();
           System.out.print("Write the specified Author ID you want to delete: ");
 
@@ -217,12 +279,14 @@ public class Main {
             userParse = Integer.parseInt(userInput);
           } catch (Exception e) {
             System.out.println("Please put a valid input next time");
+            pressToContinue(scanner);
             continue;
           }
           int tempParse = userParse;
 
           if (authors.getAuthorById(tempParse) == null) {
             System.out.println("Inputted Author does not exist");
+            pressToContinue(scanner);
             continue;
           }
 
@@ -232,7 +296,10 @@ public class Main {
           for (DiaryEntry authorEntry : deletedAuthorEntries) {
             d.deleteEntry(authorEntry.getId());
           }
+
+          System.out.println("Author found and deleted.");
           authors.deleteById(userParse);
+          pressToContinue(scanner);
           break;
         case 10:
           System.out.println("Exiting the program. Goodbye!");
@@ -276,6 +343,7 @@ public class Main {
       int userParse = 0;
       switch (valg2) {
         case 1:
+          System.out.println("----- Searching Entries by Author -----");
           authors.seeAll();
           System.out.print("\nWrite down the Author ID you want to see all entries from: ");
           userInput = scanner.nextLine();
@@ -283,12 +351,15 @@ public class Main {
             userParse = Integer.parseInt(userInput);
           } catch (Exception e) {
             System.out.println("Please put a valid input next time");
+            pressToContinue(scanner);
             continue;
           }
-          scanner.nextLine();
           d.seeAllByAuthor(userParse, authors);
+          pressToContinue(scanner);
           break;
         case 2:
+          System.out.println("----- Searching Entries Between Two Dates -----");
+
           System.out.print("Skriv inn første dato (DD-MM-YYYY):");
           String startDato = scanner.nextLine();
           System.out.print("Skriv inn andre dato (DD-MM-YYYY):");
@@ -313,17 +384,21 @@ public class Main {
             end = LocalDate.parse(startDato, formatter);
           } catch (DateTimeParseException e) {
             System.out.println("Please type in valid dates.");
+            pressToContinue(scanner);
           }
 
           if (start.isAfter(end) || end.isBefore(start)) {
             System.out.println(
                 "Please type a valid interval, the first date should be before the second date");
+            pressToContinue(scanner);
             continue;
           }
 
           d.seeAllBetweenDates(startDato, sluttDato);
+          pressToContinue(scanner);
           break;
         case 3:
+          System.out.println("----- Searching Entries made on a spesific Date -----");
           System.out.print("Skriv inn første dato (DD-MM-YYYY):");
           String datoInput = scanner.nextLine();
 
@@ -331,6 +406,7 @@ public class Main {
               || datoInput.charAt(2) != '-'
               || datoInput.charAt(5) != '-') {
             System.out.println("Please type in your date at the spesified format.");
+            pressToContinue(scanner);
             continue;
           }
           LocalDate datoParsed = null;
@@ -340,11 +416,14 @@ public class Main {
             datoParsed = LocalDate.parse(datoInput, formatter);
           } catch (DateTimeParseException e) {
             System.out.println("Please type in valid dates.");
+            pressToContinue(scanner);
           }
 
           d.seeAllInDate(datoInput);
           break;
         case 4:
+          System.out.println("----- Searching Entries that contain keyword -----");
+
           System.out.print("Skriv inn søkeord:");
           String keyword = scanner.nextLine();
           d.seeAllWithWord(keyword);
@@ -358,8 +437,10 @@ public class Main {
       }
     } while (valg2 != 5);
   }
+
+
   /**
-   * Main method, starts here.
+   * Main method, all starts here.
    * 
    * @param args Java Start
    */
@@ -367,5 +448,16 @@ public class Main {
   public static void main(String[] args) {
     Scanner scanner = new Scanner(System.in);
     init(scanner);
+  }
+
+  /**
+   * Helper function to controll the passing.
+   * 
+   * @param scanner Scanner Objects
+   */  
+  public static void pressToContinue(Scanner scanner) {
+    System.out.println(" ");
+    System.out.println("Press Enter to continue...");
+    scanner.nextLine();
   }
 }
