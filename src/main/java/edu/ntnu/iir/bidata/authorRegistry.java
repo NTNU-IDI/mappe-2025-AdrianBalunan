@@ -1,4 +1,3 @@
-package edu.ntnu.iir.bidata;
 
 import java.util.ArrayList;
 
@@ -43,7 +42,7 @@ public class AuthorRegistry {
    */
   public Author getAuthorById(int id) {
     Author foundAuthor =
-        authors.stream().filter(x -> x.getAuthor_Id() == id).findFirst().orElse(null);
+        authors.stream().filter(x -> x.getAuthorId() == id).findFirst().orElse(null);
     return foundAuthor;
   }
 
@@ -53,7 +52,7 @@ public class AuthorRegistry {
    * @param inputId given id
    */
   public void deleteById(int inputId) {
-    authors.removeIf(x -> x.getAuthor_Id() == inputId);
+    authors.removeIf(x -> x.getAuthorId() == inputId);
   }
 
   /** See all function, prints all authors in the registry. */

@@ -1,4 +1,3 @@
-package edu.ntnu.iir.bidata;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -70,7 +69,7 @@ public class Diary {
   /**
    * Delete-method that deletes an Author by given id, if it exists.
    *
-   * @param inputID Input of the Id
+   * @param inputId Input of the Id
    */
   public void deleteEntry(int inputId) {
     diaryEntries.removeIf(x -> x.getId() == inputId);
@@ -112,23 +111,23 @@ public class Diary {
    * Search Algorithm that prints out all entries by a spesific Author ID.
    *
    * @param authorId Id of the author
-   * @param Authors AuthorRegistry object
+   * @param authors AuthorRegistry object
    */
-  public void seeAllByAuthor(int authorId, AuthorRegistry Authors) {
+  public void seeAllByAuthor(int authorId, AuthorRegistry authors) {
 
-    Author foundAuthor = Authors.getAuthorById(authorId);
+    Author foundAuthor = authors.getAuthorById(authorId);
     if (foundAuthor == null) {
       System.out.println("No Author found with Id of, " + authorId + ".");
     } else {
       System.out.println(
-          "Found Author with id, " + authorId + ": " + foundAuthor.getAuthor_name() + ".");
+          "Found Author with id, " + authorId + ": " + foundAuthor.getAuthorName() + ".");
       List<DiaryEntry> filiteredAuthor =
           diaryEntries.stream().filter(x -> x.getAuthorId() == authorId).toList();
       if (filiteredAuthor.isEmpty()) {
         System.out.println("Unfortunately, this Author wasent published an entry");
       } else {
-        System.out.println("# Entries by: " + foundAuthor.getAuthor_name());
-        Printout(filiteredAuthor);
+        System.out.println("# Entries by: " + foundAuthor.getAuthorName());
+        printout(filiteredAuthor);
       }
     }
     ;
@@ -137,8 +136,8 @@ public class Diary {
   /**
    * Search function that searches for entries between given DATES.
    *
-   * @param startdate Start date
-   * @param endingDate Ending date
+   * @param inputStart Start date
+   * @param inputEnd Ending date
    */
   public void seeAllBetweenDates(String inputStart, String inputEnd) {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
@@ -157,25 +156,25 @@ public class Diary {
       System.out.println("No entries between the spesified dates");
     } else {
       System.out.println("# Entries between: " + start + " <-> " + end + " #");
-      Printout(filitedentries);
+      printout(filitedentries);
     }
   }
 
   /**
    * Search function that shows all entries in one spesified date.
    *
-   * @param Date input date from user
+   * @param date input date from user
    */
-  public void seeAllInDate(String Date) {
+  public void seeAllInDate(String date) {
     List<DiaryEntry> filteredDates =
         diaryEntries.stream()
-            .filter(e -> e.getReleaseDate().substring(0, 10).equalsIgnoreCase(Date))
+            .filter(e -> e.getReleaseDate().substring(0, 10).equalsIgnoreCase(date))
             .toList();
     if (filteredDates.isEmpty()) {
       System.out.println("No entries found in this date");
     } else {
-      System.out.println("# Entries found for: " + Date + " #");
-      Printout(filteredDates);
+      System.out.println("# Entries found for: " + date + " #");
+      printout(filteredDates);
     }
   }
 
@@ -193,7 +192,7 @@ public class Diary {
       System.out.println("No entries found that contains this word: " + word);
     } else {
       System.out.println("# All entries with content that includes this word: " + word + " #");
-      Printout(filteredWord);
+      printout(filteredWord);
     }
   }
 
@@ -223,9 +222,9 @@ public class Diary {
               + authorEntryCounts.get(i)
               + " ".repeat(2)
               + " || (ID: "
-              + authors.get(i).getAuthor_Id()
+              + authors.get(i).getAuthorId()
               + "): "
-              + authors.get(i).getAuthor_name());
+              + authors.get(i).getAuthorName());
     }
     System.out.println("-----------------------------------------");
   }
@@ -236,10 +235,10 @@ public class Diary {
    *
    * @param List Filiterd List
    */
-  private static void Printout(List<DiaryEntry> List) {
+  private static void printout(List<DiaryEntry> list) {
     System.out.println("---------------------------");
     System.out.println("");
-    List.forEach(
+    list.forEach(
         entry -> {
           try {
             Thread.sleep(200);

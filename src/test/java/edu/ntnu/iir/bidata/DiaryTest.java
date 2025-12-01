@@ -1,4 +1,3 @@
-package edu.ntnu.iir.bidata;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -15,7 +14,7 @@ import org.junit.Test;
  */
 
 public class DiaryTest {
-  private AuthorRegistry Authors;
+  private AuthorRegistry authors;
   public Diary diary;
 
   /**
@@ -26,11 +25,11 @@ public class DiaryTest {
     Author.resetNextId();
     DiaryEntry.resetEntryNextId();
     diary = new Diary();
-    Authors = new AuthorRegistry();
+    authors = new AuthorRegistry();
 
     // Filler content:
     Author author2 = new Author("Adrian Balunan");
-    Authors.addAuthor(author2);
+    authors.addAuthor(author2);
 
     DiaryEntry entry1 =
         new DiaryEntry(
@@ -54,7 +53,7 @@ public class DiaryTest {
     diary.addEntry(entry4);
 
     Author author3 = new Author("Ola Nordmann");
-    Authors.addAuthor(author3);
+    authors.addAuthor(author3);
 
     DiaryEntry entry2 =
         new DiaryEntry(
@@ -66,34 +65,34 @@ public class DiaryTest {
   }
 
   @Test
-  public void GivingTheDiaryAnNameShouldWork() {
+  public void givingTheDiaryAnNameShouldWork() {
     Diary diaryWithName = new Diary("DiaryName");
     assertTrue(diaryWithName.getDiaryName().equals("DiaryName"));
   }
 
   @Test
-  public void AddingEntryShouldWork() {
-    Author Author = new Author("Author");
-    DiaryEntry AddEntry = new DiaryEntry(Author, "Title", "Content", "30-10-2025");
-    diary.addEntry(AddEntry);
+  public void addingEntryShouldWork() {
+    Author author = new Author("Author");
+    DiaryEntry addEntry = new DiaryEntry(author, "Title", "Content", "30-10-2025");
+    diary.addEntry(addEntry);
     assertFalse(diary.getEntries().isEmpty());
     assertTrue(diary.getEntries().getLast().getTitle().equals("Title"));
   }
 
   @Test
-  public void DeletingTheFirstEntryWillWork() {
+  public void deletingTheFirstEntryWillWork() {
     diary.deleteEntry(1);
     assertFalse(diary.getEntries().getFirst().getTitle().equals("Første innlegget"));
   }
 
   @Test
-  public void TestingPrintOut() {
+  public void testingPrintOut() {
     final PrintStream orignalOut = System.out;
     ByteArrayOutputStream outcontent = new ByteArrayOutputStream();
 
-    Author Author = new Author("Author");
-    DiaryEntry AddEntry = new DiaryEntry(Author, "Title", "Content", "30-10-2025");
-    diary.addEntry(AddEntry);
+    Author author = new Author("Author");
+    DiaryEntry addEntry = new DiaryEntry(author, "Title", "Content", "30-10-2025");
+    diary.addEntry(addEntry);
 
     System.setOut(new PrintStream(outcontent));
     diary.seeAll();
@@ -106,29 +105,29 @@ public class DiaryTest {
   }
 
   @Test
-  public void TestingAllByAuthorNoTfOuNd() {
+  public void testingAllByAuthorNoTfOuNd() {
     PrintStream orignalOut = System.out;
     ByteArrayOutputStream outcontent = new ByteArrayOutputStream();
 
     System.setOut(new PrintStream(outcontent));
-    diary.seeAllByAuthor(4, Authors);
+    diary.seeAllByAuthor(4, authors);
     System.setOut(orignalOut);
 
     assertTrue(outcontent.toString().contains("No Author found with Id of, 4."));
   }
 
   @Test
-  public void TestingAllByAuthorFoUnDandHasEnTrIeS() {
+  public void testingAllByAuthorFoUnDandHasEnTrIeS() {
     final PrintStream orignalOut = System.out;
     ByteArrayOutputStream outcontent = new ByteArrayOutputStream();
 
-    Author Author = new Author("Author");
-    Authors.addAuthor(Author);
-    DiaryEntry AddEntry = new DiaryEntry(Author, "Title", "Content", "30-10-2025");
-    diary.addEntry(AddEntry);
+    Author author = new Author("Author");
+    authors.addAuthor(author);
+    DiaryEntry addEntry = new DiaryEntry(author, "Title", "Content", "30-10-2025");
+    diary.addEntry(addEntry);
 
     System.setOut(new PrintStream(outcontent));
-    diary.seeAllByAuthor(3, Authors);
+    diary.seeAllByAuthor(3, authors);
     System.setOut(orignalOut);
 
     assertTrue(outcontent.toString().contains("#-------#"));
@@ -138,15 +137,15 @@ public class DiaryTest {
   }
 
   @Test
-  public void TestingAllByAuthorFoUnDandHasNoEnTrIeS() {
+  public void testingAllByAuthorFoUnDandHasNoEnTrIeS() {
     final PrintStream orignalOut = System.out;
     ByteArrayOutputStream outcontent = new ByteArrayOutputStream();
 
-    Author Author = new Author("Author");
-    Authors.addAuthor(Author);
+    Author author = new Author("Author");
+    authors.addAuthor(author);
 
     System.setOut(new PrintStream(outcontent));
-    diary.seeAllByAuthor(3, Authors);
+    diary.seeAllByAuthor(3, authors);
     System.setOut(orignalOut);
 
     assertTrue(
@@ -154,7 +153,7 @@ public class DiaryTest {
   }
 
   @Test
-  public void SearchBetweenDatesShouldGiveCorrectEntriesPoSiTiVe() {
+  public void searchBetweenDatesShouldGiveCorrectEntriesPoSiTiVe() {
     PrintStream orignalOut = System.out;
     ByteArrayOutputStream outcontent = new ByteArrayOutputStream();
 
@@ -168,7 +167,7 @@ public class DiaryTest {
   }
 
   @Test
-  public void SearchBetweenDatesShouldGiveCorrectEntriesNeGaTiVe() {
+  public void searchBetweenDatesShouldGiveCorrectEntriesNeGaTiVe() {
     PrintStream orignalOut = System.out;
     ByteArrayOutputStream outcontent = new ByteArrayOutputStream();
 
@@ -180,7 +179,7 @@ public class DiaryTest {
   }
 
   @Test
-  public void SearchByDateShouldGiveCorrectEntriesPoSiTiVe() {
+  public void searchByDateShouldGiveCorrectEntriesPoSiTiVe() {
     PrintStream orignalOut = System.out;
     ByteArrayOutputStream outcontent = new ByteArrayOutputStream();
 
@@ -194,7 +193,7 @@ public class DiaryTest {
   }
 
   @Test
-  public void SearchByDateShouldGiveCorrectEntriesNeGatIvE() {
+  public void searchByDateShouldGiveCorrectEntriesNeGatIvE() {
     PrintStream orignalOut = System.out;
     ByteArrayOutputStream outcontent = new ByteArrayOutputStream();
 
@@ -206,7 +205,7 @@ public class DiaryTest {
   }
 
   @Test
-  public void AuthorStatisticsShouldBeCorrect() {
+  public void authorStatisticsShouldBeCorrect() {
     PrintStream orignalOut = System.out;
     ByteArrayOutputStream outcontent = new ByteArrayOutputStream();
 
@@ -222,7 +221,7 @@ public class DiaryTest {
   }
 
   @Test
-  public void SearchingEntryByKeyWordShouldGiveCorrectEntriesPoSiTiVe() {
+  public void searchingEntryByKeyWordShouldGiveCorrectEntriesPoSiTiVe() {
     PrintStream orignalOut = System.out;
     ByteArrayOutputStream outcontent = new ByteArrayOutputStream();
 
@@ -236,7 +235,7 @@ public class DiaryTest {
   }
 
   @Test
-  public void SearchingEntryByKeyWordShouldGiveCorrectEntriesNeGaTiVe() {
+  public void searchingEntryByKeyWordShouldGiveCorrectEntriesNeGaTiVe() {
     PrintStream orignalOut = System.out;
     ByteArrayOutputStream outcontent = new ByteArrayOutputStream();
 

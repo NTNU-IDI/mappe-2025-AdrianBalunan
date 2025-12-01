@@ -1,4 +1,3 @@
-package edu.ntnu.iir.bidata;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -29,13 +28,13 @@ public class DiaryEntry {
   }
 
   /** Actual unique ID for the DiaryEntry object. */
-  private final int Id;
+  private final int id;
 
   /** The title of the Entry. */
   private String title;
 
   /** Accosicated Author object of the Entry. */
-  private Author Author;
+  private Author author;
 
   /** Content variables that store info. */
   private String content;
@@ -44,17 +43,17 @@ public class DiaryEntry {
    * Contructur for the DiaryEntry class, with input parameters. Relase date is automatically set to
    * the current date and time, and custimized using a formatter
    *
-   * @param Author input Author
+   * @param author input Author
    * @param title input title
    * @param content input content
    */
-  public DiaryEntry(Author Author, String title, String content) {
-    this.Author = Author;
+  public DiaryEntry(Author author, String title, String content) {
+    this.author = author;
 
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy (HH:mm:ss)");
     this.releaseDate = LocalDateTime.now().format(formatter);
 
-    this.Id = nextId++;
+    this.id = nextId++;
     this.title = title;
     this.content = content;
   }
@@ -64,15 +63,15 @@ public class DiaryEntry {
    * only with filler content, for better representation. Hours, minutes and seconds will be
    * 00:00:00.
    *
-   * @param Author input Author
+   * @param author input Author
    * @param title input title
    * @param content input content
    * @param releaseDate input release date. Hours, minutes and seconds to 00:00:00
    */
-  public DiaryEntry(Author Author, String title, String content, String releaseDate) {
-    this.Author = Author;
+  public DiaryEntry(Author author, String title, String content, String releaseDate) {
+    this.author = author;
     this.releaseDate = releaseDate + " (00:00:00)";
-    this.Id = nextId++;
+    this.id = nextId++;
     this.title = title;
     this.content = content;
   }
@@ -110,7 +109,7 @@ public class DiaryEntry {
    * @return Returns the Author of the entrys name
    */
   public String getAuthorName() {
-    return Author.getAuthor_name();
+    return author.getAuthorName();
   }
 
   /**
@@ -119,7 +118,7 @@ public class DiaryEntry {
    * @return Returns the author of the entrys ID
    */
   public int getAuthorId() {
-    return Author.getAuthor_Id();
+    return author.getAuthorId();
   }
 
   /**
@@ -128,16 +127,16 @@ public class DiaryEntry {
    * @return Returns the Entrys ID
    */
   public int getId() {
-    return Id;
+    return id;
   }
 
   /**
-   * Getter-method for the actual Author Object
+   * Getter-method for the actual Author Object.
    *
    * @return Returns all data (the object) about author.
    */
   public Author getAuthorObject() {
-    return Author;
+    return author;
   }
 
   /**
@@ -149,13 +148,13 @@ public class DiaryEntry {
   @Override
   public String toString() {
     return "ID: "
-        + Id
+        + id
         + ". ReleaseDate: "
         + releaseDate
         + ", Title: "
         + title
         + ", Author: "
-        + Author.getAuthor_name()
+        + author.getAuthorName()
         + ", Content: "
         + content;
   }

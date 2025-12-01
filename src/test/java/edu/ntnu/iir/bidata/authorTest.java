@@ -1,4 +1,3 @@
-package edu.ntnu.iir.bidata;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -21,26 +20,26 @@ public class AuthorTest {
   }
 
   @Test
-  public void FirstAuthorObjectIdShouldBeOne() {
+  public void firstAuthorObjectIdShouldBeOne() {
     Author author1 = new Author("Author1");
-    assertEquals(1, author1.getAuthor_Id());
+    assertEquals(1, author1.getAuthorId());
   }
 
   @Test
-  public void SecondAuthorObjectIdShouldBeTwo() {
+  public void secondAuthorObjectIdShouldBeTwo() {
     Author author1 = new Author("Author1");
     Author author2 = new Author("Author2");
-    assertEquals(2, author2.getAuthor_Id());
+    assertEquals(2, author2.getAuthorId());
   }
 
   @Test
-  public void AuthorNameShouldBeInput() {
+  public void authorNameShouldBeInput() {
     Author author1 = new Author("Author1");
-    assertTrue(author1.getAuthor_name().equalsIgnoreCase("Author1"));
+    assertTrue(author1.getAuthorName().equalsIgnoreCase("Author1"));
   }
 
   @Test
-  public void ToStringReturnsCorrect() {
+  public void toStringReturnsCorrect() {
     Author author1 = new Author("Author1");
     assertTrue(author1.toString().equals("Forfatter ID: 1, Navn: Author1"));
   }

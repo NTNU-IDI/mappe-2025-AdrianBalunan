@@ -1,4 +1,3 @@
-package edu.ntnu.iir.bidata;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -32,15 +31,15 @@ public class Main {
       authorName = "John Doe";
     }
     Author author1 = new Author(authorName);
-    AuthorRegistry Authors = new AuthorRegistry();
-    Authors.addAuthor(author1);
+    AuthorRegistry authors = new AuthorRegistry();
+    authors.addAuthor(author1);
 
     System.out.print("Add filler content? (y/n): ");
     String fillerChoice = scanner.nextLine();
     if (fillerChoice.equalsIgnoreCase("y")) {
       // Filler content:
       Author author2 = new Author("Adrian Balunan");
-      Authors.addAuthor(author2);
+      authors.addAuthor(author2);
 
       DiaryEntry entry1 =
           new DiaryEntry(
@@ -64,7 +63,7 @@ public class Main {
       Diary1.addEntry(entry4);
 
       Author author3 = new Author("Ola Nordmann");
-      Authors.addAuthor(author3);
+      authors.addAuthor(author3);
 
       DiaryEntry entry2 =
           new DiaryEntry(
@@ -77,7 +76,7 @@ public class Main {
     System.out.println("");
 
     // Start
-    start(scanner, Diary1, Authors);
+    start(scanner, Diary1, authors);
   }
 
   /**
@@ -85,9 +84,9 @@ public class Main {
    * 
    * @param scanner Scanner Object made in init()
    * @param d Diary Object made in init()
-   * @param Authors AuthorRegistry Object made in init()
+   * @param authors AuthorRegistry Object made in init()
    */
-  public static void start(Scanner scanner, Diary d, AuthorRegistry Authors) {
+  public static void start(Scanner scanner, Diary d, AuthorRegistry authors) {
     // While-loop
     int valg = 0;
     do {
@@ -130,7 +129,7 @@ public class Main {
           d.seeAll();
           break;
         case 2:
-          Authors.seeAll();
+          authors.seeAll();
           System.out.print("\nWrite down the Author ID you want to see all entries from:");
 
           userInput = scanner.nextLine();
@@ -142,13 +141,13 @@ public class Main {
           }
 
           scanner.nextLine();
-          d.seeAllByAuthor(userParse, Authors);
+          d.seeAllByAuthor(userParse, authors);
           break;
         case 3:
           System.out.print("Add your title: ");
           final String name = scanner.nextLine();
 
-          Authors.seeAll();
+          authors.seeAll();
           System.out.print("\nWrite down the Author ID you want to assign to this entry: ");
           userInput = scanner.nextLine();
           try {
@@ -157,13 +156,13 @@ public class Main {
             System.out.println("Please put a valid input next time");
             continue;
           }
-          Author foundAuthor = Authors.getAuthorById(userParse);
+          Author foundAuthor = authors.getAuthorById(userParse);
           scanner.nextLine();
 
           System.out.println("\nAdd your content:");
           String content = scanner.nextLine();
-          DiaryEntry dEntry = new DiaryEntry(foundAuthor, name, content);
-          d.addEntry(dEntry);
+          DiaryEntry entry = new DiaryEntry(foundAuthor, name, content);
+          d.addEntry(entry);
 
           break;
         case 4:
@@ -180,8 +179,8 @@ public class Main {
           scanner.nextLine();
 
           boolean entryExists = false;
-          for (DiaryEntry entry : d.getEntries()) {
-            if (entry.getId() == userParse) {
+          for (DiaryEntry foundEntry : d.getEntries()) {
+            if (foundEntry.getId() == userParse) {
               entryExists = true;
               return;
             }
@@ -194,23 +193,23 @@ public class Main {
           }
           break;
         case 5:
-          search(scanner, d, Authors);
+          search(scanner, d, authors);
           break;
         case 6:
-          Authors.seeAll();
+          authors.seeAll();
           break;
         case 8:
           System.out.print("Write the Author's name you want to add: ");
-          String author_name = scanner.nextLine();
-          Author newAuthor = new Author(author_name);
+          String authorName = scanner.nextLine();
+          Author newAuthor = new Author(authorName);
 
-          Authors.addAuthor(newAuthor);
+          authors.addAuthor(newAuthor);
           break;
         case 7:
           d.showAuthorStatistics();
           break;
         case 9:
-          Authors.seeAll();
+          authors.seeAll();
           System.out.print("Write the specified Author ID you want to delete: ");
 
           userInput = scanner.nextLine();
@@ -222,7 +221,7 @@ public class Main {
           }
           int tempParse = userParse;
 
-          if (Authors.getAuthorById(tempParse) == null) {
+          if (authors.getAuthorById(tempParse) == null) {
             System.out.println("Inputted Author does not exist");
             continue;
           }
@@ -230,10 +229,10 @@ public class Main {
           List<DiaryEntry> deletedAuthorEntries =
               d.getEntries().stream().filter(x -> x.getAuthorId() == tempParse).toList();
 
-          for (DiaryEntry entry : deletedAuthorEntries) {
-            d.deleteEntry(entry.getId());
+          for (DiaryEntry authorEntry : deletedAuthorEntries) {
+            d.deleteEntry(authorEntry.getId());
           }
-          Authors.deleteById(userParse);
+          authors.deleteById(userParse);
           break;
         case 10:
           System.out.println("Exiting the program. Goodbye!");
@@ -249,10 +248,10 @@ public class Main {
    * 
    * @param scanner Scanner Object made in init()
    * @param d Diary Object made in init()
-   * @param Authors AuthorRegistry Object made in init()
+   * @param authors AuthorRegistry Object made in init()
    */
 
-  public static void search(Scanner scanner, Diary d, AuthorRegistry Authors) {
+  public static void search(Scanner scanner, Diary d, AuthorRegistry authors) {
     int valg2 = 0;
     do {
       try {
@@ -277,7 +276,7 @@ public class Main {
       int userParse = 0;
       switch (valg2) {
         case 1:
-          Authors.seeAll();
+          authors.seeAll();
           System.out.print("\nWrite down the Author ID you want to see all entries from: ");
           userInput = scanner.nextLine();
           try {
@@ -287,7 +286,7 @@ public class Main {
             continue;
           }
           scanner.nextLine();
-          d.seeAllByAuthor(userParse, Authors);
+          d.seeAllByAuthor(userParse, authors);
           break;
         case 2:
           System.out.print("Skriv inn første dato (DD-MM-YYYY):");

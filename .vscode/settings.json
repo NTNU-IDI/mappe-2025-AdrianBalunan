@@ -1,9 +1,15 @@
 {
     "java.checkstyle.configuration": "${workspaceFolder}\\checkstyle\\checkstyle.xml",
     "java.checkstyle.version": "12.1.2",
-    "java.project.sourcePaths": ["src"],
     "java.project.outputPath": "bin",
-    "java.project.referencedLibraries": [
-        "lib/**/*.jar"
+    "java.project.sourcePaths": [
+        "src\\main\\java\\edu\\ntnu\\iir\\bidata",
+        "src\\test\\java\\edu\\ntnu\\iir\\bidata"
     ],
+    "java.project.referencedLibraries": [
+        "lib\\hamcrest-core-1.3.jar",
+        "lib\\junit-4.13.2.jar"
+        //"c:\\Users\\adria\\OneDrive - NTNU\\Semester 1\\mappevurdering\\mappe2025AdrianBalunan\\lib\\junit-4.13.2.jar",
+        //"c:\\Users\\adria\\OneDrive - NTNU\\Semester 1\\mappevurdering\\mappe2025AdrianBalunan\\lib\\hamcrest-core-1.3.jar"
+    ]
 }

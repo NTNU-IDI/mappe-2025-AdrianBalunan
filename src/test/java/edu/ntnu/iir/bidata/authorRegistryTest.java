@@ -1,6 +1,4 @@
-package edu.ntnu.iir.bidata;
-
-import static junit.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
@@ -28,26 +26,26 @@ public class AuthorRegistryTest {
   }
 
   @Test
-  public void AddingAuthorShouldWork() {
+  public void addingAuthorShouldWork() {
     Author author1 = new Author("Author1");
     Authors.addAuthor(author1);
     assertFalse(Authors.getAuthors().isEmpty());
-    assertTrue(Authors.getAuthors().get(0).getAuthor_name().equals("Author1"));
+    assertTrue(Authors.getAuthors().get(0).getAuthorName().equals("Author1"));
   }
 
   @Test
-  public void GivingAuthorIdShouldReturnTheCorrectAuthor() {
+  public void givingAuthorIdShouldReturnTheCorrectAuthor() {
     Author author1 = new Author("Author1"); // ID: 1
     Authors.addAuthor(author1);
     Author author2 = new Author("Author2"); // ID: 2
     Authors.addAuthor(author2);
     Author author3 = new Author("Author3"); // ID: 3
     Authors.addAuthor(author3);
-    assertEquals(2, Authors.getAuthorById(2).getAuthor_Id());
+    assertEquals(2, Authors.getAuthorById(2).getAuthorId());
   }
 
   @Test
-  public void SearchingForAnDeletedItemShouldReturnAnExpection() {
+  public void searchingForAnDeletedItemShouldReturnAnExpection() {
     Author author1 = new Author("Author1"); // ID: 1
     Authors.addAuthor(author1);
     Author author2 = new Author("Author2"); // ID: 2
@@ -58,13 +56,13 @@ public class AuthorRegistryTest {
     assertThrows(
         NullPointerException.class,
         () -> {
-          Authors.getAuthorById(2).getAuthor_Id();
+          Authors.getAuthorById(2).getAuthorId();
         });
-    assertEquals(3, Authors.getAuthorById(3).getAuthor_Id());
+    assertEquals(author3, Authors.getAuthorById(3));
   }
 
   @Test
-  public void PrintingOutShouldCorrespond() {
+  public void printingOutShouldCorrespond() {
     Author author1 = new Author("Author1"); // ID: 1
     Authors.addAuthor(author1);
     Author author2 = new Author("Author2"); // ID: 2

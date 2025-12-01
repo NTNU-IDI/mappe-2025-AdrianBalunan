@@ -1,4 +1,3 @@
-package edu.ntnu.iir.bidata;
 
 
 /**
@@ -15,19 +14,19 @@ public class Author {
   private static int author_nextId = 1;
 
   /** Actual unique ID for the Author. */
-  private final int author_Id;
+  private final int authorId;
 
   /** Name of the Author. */
-  private String author_name;
+  private String authorName;
 
   /**
    * COnstructor for the Author class.
    *
-   * @param author_name input name of the Author from the user
+   * @param authorName input name of the Author from the user
    */
-  public Author(String author_name) {
-    this.author_Id = author_nextId++;
-    this.author_name = author_name;
+  public Author(String authorName) {
+    this.authorId = author_nextId++;
+    this.authorName = authorName;
   }
 
   /**
@@ -40,19 +39,19 @@ public class Author {
   /**
    * Getter-method, returns the unique ID of the Author.
    *
-   * @return author_Id, the id of the Author
+   * @return authorId, the id of the Author
    */
-  public int getAuthor_Id() {
-    return author_Id;
+  public int getAuthorId() {
+    return authorId;
   }
 
   /**
    * Getter-method, returns the name of the Author.
    *
-   * @return author_name, the name of the Author
+   * @return authorName, the name of the Author
    */
-  public String getAuthor_name() {
-    return author_name;
+  public String getAuthorName() {
+    return authorName;
   }
 
   /**
@@ -62,6 +61,6 @@ public class Author {
    */
   @Override
   public String toString() {
-    return "Forfatter ID: " + author_Id + ", Navn: " + author_name;
+    return "Forfatter ID: " + authorId + ", Navn: " + authorName;
   }
 }
