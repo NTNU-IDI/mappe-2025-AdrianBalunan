@@ -1,5 +1,6 @@
 
 import java.util.ArrayList;
+import java.util.EmptyStackException;
 
 /**
  * AuthorRegistry class contains a list of authors and methods to manage them.
@@ -50,13 +51,27 @@ public class AuthorRegistry {
    * Delete function, deletes an Author by given id.
    *
    * @param inputId given id
+   * @throws ArrayIndexOutOfBoundsException if it cant find the author
    */
   public void deleteById(int inputId) {
-    authors.removeIf(x -> x.getAuthorId() == inputId);
+    boolean authorExists = authors.stream()
+          .anyMatch(x -> x.getAuthorId() == inputId);
+    if (authorExists) { 
+      authors.removeIf(x -> x.getAuthorId() == inputId);
+    } else {
+      throw new ArrayIndexOutOfBoundsException();
+    }
   }
 
-  /** See all function, prints all authors in the registry. */
-  public void seeAll() {
+  /** 
+   * See all function, prints all authors in the registry. 
+   * 
+   * @throws ArrayIndexOutOfBoundsException Usually throws when empty
+   */
+  public void seeAll() throws Exception {
+    if (authors.isEmpty()) {
+      throw new ArrayIndexOutOfBoundsException();
+    }
     System.out.println("List of Authors:");
     authors.forEach(x -> System.out.println("-  " + x.toString()));
     System.out.println("");

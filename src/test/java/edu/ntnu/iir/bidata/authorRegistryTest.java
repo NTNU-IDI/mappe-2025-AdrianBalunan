@@ -62,7 +62,7 @@ public class AuthorRegistryTest {
   }
 
   @Test
-  public void printingOutShouldCorrespond() {
+  public void printingOutShouldCorrespond() throws Exception {
     Author author1 = new Author("Author1"); // ID: 1
     Authors.addAuthor(author1);
     Author author2 = new Author("Author2"); // ID: 2

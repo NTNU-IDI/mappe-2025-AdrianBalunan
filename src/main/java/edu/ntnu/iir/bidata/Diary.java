@@ -70,9 +70,16 @@ public class Diary {
    * Delete-method that deletes an Author by given id, if it exists.
    *
    * @param inputId Input of the Id
+   * @throws ArrayIndexOutOfBoundsException Cant find the entry spesified
    */
   public void deleteEntry(int inputId) {
-    diaryEntries.removeIf(x -> x.getId() == inputId);
+    boolean entryExists = diaryEntries.stream()
+        .anyMatch(x -> x.getId() == inputId);
+    if (entryExists) { 
+      diaryEntries.removeIf(x -> x.getId() == inputId);
+    } else {
+      throw new ArrayIndexOutOfBoundsException();
+    }
   }
 
   /**
@@ -85,18 +92,24 @@ public class Diary {
     System.out.println("");
 
     if (diaryEntries.isEmpty()) {
-      System.out.println("No entries found.");
+      throw new ArrayIndexOutOfBoundsException();
     } else {
       diaryEntries.forEach(
           entry -> {
-            System.out.println("#----" + entry.getId() + "---#");
-            System.out.println(entry.getTitle());
-            System.out.println(entry.getAuthorName() + "(" + entry.getAuthorId() + ")");
+            System.out.println("#-------#");
+            System.out.println("ID: " + entry.getId());
+            System.out.println("Title: " + entry.getTitle());
+            System.out.println(
+                  "Author: " 
+                  + entry.getAuthorName() 
+                  + " (ID: " 
+                  + entry.getAuthorId() 
+                  + ")");
             System.out.println(entry.getReleaseDate());
-            System.out.println("");
-            System.out.println(entry.getContent());
-            System.out.println("-------");
+            System.out.println("---- Training ---");
             System.out.println(entry.getWorkout());
+            System.out.println("---- Other Notes: ---");
+            System.out.println(entry.getContent());
             System.out.println("#-------#");
             System.out.println("");
 
@@ -108,7 +121,6 @@ public class Diary {
           });
     }
 
-    System.out.println("");
     System.out.println("---------------------------");
     return "Antall innlegg: " + diaryEntries.size();
   }
@@ -123,7 +135,7 @@ public class Diary {
 
     Author foundAuthor = authors.getAuthorById(authorId);
     if (foundAuthor == null) {
-      System.out.println("No Author found with Id of, " + authorId + ".");
+      throw new IllegalArgumentException();
     } else {
       System.out.println(
           "Found Author with id, " + authorId + ": " + foundAuthor.getAuthorName() + ".");
@@ -204,6 +216,10 @@ public class Diary {
 
   /** Method that shows statistics from the authors. */
   public void showAuthorStatistics() {
+    if (diaryEntries.isEmpty()){
+      throw new ArrayIndexOutOfBoundsException();
+    }
+    
     System.out.println("Total number of entries: " + diaryEntries.size());
     // Further statistics can be added here
     List<Author> authors = new ArrayList<>();
@@ -247,25 +263,27 @@ public class Diary {
     list.forEach(
         entry -> {
           try {
-            Thread.sleep(200);
+            Thread.sleep(1000);
           } catch (Exception e) {
             e.printStackTrace();
           }
 
-          System.out.println("#---" + entry.getId() + "---#");
-          System.out.println(entry.getTitle());
-          System.out.println(entry.getAuthorName());
-          System.out.println(entry.getReleaseDate());
-          System.out.println("");
-          System.out.println(entry.getContent());
-          System.out.println("#-------#");
-          System.out.println("");
-
-          try {
-            Thread.sleep(500);
-          } catch (InterruptedException e) {
-            e.printStackTrace();
-          }
+            System.out.println("#-------#");
+            System.out.println("ID: " + entry.getId());
+            System.out.println("Title: " + entry.getTitle());
+            System.out.println(
+                  "Author: " 
+                  + entry.getAuthorName() 
+                  + " (ID: " 
+                  + entry.getAuthorId() 
+                  + ")");
+            System.out.println(entry.getReleaseDate());
+            System.out.println("---- Training ---");
+            System.out.println(entry.getWorkout());
+            System.out.println("---- Other Notes: ---");
+            System.out.println(entry.getContent());
+            System.out.println("#-------#");
+            System.out.println("");
         });
     System.out.println("");
     System.out.println("---------------------------");
