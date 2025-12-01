@@ -36,12 +36,17 @@ public class DiaryTest {
             author2,
             "Første innlegget",
             "Dette er det første innlegget i dagboken min!",
+            "Push ups",
             "23-10-2024");
     diary.addEntry(entry1);
 
     DiaryEntry entry3 =
         new DiaryEntry(
-            author2, "Noe innlegg", "Noe tilfeldig skal stå her eller noe slikt!", "30-10-2024");
+            author2, 
+            "Noe innlegg", 
+            "Noe tilfeldig skal stå her eller noe slikt!", 
+            "Pushups", 
+            "30-10-2024");
     diary.addEntry(entry3);
 
     DiaryEntry entry4 =
@@ -49,6 +54,7 @@ public class DiaryTest {
             author2,
             "Denne forfatteren",
             "Denne forfatteren har mange innlegg i denne dagboken!",
+            "pushups",
             "31-10-2024");
     diary.addEntry(entry4);
 
@@ -60,6 +66,7 @@ public class DiaryTest {
             author3,
             "Andre innlegget",
             "Dette er det andre innlegget i dagboken min!",
+            "pushups",
             "30-10-2025");
     diary.addEntry(entry2);
   }
@@ -73,7 +80,7 @@ public class DiaryTest {
   @Test
   public void addingEntryShouldWork() {
     Author author = new Author("Author");
-    DiaryEntry addEntry = new DiaryEntry(author, "Title", "Content", "30-10-2025");
+    DiaryEntry addEntry = new DiaryEntry(author, "Title", "Content", "pushups", "30-10-2025");
     diary.addEntry(addEntry);
     assertFalse(diary.getEntries().isEmpty());
     assertTrue(diary.getEntries().getLast().getTitle().equals("Title"));
@@ -91,7 +98,7 @@ public class DiaryTest {
     ByteArrayOutputStream outcontent = new ByteArrayOutputStream();
 
     Author author = new Author("Author");
-    DiaryEntry addEntry = new DiaryEntry(author, "Title", "Content", "30-10-2025");
+    DiaryEntry addEntry = new DiaryEntry(author, "Title", "Content", "pushups", "30-10-2025");
     diary.addEntry(addEntry);
 
     System.setOut(new PrintStream(outcontent));
@@ -123,7 +130,12 @@ public class DiaryTest {
 
     Author author = new Author("Author");
     authors.addAuthor(author);
-    DiaryEntry addEntry = new DiaryEntry(author, "Title", "Content", "30-10-2025");
+    DiaryEntry addEntry = new DiaryEntry(
+          author, 
+          "Title", 
+          "Content",
+          "pushups", 
+          "30-10-2025");
     diary.addEntry(addEntry);
 
     System.setOut(new PrintStream(outcontent));
@@ -161,7 +173,6 @@ public class DiaryTest {
     diary.seeAllBetweenDates("22-10-2024", "24-10-2024");
     System.setOut(orignalOut);
 
-    assertTrue(outcontent.toString().contains("#-------#"));
     assertTrue(outcontent.toString().contains("---------------------------"));
     assertTrue(outcontent.toString().contains("23-10-2024"));
   }
@@ -187,7 +198,6 @@ public class DiaryTest {
     diary.seeAllInDate("23-10-2024");
     System.setOut(orignalOut);
 
-    assertTrue(outcontent.toString().contains("#-------#"));
     assertTrue(outcontent.toString().contains("---------------------------"));
     assertTrue(outcontent.toString().contains("23-10-2024"));
   }

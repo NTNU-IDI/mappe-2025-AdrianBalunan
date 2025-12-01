@@ -84,7 +84,7 @@ public class Diary {
     System.out.println("---------------------------");
     System.out.println("");
 
-    if (diaryEntries.isEmpty()){
+    if (diaryEntries.isEmpty()) {
       System.out.println("No entries found.");
     } else {
       diaryEntries.forEach(
@@ -95,6 +95,8 @@ public class Diary {
             System.out.println(entry.getReleaseDate());
             System.out.println("");
             System.out.println(entry.getContent());
+            System.out.println("-------");
+            System.out.println(entry.getWorkout());
             System.out.println("#-------#");
             System.out.println("");
 

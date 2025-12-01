@@ -39,6 +39,9 @@ public class DiaryEntry {
   /** Content variables that store info. */
   private String content;
 
+  /** Contains details of your workout. */
+  private String workout;
+
   /**
    * Contructur for the DiaryEntry class, with input parameters. Relase date is automatically set to
    * the current date and time, and custimized using a formatter
@@ -46,8 +49,9 @@ public class DiaryEntry {
    * @param author input Author
    * @param title input title
    * @param content input content
+   * @param workout input workout
    */
-  public DiaryEntry(Author author, String title, String content) {
+  public DiaryEntry(Author author, String title, String content, String workout) {
     this.author = author;
 
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy (HH:mm:ss)");
@@ -56,6 +60,7 @@ public class DiaryEntry {
     this.id = nextId++;
     this.title = title;
     this.content = content;
+    this.workout = workout;
   }
 
   /**
@@ -67,13 +72,15 @@ public class DiaryEntry {
    * @param title input title
    * @param content input content
    * @param releaseDate input release date. Hours, minutes and seconds to 00:00:00
+   * @param workout input workout
    */
-  public DiaryEntry(Author author, String title, String content, String releaseDate) {
+  public DiaryEntry(Author author, String title, String content, String workout, String releaseDate) {
     this.author = author;
     this.releaseDate = releaseDate + " (00:00:00)";
     this.id = nextId++;
     this.title = title;
     this.content = content;
+    this.workout = workout;
   }
 
   /**
@@ -110,6 +117,15 @@ public class DiaryEntry {
    */
   public String getAuthorName() {
     return author.getAuthorName();
+  }
+  
+  /**
+   * Getter-method for getting the workout.
+   *
+   * @return Returns the Author of the entrys name
+   */
+  public String getWorkout() {
+    return workout;
   }
 
   /**
@@ -156,6 +172,8 @@ public class DiaryEntry {
         + ", Author: "
         + author.getAuthorName()
         + ", Content: "
-        + content;
+        + content
+        + ", Workout: "
+        + workout;
   }
 }

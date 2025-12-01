@@ -47,38 +47,45 @@ public class Main {
     String fillerChoice = scanner.nextLine();
     if (fillerChoice.equalsIgnoreCase("y")) {
       // Filler content:
-      Author author2 = new Author("Adrian Balunan");
+      Author author2 = new Author("Steve");
       authors.addAuthor(author2);
 
       DiaryEntry entry1 =
           new DiaryEntry(
               author2,
-              "Første innlegget",
-              "Dette er det første innlegget i dagboken min!",
+              "First Entry",
+              "This is the first Entry, workout feelt great",
+              "Running and Intervals",
               "23-10-2024");
       Diary1.addEntry(entry1);
 
       DiaryEntry entry3 =
           new DiaryEntry(
-              author2, "Noe innlegg", "Noe tilfeldig skal stå her eller noe slikt!", "30-10-2024");
+              author2, 
+              "Second Entry", 
+              "Did somethings here and there but nothing too crazy", 
+              "Something something strenght training",
+              "30-10-2024");
       Diary1.addEntry(entry3);
 
       DiaryEntry entry4 =
           new DiaryEntry(
               author2,
-              "Denne forfatteren",
-              "Denne forfatteren har mange innlegg i denne dagboken!",
+              "Third Entry",
+              "Gym closed so i went outside",
+              "Stamina Training",
               "31-10-2024");
       Diary1.addEntry(entry4);
 
-      Author author3 = new Author("Ola Nordmann");
+      Author author3 = new Author("Jane Doe");
       authors.addAuthor(author3);
 
       DiaryEntry entry2 =
           new DiaryEntry(
               author3,
-              "Andre innlegget",
-              "Dette er det andre innlegget i dagboken min!",
+              "Woahhhhhhh",
+              "Look im using the system, workout was alright.",
+              "Running and Strenght",
               "30-10-2025");
       Diary1.addEntry(entry2);
     }
@@ -180,9 +187,12 @@ public class Main {
           }
           Author foundAuthor = authors.getAuthorById(userParse);
 
-          System.out.println("Add your content:");
+          System.out.println("Add your content (your thoughts and evaluations):");
           String content = scanner.nextLine();
-          DiaryEntry entry = new DiaryEntry(foundAuthor, name, content);
+
+          System.out.println("Include details about your workout:");
+          String workout = scanner.nextLine();
+          DiaryEntry entry = new DiaryEntry(foundAuthor, name, content, workout);
           d.addEntry(entry);
 
           System.out.println(" ");

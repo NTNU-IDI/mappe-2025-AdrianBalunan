@@ -33,7 +33,11 @@ public class DiaryEntryTest {
   public void inputNameShouldBeCorrect() {
     DiaryEntry entry =
         new DiaryEntry(
-            author1, "First Instance", "This is useless text used for testing dada", "23-10-2024");
+            author1, 
+            "First Instance", 
+            "This is useless text used for testing dada", 
+            "Pushups",
+            "23-10-2024");
     assertTrue(entry.getTitle().equals("First Instance"));
   }
 
@@ -41,7 +45,11 @@ public class DiaryEntryTest {
   public void authorsNameShouldBePrinted() {
     DiaryEntry entry =
         new DiaryEntry(
-            author1, "First Instance", "This is useless text used for testing dada", "23-10-2024");
+            author1, 
+            "First Instance", 
+            "This is useless text used for testing dada", 
+            "pushups",
+            "23-10-2024");
     assertTrue(entry.getAuthorName().equals("Author1"));
   }
 
@@ -49,7 +57,11 @@ public class DiaryEntryTest {
   public void firstInstanceShouldHaveId1() {
     DiaryEntry entry =
         new DiaryEntry(
-            author1, "First Instance", "This is useless text used for testing dada", "23-10-2024");
+            author1, 
+            "First Instance", 
+            "This is useless text used for testing dada", 
+            "pushups",
+            "23-10-2024");
     assertEquals(1, entry.getId());
   }
 
@@ -57,9 +69,13 @@ public class DiaryEntryTest {
   public void secondInstanceShouldHaveId2() {
     DiaryEntry entry =
         new DiaryEntry(
-            author1, "First Instance", "This is useless text used for testing dada", "23-10-2024");
+            author1, 
+            "First Instance", 
+            "This is useless text used for testing dada", 
+            "pushups",
+            "23-10-2024");
     Author author2 = new Author("Author2");
-    DiaryEntry entry2 = new DiaryEntry(author2, "Second", "Useless Text,");
+    DiaryEntry entry2 = new DiaryEntry(author2, "Second", "Useless Text,", "Pushups 3x15");
     assertEquals(2, entry2.getId());
   }
 
@@ -67,7 +83,11 @@ public class DiaryEntryTest {
   public void testingToString() {
     DiaryEntry entry =
         new DiaryEntry(
-            author1, "First Instance", "This is useless text used for testing dada", "23-10-2024");
+            author1, 
+            "First Instance", 
+            "This is useless text used for testing dada", 
+            "Pushups 3x15", 
+            "23-10-2024");
     assertTrue(
         entry.toString()
             .contains(
@@ -77,7 +97,11 @@ public class DiaryEntryTest {
   @Test
   public void noReleaseContructurShouldWork() {
     DiaryEntry entryNoReleaseDate =
-        new DiaryEntry(author1, "First Instance", "This is useless text used for testing dada");
+        new DiaryEntry(
+            author1, 
+            "First Instance", 
+            "This is useless text used for testing dada",
+            "Pushups 3x15");
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     assertTrue(
         entryNoReleaseDate.getReleaseDate()
@@ -88,9 +112,17 @@ public class DiaryEntryTest {
   @Test
   public void gettingAuthorIdShouldWork() {
     DiaryEntry entry1 =
-        new DiaryEntry(author1, "First Instance", "This is useless text used for testing dada");
+        new DiaryEntry(
+              author1, 
+              "First Instance", 
+              "This is useless text used for testing dada, ", 
+              "Pushups 3x15\"");
     DiaryEntry entry2 =
-        new DiaryEntry(author1, "Second Instance", "This is useless text used for testing dada");
+        new DiaryEntry(
+              author1, 
+              "Second Instance", 
+              "This is useless text used for testing dada, ", 
+              "Pushups 3x15\"");
     assertEquals(1, entry1.getAuthorId());
     assertEquals(1, entry2.getAuthorId());
   }
@@ -98,9 +130,17 @@ public class DiaryEntryTest {
   @Test
   public void gettingAuthorNameShouldWork() {
     DiaryEntry entry1 =
-        new DiaryEntry(author1, "First Instance", "This is useless text used for testing dada");
+        new DiaryEntry(
+            author1, 
+            "First Instance", 
+            "This is useless text used for testing dada", 
+            "Pushups 3x15");
     DiaryEntry entry2 =
-        new DiaryEntry(author1, "Second Instance", "This is useless text used for testing dada");
+        new DiaryEntry(
+              author1, 
+              "Second Instance", 
+              "This is useless text used for testing dada", 
+              "Pushups 3x15");
     assertTrue(entry1.getAuthorName().equals("Author1"));
     assertTrue(entry2.getAuthorName().equals("Author1"));
   }
@@ -108,17 +148,29 @@ public class DiaryEntryTest {
   @Test
   public void testingResetEntryNextId() {
     DiaryEntry entry1 =
-        new DiaryEntry(author1, "First Instance", "This is useless text used for testing dada");
+        new DiaryEntry(
+              author1, 
+              "First Instance", 
+              "This is useless text used for testing dada", 
+              "Push-ups 3x15");
     DiaryEntry.resetEntryNextId();
     DiaryEntry entry2 =
-        new DiaryEntry(author1, "Second Instance", "This is useless text used for testing dada");
+        new DiaryEntry(
+              author1, 
+              "Second Instance", 
+              "This is useless text used for testing dada", 
+              "Pushups 3x15");
     assertEquals(1, entry2.getId());
   }
 
   @Test
   public void getContentShouldWork() {
     DiaryEntry entry1 =
-        new DiaryEntry(author1, "First Instance", "This is useless text used for testing dada");
+        new DiaryEntry(
+              author1, 
+              "First Instance", 
+              "This is useless text used for testing dada", 
+              "Pushups 3x15");
     assertTrue(entry1.getContent().equals("This is useless text used for testing dada"));
   }
 }
