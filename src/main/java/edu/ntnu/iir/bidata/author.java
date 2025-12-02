@@ -23,8 +23,12 @@ public class Author {
    * COnstructor for the Author class.
    *
    * @param authorName input name of the Author from the user
+   * @throws IllegalArgumentException If the name is empty
    */
   public Author(String authorName) {
+    if (authorName.trim().isEmpty()) {
+      throw new IllegalArgumentException();
+    }
     this.authorId = author_nextId++;
     this.authorName = authorName;
   }

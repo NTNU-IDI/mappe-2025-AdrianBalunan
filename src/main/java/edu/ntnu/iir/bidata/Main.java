@@ -13,7 +13,7 @@ public class Main {
    * Initalizes and creates variables and objects.
    * 
    * @param scanner Scanner object
-   * @throws Exception 
+   * @throws Exception
    */
   public static void init(Scanner scanner) throws Exception {
     // Welcome:
@@ -51,43 +51,39 @@ public class Main {
       Author author2 = new Author("Steve");
       authors.addAuthor(author2);
 
-      DiaryEntry entry1 =
-          new DiaryEntry(
-              author2,
-              "First Entry",
-              "This is the first Entry, workout feelt great",
-              "Running and Intervals",
-              "23-10-2024");
+      DiaryEntry entry1 = new DiaryEntry(
+          author2,
+          "First Entry",
+          "This is the first Entry, workout feelt great",
+          "Running and Intervals",
+          "23-10-2024");
       Diary1.addEntry(entry1);
 
-      DiaryEntry entry3 =
-          new DiaryEntry(
-              author2, 
-              "Second Entry", 
-              "Did somethings here and there but nothing too crazy", 
-              "Something something strenght training",
-              "30-10-2024");
+      DiaryEntry entry3 = new DiaryEntry(
+          author2,
+          "Second Entry",
+          "Did somethings here and there but nothing too crazy",
+          "Something something strenght training",
+          "30-10-2024");
       Diary1.addEntry(entry3);
 
-      DiaryEntry entry4 =
-          new DiaryEntry(
-              author2,
-              "Third Entry",
-              "Gym closed so i went outside",
-              "Stamina Training",
-              "31-10-2024");
+      DiaryEntry entry4 = new DiaryEntry(
+          author2,
+          "Third Entry",
+          "Gym closed so i went outside",
+          "Stamina Training",
+          "31-10-2024");
       Diary1.addEntry(entry4);
 
       Author author3 = new Author("Jane Doe");
       authors.addAuthor(author3);
 
-      DiaryEntry entry2 =
-          new DiaryEntry(
-              author3,
-              "Woahhhhhhh",
-              "Look im using the system, workout was alright.",
-              "Running and Strenght",
-              "30-10-2025");
+      DiaryEntry entry2 = new DiaryEntry(
+          author3,
+          "Woahhhhhhh",
+          "Look im using the system, workout was alright.",
+          "Running and Strenght",
+          "30-10-2025");
       Diary1.addEntry(entry2);
     }
     System.out.println(" ");
@@ -101,7 +97,7 @@ public class Main {
    * Starts the main menu sequence.
    * 
    * @param scanner Scanner Object made in init()
-   * @param d Diary Object made in init()
+   * @param d       Diary Object made in init()
    * @param authors AuthorRegistry Object made in init()
    */
   public static void start(Scanner scanner, Diary d, AuthorRegistry authors) throws Exception {
@@ -151,6 +147,9 @@ public class Main {
             System.out.println("No Entries found.");
             pressToContinue(scanner);
             continue;
+          } catch (Exception e) {
+            System.out.println("Unknown Error, returning...");
+            continue;
           }
           pressToContinue(scanner);
           break;
@@ -161,8 +160,11 @@ public class Main {
             System.out.println("No Authors are registered.");
             pressToContinue(scanner);
             continue;
+          } catch (Exception e) {
+            System.out.println("Unknown Error, returning...");
+            continue;
           }
-          
+
           System.out.print("\nWrite down the Author ID you want to see all entries from:");
           userInput = scanner.nextLine();
 
@@ -180,8 +182,15 @@ public class Main {
             System.out.println("No Author found with Id of, " + userParse + ".");
             pressToContinue(scanner);
             continue;
+          } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Unfortunately, this Author wasent published an entry");
+            pressToContinue(scanner);
+            continue;
+          } catch (Exception e) {
+            System.out.println("Unknown Error, returning...");
+            continue;
           }
-          pressToContinue(scanner);
+
           break;
         case 3:
           if (authors.getAuthors().isEmpty()) {
@@ -195,7 +204,7 @@ public class Main {
           final String name = scanner.nextLine();
 
           authors.seeAll();
-  
+
           System.out.print("Write down the Author ID you want to assign to this entry: ");
           userInput = scanner.nextLine();
           try {
@@ -205,7 +214,6 @@ public class Main {
             pressToContinue(scanner);
             continue;
           }
-          
 
           System.out.println("Add your content (your thoughts and evaluations):");
           String content = scanner.nextLine();
@@ -218,6 +226,11 @@ public class Main {
           try {
             DiaryEntry entry = new DiaryEntry(authors, foundAuthor, name, content, workout);
             d.addEntry(entry);
+
+            System.out.println(" ");
+            System.out.println("Success!");
+
+            pressToContinue(scanner);
           } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("Chosen Author does not exist.");
             pressToContinue(scanner);
@@ -226,12 +239,12 @@ public class Main {
             System.out.println("None of the input fields can be empty");
             pressToContinue(scanner);
             continue;
+          } catch (Exception e) {
+            System.out.println("Unknown Error, returning...");
+            continue;
           }
 
-          System.out.println(" ");
-          System.out.println("Success!");
-          
-          pressToContinue(scanner);
+
           break;
         case 4:
           if (d.getEntries().isEmpty()) {
@@ -261,6 +274,9 @@ public class Main {
             System.out.println("Entry does not exist.");
             pressToContinue(scanner);
             continue;
+          } catch (Exception e){
+            System.out.println("Unknown Error, returning...");
+            continue;
           }
 
           break;
@@ -280,18 +296,28 @@ public class Main {
             System.out.println("No Authors are registerd.");
             pressToContinue(scanner);
             continue;
+          } catch (Exception e){
+            System.out.println("Unknown Error, returning...");
+            continue;
           }
-          
+
           break;
         case 8:
           System.out.println("----- Adding an Author -----");
           System.out.print("Write the Author's name you want to add: ");
           String authorName = scanner.nextLine();
-          Author newAuthor = new Author(authorName);
 
-          System.out.println("Author, " + newAuthor.getAuthorName() + " is added.");
-          authors.addAuthor(newAuthor);
-          pressToContinue(scanner);
+          try {
+            Author newAuthor = new Author(authorName);
+
+            System.out.println("Author, " + newAuthor.getAuthorName() + " is added.");
+            authors.addAuthor(newAuthor);
+            pressToContinue(scanner);
+          } catch (IllegalArgumentException e) {
+            System.out.println("Name can't be empty");
+            pressToContinue(scanner);
+            continue;
+          }
           break;
         case 7:
           try {
@@ -300,6 +326,9 @@ public class Main {
           } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("Authors havent made an entry");
             pressToContinue(scanner);
+            continue;
+          } catch (Exception e){
+            System.out.println("Unknown Error, returning...");
             continue;
           }
           break;
@@ -310,7 +339,7 @@ public class Main {
             continue;
           }
           System.out.println("----- Deleting an Author -----");
-            
+
           authors.seeAll();
 
           System.out.print("Write the specified Author ID you want to delete: ");
@@ -326,8 +355,9 @@ public class Main {
 
           try {
             authors.deleteById(tempParse);
-            List<DiaryEntry> deletedAuthorEntries =
-                d.getEntries().stream().filter(x -> x.getAuthorId() == tempParse).toList();
+            List<DiaryEntry> deletedAuthorEntries = d.getEntries().stream()
+                .filter(x -> x.getAuthorId() == tempParse)
+                .toList();
 
             for (DiaryEntry authorEntry : deletedAuthorEntries) {
               d.deleteEntry(authorEntry.getId());
@@ -338,6 +368,9 @@ public class Main {
           } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("Inputted Author does not exist");
             pressToContinue(scanner);
+            continue;
+          } catch (Exception e){
+            System.out.println("Unknown Error, returning...");
             continue;
           }
 
@@ -351,13 +384,14 @@ public class Main {
       }
     } while (valg != 10);
   }
+
   /**
    * Branches from start(). It's an main menu option.
    * 
    * @param scanner Scanner Object made in init()
-   * @param d Diary Object made in init()
+   * @param d       Diary Object made in init()
    * @param authors AuthorRegistry Object made in init()
-   * @throws Exception 
+   * @throws Exception but is handled correctly
    */
 
   public static void search(Scanner scanner, Diary d, AuthorRegistry authors) throws Exception {
@@ -391,16 +425,22 @@ public class Main {
       int userParse = 0;
       switch (valg2) {
         case 1:
-          System.out.println("----- Searching Entries by Author -----");
-          
+
           try {
+            System.out.println("----- Searching Entries by Author -----");
             authors.seeAll();
           } catch (ArrayIndexOutOfBoundsException e) {
-            // TODO: handle exception
+            System.out.println("No Author to delete.");
+            pressToContinue(scanner);
+            continue;
+          } catch (Exception e){
+            System.out.println("Unknown Error, returning...");
+            continue;
           }
 
           System.out.print("\nWrite down the Author ID you want to see all entries from: ");
           userInput = scanner.nextLine();
+
           try {
             userParse = Integer.parseInt(userInput);
           } catch (Exception e) {
@@ -408,7 +448,21 @@ public class Main {
             pressToContinue(scanner);
             continue;
           }
-          d.seeAllByAuthor(userParse, authors);
+
+          try {
+            d.seeAllByAuthor(userParse, authors);
+          } catch (IllegalArgumentException e) {
+            System.out.println("No Author found with Id of, " + userParse + ".");
+            pressToContinue(scanner);
+            continue;
+          } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Unfortunately, this Author wasent published an entry");
+            pressToContinue(scanner);
+            continue;
+          } catch (Exception e) {
+            System.out.println("Unknown Error, returning...");
+            continue;
+          }
           pressToContinue(scanner);
           break;
         case 2:
@@ -419,73 +473,89 @@ public class Main {
           System.out.print("Skriv inn andre dato (DD-MM-YYYY):");
           String sluttDato = scanner.nextLine();
 
-          if (startDato.length() != 10
-              || sluttDato.length() != 10
-              || sluttDato.charAt(2) != '-'
-              || startDato.charAt(2) != '-'
-              || sluttDato.charAt(5) != '-'
-              || startDato.charAt(5) != '-') {
-            System.out.println("Please type in your date at the spesified format.");
-            continue;
-          }
-
-          LocalDate start = null;
-          LocalDate end = null;
           DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-
           try {
-            start = LocalDate.parse(startDato, formatter);
-            end = LocalDate.parse(startDato, formatter);
+            LocalDate start = LocalDate.parse(startDato, formatter);
+            LocalDate end = LocalDate.parse(startDato, formatter);
           } catch (DateTimeParseException e) {
             System.out.println("Please type in valid dates.");
             pressToContinue(scanner);
-          }
-
-          if (start.isAfter(end) || end.isBefore(start)) {
-            System.out.println(
-                "Please type a valid interval, the first date should be before the second date");
-            pressToContinue(scanner);
+          } catch (Exception e) {
+            System.out.println("Unknown Error, returning...");
             continue;
           }
 
-          d.seeAllBetweenDates(startDato, sluttDato);
-          pressToContinue(scanner);
+          try {
+            d.seeAllBetweenDates(startDato, sluttDato);
+            pressToContinue(scanner);
+          } catch (IllegalArgumentException e) {
+            System.out.println(
+                "Please write down your date at the spesified date");
+            pressToContinue(scanner);
+            continue;
+          } catch (IllegalAccessException e) {
+            System.out.println(
+                "Please type a valid interval, the first date should be before the second ");
+            pressToContinue(scanner);
+            continue;
+          } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println(
+                "No entries between the spesified dates");
+            pressToContinue(scanner);
+            continue;
+          } catch (Exception e) {
+            System.out.println("Unknown Error, returning...");
+            continue;
+          }
           break;
         case 3:
           System.out.println("----- Searching Entries made on a spesific Date -----");
           System.out.print("Skriv inn første dato (DD-MM-YYYY):");
           String datoInput = scanner.nextLine();
 
-          if (datoInput.length() != 10
-              || datoInput.charAt(2) != '-'
-              || datoInput.charAt(5) != '-') {
-            System.out.println("Please type in your date at the spesified format.");
-            pressToContinue(scanner);
-            continue;
-          }
-          LocalDate datoParsed;
-          formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-
           try {
-            datoParsed = LocalDate.parse(datoInput, formatter);
+            formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            LocalDate datoParsed = LocalDate.parse(datoInput, formatter);
           } catch (DateTimeParseException e) {
             System.out.println("Please type in valid dates.");
             pressToContinue(scanner);
             continue;
+          } catch (Exception e) {
+            System.out.println("Unknown Error, returning...");
+            continue;
           }
-          System.out.println("");   
 
+          try {
+            d.seeAllInDate(datoInput);
+            pressToContinue(scanner);
+          } catch (IllegalArgumentException e) {
+            System.out.println("Please type in your date at the spesified format.");
+            pressToContinue(scanner);
+            continue;
+          } catch (Exception e) {
+            System.out.println("Unknown Error, returning...");
+            continue;
+          }
 
-          d.seeAllInDate(datoInput);
-          pressToContinue(scanner);
           break;
         case 4:
           System.out.println("----- Searching Entries that contain keyword -----");
 
           System.out.print("Skriv inn søkeord:");
           String keyword = scanner.nextLine();
-          d.seeAllWithWord(keyword);
-          pressToContinue(scanner);
+         
+          try {
+            d.seeAllWithWord(keyword);
+            pressToContinue(scanner);
+          } catch (IllegalArgumentException e) {
+            System.out.println("Your Search word cant be empty");
+            pressToContinue(scanner);
+            continue;
+          } catch (Exception e) {
+            System.out.println("Unknown Error, returning...");
+            continue;
+          }
+
           break;
         case 5:
           System.out.println("Returning to main menu...");
@@ -497,24 +567,24 @@ public class Main {
     } while (valg2 != 5);
   }
 
-
   /**
    * Main method, all starts here.
    * 
    * @param args Java Start
-   * @throws Exception 
+   * @throws Exception
    */
 
   public static void main(String[] args) throws Exception {
     Scanner scanner = new Scanner(System.in);
     init(scanner);
+    scanner.close();
   }
 
   /**
    * Helper function to controll the passing.
    * 
    * @param scanner Scanner Objects
-   */  
+   */
   public static void pressToContinue(Scanner scanner) {
     System.out.println(" ");
     System.out.println("Press Enter to continue...");

@@ -5,7 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Diary class contains the name of the diary and a list of diary entries. This is the main class
+ * Diary class contains the name of the diary and a list of diary entries. This
+ * is the main class
  * for this system.
  *
  * @Author Adrian Balunan
@@ -75,7 +76,7 @@ public class Diary {
   public void deleteEntry(int inputId) {
     boolean entryExists = diaryEntries.stream()
         .anyMatch(x -> x.getId() == inputId);
-    if (entryExists) { 
+    if (entryExists) {
       diaryEntries.removeIf(x -> x.getId() == inputId);
     } else {
       throw new ArrayIndexOutOfBoundsException();
@@ -100,11 +101,11 @@ public class Diary {
             System.out.println("ID: " + entry.getId());
             System.out.println("Title: " + entry.getTitle());
             System.out.println(
-                  "Author: " 
-                  + entry.getAuthorName() 
-                  + " (ID: " 
-                  + entry.getAuthorId() 
-                  + ")");
+                "Author: "
+                    + entry.getAuthorName()
+                    + " (ID: "
+                    + entry.getAuthorId()
+                    + ")");
             System.out.println(entry.getReleaseDate());
             System.out.println("---- Training ---");
             System.out.println(entry.getWorkout());
@@ -129,7 +130,9 @@ public class Diary {
    * Search Algorithm that prints out all entries by a spesific Author ID.
    *
    * @param authorId Id of the author
-   * @param authors AuthorRegistry object
+   * @param authors  AuthorRegistry object
+   * @throws IllegalArgumentException       If the id isn't found
+   * @throws ArrayIndexOutOfBoundsException If the author wasent made an entry
    */
   public void seeAllByAuthor(int authorId, AuthorRegistry authors) {
 
@@ -139,10 +142,9 @@ public class Diary {
     } else {
       System.out.println(
           "Found Author with id, " + authorId + ": " + foundAuthor.getAuthorName() + ".");
-      List<DiaryEntry> filiteredAuthor =
-          diaryEntries.stream().filter(x -> x.getAuthorId() == authorId).toList();
+      List<DiaryEntry> filiteredAuthor = diaryEntries.stream().filter(x -> x.getAuthorId() == authorId).toList();
       if (filiteredAuthor.isEmpty()) {
-        System.out.println("Unfortunately, this Author wasent published an entry");
+        throw new ArrayIndexOutOfBoundsException();
       } else {
         System.out.println("# Entries by: " + foundAuthor.getAuthorName());
         printout(filiteredAuthor);
@@ -155,23 +157,38 @@ public class Diary {
    * Search function that searches for entries between given DATES.
    *
    * @param inputStart Start date
-   * @param inputEnd Ending date
+   * @param inputEnd   Ending date
+   * @throws IllegalAccessException If the dates form an invalid intervall
+   * @throws IllegalArgumentException If the input is not at the spesified format (dd-MM-yyyy)
+   * @throws ArrayIndexOutOfBoundsException If the correct interval show no entries
    */
-  public void seeAllBetweenDates(String inputStart, String inputEnd) {
+  public void seeAllBetweenDates(String inputStart, String inputEnd) throws IllegalAccessException{
+    if (inputStart.length() != 10
+        || inputEnd.length() != 10
+        || inputEnd.charAt(2) != '-'
+        || inputStart.charAt(2) != '-'
+        || inputEnd.charAt(5) != '-'
+        || inputStart.charAt(5) != '-') {
+      throw new IllegalArgumentException();
+    }
+
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     LocalDate start = LocalDate.parse(inputStart, formatter);
     LocalDate end = LocalDate.parse(inputEnd, formatter);
 
-    List<DiaryEntry> filitedentries =
-        diaryEntries.stream()
-            .filter(
-                e -> {
-                  LocalDate date = LocalDate.parse(e.getReleaseDate().substring(0, 10), formatter);
-                  return !date.isBefore(start) && !date.isAfter(end);
-                })
-            .toList();
+    if (start.isAfter(end) || end.isBefore(start)) {
+      throw new IllegalAccessException();
+    } 
+
+    List<DiaryEntry> filitedentries = diaryEntries.stream()
+        .filter(
+            e -> {
+              LocalDate date = LocalDate.parse(e.getReleaseDate().substring(0, 10), formatter);
+              return !date.isBefore(start) && !date.isAfter(end);
+            })
+        .toList();
     if (filitedentries.isEmpty()) {
-      System.out.println("No entries between the spesified dates");
+      throw new ArrayIndexOutOfBoundsException();
     } else {
       System.out.println("# Entries between: " + start + " <-> " + end + " #");
       printout(filitedentries);
@@ -182,12 +199,20 @@ public class Diary {
    * Search function that shows all entries in one spesified date.
    *
    * @param date input date from user
+   * @throws IllegalArgumentException If the input is not at the spesified format (dd-MM-yyyy)
+   *  
    */
   public void seeAllInDate(String date) {
-    List<DiaryEntry> filteredDates =
-        diaryEntries.stream()
-            .filter(e -> e.getReleaseDate().substring(0, 10).equalsIgnoreCase(date))
-            .toList();
+
+    if (date.length() != 10
+        || date.charAt(2) != '-'
+        || date.charAt(5) != '-') {
+      throw new IllegalArgumentException();
+        
+    }
+    List<DiaryEntry> filteredDates = diaryEntries.stream()
+        .filter(e -> e.getReleaseDate().substring(0, 10).equalsIgnoreCase(date))
+        .toList();
     if (filteredDates.isEmpty()) {
       System.out.println("No entries found in this date");
     } else {
@@ -202,10 +227,12 @@ public class Diary {
    * @param word input word from user
    */
   public void seeAllWithWord(String word) {
-    List<DiaryEntry> filteredWord =
-        diaryEntries.stream()
-            .filter(x -> x.getContent().toLowerCase().contains(word.toLowerCase()))
-            .toList();
+    if (word.trim().isEmpty()) {
+      throw new IllegalArgumentException();
+    }
+    List<DiaryEntry> filteredWord = diaryEntries.stream()
+        .filter(x -> x.getContent().toLowerCase().contains(word.toLowerCase()))
+        .toList();
     if (filteredWord.isEmpty()) {
       System.out.println("No entries found that contains this word: " + word);
     } else {
@@ -216,10 +243,10 @@ public class Diary {
 
   /** Method that shows statistics from the authors. */
   public void showAuthorStatistics() {
-    if (diaryEntries.isEmpty()){
+    if (diaryEntries.isEmpty()) {
       throw new ArrayIndexOutOfBoundsException();
     }
-    
+
     System.out.println("Total number of entries: " + diaryEntries.size());
     // Further statistics can be added here
     List<Author> authors = new ArrayList<>();
@@ -252,7 +279,8 @@ public class Diary {
   }
 
   /**
-   * Helper functions that takes a (usually) streamlined list and prints the contents (usually
+   * Helper functions that takes a (usually) streamlined list and prints the
+   * contents (usually
    * DiaryEntry(s)) out. Used in the seeAll-- functions.
    *
    * @param List Filiterd List
@@ -268,22 +296,22 @@ public class Diary {
             e.printStackTrace();
           }
 
-            System.out.println("#-------#");
-            System.out.println("ID: " + entry.getId());
-            System.out.println("Title: " + entry.getTitle());
-            System.out.println(
-                  "Author: " 
-                  + entry.getAuthorName() 
-                  + " (ID: " 
-                  + entry.getAuthorId() 
+          System.out.println("#-------#");
+          System.out.println("ID: " + entry.getId());
+          System.out.println("Title: " + entry.getTitle());
+          System.out.println(
+              "Author: "
+                  + entry.getAuthorName()
+                  + " (ID: "
+                  + entry.getAuthorId()
                   + ")");
-            System.out.println(entry.getReleaseDate());
-            System.out.println("---- Training ---");
-            System.out.println(entry.getWorkout());
-            System.out.println("---- Other Notes: ---");
-            System.out.println(entry.getContent());
-            System.out.println("#-------#");
-            System.out.println("");
+          System.out.println(entry.getReleaseDate());
+          System.out.println("---- Training ---");
+          System.out.println(entry.getWorkout());
+          System.out.println("---- Other Notes: ---");
+          System.out.println(entry.getContent());
+          System.out.println("#-------#");
+          System.out.println("");
         });
     System.out.println("");
     System.out.println("---------------------------");
