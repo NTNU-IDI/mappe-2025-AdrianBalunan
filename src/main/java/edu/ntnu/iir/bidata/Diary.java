@@ -86,15 +86,13 @@ public class Diary {
   /**
    * Unique print method that prints out all objects in the ArrayList.
    *
-   * @return Simple string
    */
-  public String seeAll() {
-    System.out.println("---------------------------");
-    System.out.println("");
-
+  public void seeAll() {
     if (diaryEntries.isEmpty()) {
       throw new ArrayIndexOutOfBoundsException();
     } else {
+      System.out.println("---------------------------");
+      System.out.println("");
       diaryEntries.forEach(
           entry -> {
             System.out.println("#-------#");
@@ -120,10 +118,8 @@ public class Diary {
               e.printStackTrace();
             }
           });
+      System.out.println("---------------------------");  
     }
-
-    System.out.println("---------------------------");
-    return "Antall innlegg: " + diaryEntries.size();
   }
 
   /**

@@ -105,7 +105,7 @@ public class Main {
     int valg = 0;
     do {
       try {
-        Thread.sleep(1500);
+        Thread.sleep(900);
       } catch (InterruptedException e) {
         e.printStackTrace();
       } // SLeep for 1 second
@@ -144,7 +144,7 @@ public class Main {
           try {
             d.seeAll();
           } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("No Entries found.");
+            System.out.println("-- No Entries found. --");
             pressToContinue(scanner);
             continue;
           } catch (Exception e) {
@@ -157,7 +157,7 @@ public class Main {
           try {
             authors.seeAll();
           } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("No Authors are registered.");
+            System.out.println("-- No Authors are registered. --");
             pressToContinue(scanner);
             continue;
           } catch (Exception e) {
@@ -171,19 +171,19 @@ public class Main {
           try {
             userParse = Integer.parseInt(userInput);
           } catch (Exception e) {
-            System.out.println("Please put a valid input next time");
+            System.out.println("X- Please put a valid input next time -X");
             pressToContinue(scanner);
             continue;
           }
-
+          System.out.println(" ");
           try {
             d.seeAllByAuthor(userParse, authors);
           } catch (IllegalArgumentException e) {
-            System.out.println("No Author found with Id of, " + userParse + ".");
+            System.out.println("X- No Author found with Id of, " + userParse + ". -X");
             pressToContinue(scanner);
             continue;
           } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Unfortunately, this Author wasent published an entry");
+            System.out.println("X- Unfortunately, this Author wasent published an entry -X");
             pressToContinue(scanner);
             continue;
           } catch (Exception e) {
@@ -194,8 +194,9 @@ public class Main {
           break;
         case 3:
           if (authors.getAuthors().isEmpty()) {
-            System.out.println("No Authors are registered and therefore can't make an entry");
+            System.out.println("-- No Authors are registered and therefore can't make an entry --");
             pressToContinue(scanner);
+            continue;
           }
 
           System.out.println("----- Adding an Entry -----");
@@ -210,7 +211,7 @@ public class Main {
           try {
             userParse = Integer.parseInt(userInput);
           } catch (Exception e) {
-            System.out.println("Please put a valid input next time");
+            System.out.println("X- Please put a valid input next time -X");
             pressToContinue(scanner);
             continue;
           }
@@ -228,15 +229,15 @@ public class Main {
             d.addEntry(entry);
 
             System.out.println(" ");
-            System.out.println("Success!");
+            System.out.println("!- Success -!");
 
             pressToContinue(scanner);
           } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Chosen Author does not exist.");
+            System.out.println("X- Chosen Author does not exist. -X");
             pressToContinue(scanner);
             continue;
           } catch (IllegalArgumentException e) {
-            System.out.println("None of the input fields can be empty");
+            System.out.println("X- None of the input fields can be empty -X");
             pressToContinue(scanner);
             continue;
           } catch (Exception e) {
@@ -248,7 +249,7 @@ public class Main {
           break;
         case 4:
           if (d.getEntries().isEmpty()) {
-            System.out.println("No entry to delete.");
+            System.out.println("X- No entry to delete. -X");
             pressToContinue(scanner);
             continue;
           }
@@ -261,17 +262,17 @@ public class Main {
           try {
             userParse = Integer.parseInt(userInput);
           } catch (Exception e) {
-            System.out.println("Please put a valid input next time");
+            System.out.println("X- Please put a valid input next time -X");
             pressToContinue(scanner);
             continue;
           }
 
           try {
             d.deleteEntry(userParse);
-            System.out.println("Entry is found and deleted");
+            System.out.println("!- Entry is found and deleted -!");
             pressToContinue(scanner);
           } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Entry does not exist.");
+            System.out.println("X- Entry does not exist. -X");
             pressToContinue(scanner);
             continue;
           } catch (Exception e){
@@ -282,7 +283,7 @@ public class Main {
           break;
         case 5:
           if (d.getEntries().isEmpty()) {
-            System.out.println("No entry registered, so no need to search ");
+            System.out.println("-- No entry registered, so no need to search --");
             pressToContinue(scanner);
             continue;
           }
@@ -293,7 +294,7 @@ public class Main {
             authors.seeAll();
             pressToContinue(scanner);
           } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("No Authors are registerd.");
+            System.out.println("-- No Authors are registerd --");
             pressToContinue(scanner);
             continue;
           } catch (Exception e){
@@ -310,11 +311,12 @@ public class Main {
           try {
             Author newAuthor = new Author(authorName);
 
-            System.out.println("Author, " + newAuthor.getAuthorName() + " is added.");
+            System.out.println(" ");
+            System.out.println("-- Author, " + newAuthor.getAuthorName() + " is added. --");
             authors.addAuthor(newAuthor);
             pressToContinue(scanner);
           } catch (IllegalArgumentException e) {
-            System.out.println("Name can't be empty");
+            System.out.println("X- Name can't be empty -X");
             pressToContinue(scanner);
             continue;
           }
@@ -324,7 +326,7 @@ public class Main {
             d.showAuthorStatistics();
             pressToContinue(scanner);
           } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Authors havent made an entry");
+            System.out.println("-- Authors havent made an entry --");
             pressToContinue(scanner);
             continue;
           } catch (Exception e){
@@ -334,7 +336,7 @@ public class Main {
           break;
         case 9:
           if (authors.getAuthors().isEmpty()) {
-            System.out.println("No Author to delete.");
+            System.out.println("-- No Author to delete. --");
             pressToContinue(scanner);
             continue;
           }
@@ -347,7 +349,7 @@ public class Main {
           try {
             userParse = Integer.parseInt(userInput);
           } catch (Exception e) {
-            System.out.println("Please put a valid input next time");
+            System.out.println("X- Please put a valid input next time -X");
             pressToContinue(scanner);
             continue;
           }
@@ -362,11 +364,11 @@ public class Main {
             for (DiaryEntry authorEntry : deletedAuthorEntries) {
               d.deleteEntry(authorEntry.getId());
             }
-            System.out.println("Author found and deleted.");
+            System.out.println("!- Author found and deleted. -!");
             pressToContinue(scanner);
 
           } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Inputted Author does not exist");
+            System.out.println("X- Inputted Author does not exist -X");
             pressToContinue(scanner);
             continue;
           } catch (Exception e){
@@ -430,7 +432,7 @@ public class Main {
             System.out.println("----- Searching Entries by Author -----");
             authors.seeAll();
           } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("No Author to delete.");
+            System.out.println("-- No Authors are registered. --");
             pressToContinue(scanner);
             continue;
           } catch (Exception e){
@@ -444,7 +446,7 @@ public class Main {
           try {
             userParse = Integer.parseInt(userInput);
           } catch (Exception e) {
-            System.out.println("Please put a valid input next time");
+            System.out.println("X- Please put a valid input next time -X");
             pressToContinue(scanner);
             continue;
           }
@@ -456,7 +458,7 @@ public class Main {
             pressToContinue(scanner);
             continue;
           } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Unfortunately, this Author wasent published an entry");
+            System.out.println("X- Unfortunately, this Author wasent published an entry -X");
             pressToContinue(scanner);
             continue;
           } catch (Exception e) {
@@ -478,7 +480,7 @@ public class Main {
             LocalDate start = LocalDate.parse(startDato, formatter);
             LocalDate end = LocalDate.parse(startDato, formatter);
           } catch (DateTimeParseException e) {
-            System.out.println("Please type in valid dates.");
+            System.out.println("X- lease type in valid dates. -X");
             pressToContinue(scanner);
           } catch (Exception e) {
             System.out.println("Unknown Error, returning...");
@@ -490,17 +492,17 @@ public class Main {
             pressToContinue(scanner);
           } catch (IllegalArgumentException e) {
             System.out.println(
-                "Please write down your date at the spesified date");
+                "X- Please write down your date at the spesified format");
             pressToContinue(scanner);
             continue;
           } catch (IllegalAccessException e) {
             System.out.println(
-                "Please type a valid interval, the first date should be before the second ");
+                "X- Please type a valid interval, the first date should be before the second -X");
             pressToContinue(scanner);
             continue;
           } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println(
-                "No entries between the spesified dates");
+                "X- No entries between the spesified dates -X");
             pressToContinue(scanner);
             continue;
           } catch (Exception e) {
@@ -517,7 +519,7 @@ public class Main {
             formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
             LocalDate datoParsed = LocalDate.parse(datoInput, formatter);
           } catch (DateTimeParseException e) {
-            System.out.println("Please type in valid dates.");
+            System.out.println("X- Please type in valid dates. -X");
             pressToContinue(scanner);
             continue;
           } catch (Exception e) {
@@ -529,7 +531,7 @@ public class Main {
             d.seeAllInDate(datoInput);
             pressToContinue(scanner);
           } catch (IllegalArgumentException e) {
-            System.out.println("Please type in your date at the spesified format.");
+            System.out.println("X- Please type in your date at the spesified format. -X");
             pressToContinue(scanner);
             continue;
           } catch (Exception e) {
@@ -548,7 +550,7 @@ public class Main {
             d.seeAllWithWord(keyword);
             pressToContinue(scanner);
           } catch (IllegalArgumentException e) {
-            System.out.println("Your Search word cant be empty");
+            System.out.println("X- Your Search word cant be empty -X");
             pressToContinue(scanner);
             continue;
           } catch (Exception e) {
@@ -571,8 +573,10 @@ public class Main {
    * Main method, all starts here.
    * 
    * @param args Java Start
-   * @throws Exception
+   * @throws Exception Expection.
    */
+
+  
 
   public static void main(String[] args) throws Exception {
     Scanner scanner = new Scanner(System.in);
@@ -587,7 +591,17 @@ public class Main {
    */
   public static void pressToContinue(Scanner scanner) {
     System.out.println(" ");
-    System.out.println("Press Enter to continue...");
+    System.out.println("Press Enter to continue.");
     scanner.nextLine();
+    
+    try {
+      for (int i = 0; i <= 2; i++){
+        System.out.print(". ");
+        Thread.sleep(750);
+      }
+    } catch (Exception e) {
+      System.err.println(e);
+    }
+    System.out.println(" ");
   }
 }

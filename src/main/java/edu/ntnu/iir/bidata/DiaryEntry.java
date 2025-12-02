@@ -170,6 +170,19 @@ public class DiaryEntry {
     return author;
   }
 
+  private void updateReleasedate(){
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy (HH:mm:ss)");
+    this.releaseDate = "(Editde):" + LocalDateTime.now().format(formatter);
+  }
+  public void setTitle(String inputName){
+    this.name = inputName;
+    updateReleasedate();
+  }
+  public void setContent(String inputContent){
+    this.content = inputContent;
+    updateReleasedate();
+  }
+  
   /**
    * Unique toString method that prints out all attributes of the DiaryEntry
    * object The seeAll
