@@ -172,14 +172,45 @@ public class DiaryEntry {
 
   private void updateReleasedate(){
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy (HH:mm:ss)");
-    this.releaseDate = "(Editde):" + LocalDateTime.now().format(formatter);
+    this.releaseDate = "(Edited on):" + LocalDateTime.now().format(formatter);
   }
-  public void setTitle(String inputName){
-    this.name = inputName;
+
+  /**
+   * Set method for title.
+   * 
+   * @param inputTitle Input from user
+   */
+  public void setTitle(String inputTitle) {
+    if (inputTitle.isEmpty()) {
+      throw new IllegalArgumentException();
+    }
+    this.title = inputTitle;
     updateReleasedate();
   }
-  public void setContent(String inputContent){
+
+  /**
+   * Set method for content field.
+   * 
+   * @param inputContent Input from user
+   */
+  public void setContent(String inputContent) {
+    if (inputContent.isEmpty()) {
+      throw new IllegalArgumentException();
+    }
     this.content = inputContent;
+    updateReleasedate();
+  }
+
+  /**
+   * Set method for workout field.
+   * 
+   * @param inputWorkout Input from user
+   */
+  public void setWorkout(String inputWorkout) {
+    if (inputWorkout.isEmpty()) {
+      throw new IllegalArgumentException();
+    }
+    this.workout = inputWorkout;
     updateReleasedate();
   }
   

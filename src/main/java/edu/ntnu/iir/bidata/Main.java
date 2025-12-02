@@ -115,17 +115,18 @@ public class Main {
       System.out.println("2  See all diary-entries by spesific Author");
       System.out.println("3. Add an entry");
       System.out.println("4. Delete an Entry");
+      System.out.println("5. Edit an Entry");
       System.out.println("------");
-      System.out.println("5. Search entries");
+      System.out.println("6. Search entries");
       System.out.println("------");
-      System.out.println("6. See all authors");
-      System.out.println("7. See Author statistics");
-      System.out.println("8. Add an Author");
-      System.out.println("9. Delete an Author");
+      System.out.println("7. See all authors");
+      System.out.println("8. See Author statistics");
+      System.out.println("9. Add an Author");
+      System.out.println("10. Delete an Author");
       System.out.println("---------------------");
-      System.out.println("10. Quit");
+      System.out.println("11. Quit");
 
-      System.out.print("Enter your number of choice (1-10):");
+      System.out.print("Enter your number of choice (1-11):");
 
       String valgInput = scanner.nextLine();
       try {
@@ -143,6 +144,7 @@ public class Main {
         case 1:
           try {
             d.seeAll();
+            pressToContinue(scanner);
           } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("-- No Entries found. --");
             pressToContinue(scanner);
@@ -151,7 +153,6 @@ public class Main {
             System.out.println("Unknown Error, returning...");
             continue;
           }
-          pressToContinue(scanner);
           break;
         case 2:
           try {
@@ -245,7 +246,6 @@ public class Main {
             continue;
           }
 
-
           break;
         case 4:
           if (d.getEntries().isEmpty()) {
@@ -275,13 +275,105 @@ public class Main {
             System.out.println("X- Entry does not exist. -X");
             pressToContinue(scanner);
             continue;
-          } catch (Exception e){
+          } catch (Exception e) {
             System.out.println("Unknown Error, returning...");
             continue;
           }
 
           break;
         case 5:
+          try {
+            d.seeAll();
+          } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("-- No Entries found to Edited --");
+            pressToContinue(scanner);
+            continue;
+          } catch (Exception e) {
+            System.out.println("Unknown Error, returning...");
+            continue;
+          }
+
+          System.out.print("\nWrite down the Entry ID you want to edit: ");
+          userInput = scanner.nextLine();
+
+          try {
+            userParse = Integer.parseInt(userInput);
+          } catch (Exception e) {
+            System.out.println("X- Please put a valid input next time -X");
+            pressToContinue(scanner);
+            continue;
+          }
+          int tempParse = userParse;
+
+          try {
+            boolean entryExists = d.getEntries().stream()
+                .anyMatch(x -> x.getId() == tempParse);
+            if (!entryExists) {
+              throw new ArrayIndexOutOfBoundsException();
+            }
+            boolean editing = true;
+            while (editing) {
+              System.out.println("\n------- Editing Entry: " + userParse + " -------");
+              System.out.println("1  Edit the Title");
+              System.out.println("2  Edit Workout");
+              System.out.println("3. Edit Content");
+              System.out.println("4. Return");
+              System.out.print(" Enter your number (1-4):");
+
+
+              String option = scanner.nextLine();
+              int optionParse = Integer.parseInt(option);
+
+              switch (optionParse) {
+                case 1:
+                  System.out.print("Write your new title:");
+                  String inputTitle = scanner.nextLine();
+                  d.getEntries().stream().filter(x -> x.getId() == tempParse).findFirst()
+                      .ifPresent(x -> x.setTitle(inputTitle));
+                  System.out.println(" ");
+                  System.out.println("!- Succsessfully added new title -!");
+                  break;
+                case 2:
+                  System.out.println("Write your new Workout Detalis:");
+                  String inputWorkout = scanner.nextLine();
+                  d.getEntries().stream().filter(x -> x.getId() == tempParse).findFirst()
+                      .ifPresent(x -> x.setWorkout(inputWorkout));
+                  System.out.println(" ");
+                  System.out.println("!- Succsessfully added new Workout Details -!");
+                  break;
+                case 3:
+                  System.out.println("Write your new Content:");
+                  String inputContent = scanner.nextLine();
+                  d.getEntries().stream().filter(x -> x.getId() == tempParse).findFirst()
+                      .ifPresent(x -> x.setContent(inputContent));
+                  System.out.println(" ");
+                  System.out.println("!- Succsessfully added new Content -!");
+                  break;
+                case 4:
+                  editing = false;
+                  System.out.println("Exiting edit menu...");
+                  break;
+                default:
+                  System.out.println("Invalid input, please try again.");
+
+                  break;
+              }
+            }
+          } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("X- Entry does not exist. -X");
+            pressToContinue(scanner);
+            continue;
+          } catch (IllegalArgumentException e) {
+            System.out.println(" ");
+            System.out.println("X- Input can't be empty -X");
+            pressToContinue(scanner);
+          } catch (Exception e) {
+            System.err.println(e);
+            System.out.println("Unknown Error, returning...");
+            continue;
+          }
+          break;
+        case 6:
           if (d.getEntries().isEmpty()) {
             System.out.println("-- No entry registered, so no need to search --");
             pressToContinue(scanner);
@@ -289,7 +381,7 @@ public class Main {
           }
           search(scanner, d, authors);
           break;
-        case 6:
+        case 7:
           try {
             authors.seeAll();
             pressToContinue(scanner);
@@ -297,13 +389,13 @@ public class Main {
             System.out.println("-- No Authors are registerd --");
             pressToContinue(scanner);
             continue;
-          } catch (Exception e){
+          } catch (Exception e) {
             System.out.println("Unknown Error, returning...");
             continue;
           }
 
           break;
-        case 8:
+        case 9:
           System.out.println("----- Adding an Author -----");
           System.out.print("Write the Author's name you want to add: ");
           String authorName = scanner.nextLine();
@@ -321,7 +413,7 @@ public class Main {
             continue;
           }
           break;
-        case 7:
+        case 8:
           try {
             d.showAuthorStatistics();
             pressToContinue(scanner);
@@ -329,12 +421,12 @@ public class Main {
             System.out.println("-- Authors havent made an entry --");
             pressToContinue(scanner);
             continue;
-          } catch (Exception e){
+          } catch (Exception e) {
             System.out.println("Unknown Error, returning...");
             continue;
           }
           break;
-        case 9:
+        case 10:
           if (authors.getAuthors().isEmpty()) {
             System.out.println("-- No Author to delete. --");
             pressToContinue(scanner);
@@ -353,7 +445,7 @@ public class Main {
             pressToContinue(scanner);
             continue;
           }
-          int tempParse = userParse;
+          tempParse = userParse;
 
           try {
             authors.deleteById(tempParse);
@@ -371,20 +463,20 @@ public class Main {
             System.out.println("X- Inputted Author does not exist -X");
             pressToContinue(scanner);
             continue;
-          } catch (Exception e){
+          } catch (Exception e) {
             System.out.println("Unknown Error, returning...");
             continue;
           }
 
           break;
-        case 10:
+        case 11:
           System.out.println("Exiting the program. Goodbye!");
           break;
         default:
           System.out.println("Invalid input, please try again.");
           break;
       }
-    } while (valg != 10);
+    } while (valg != 11);
   }
 
   /**
@@ -435,7 +527,7 @@ public class Main {
             System.out.println("-- No Authors are registered. --");
             pressToContinue(scanner);
             continue;
-          } catch (Exception e){
+          } catch (Exception e) {
             System.out.println("Unknown Error, returning...");
             continue;
           }
@@ -545,7 +637,7 @@ public class Main {
 
           System.out.print("Skriv inn søkeord:");
           String keyword = scanner.nextLine();
-         
+
           try {
             d.seeAllWithWord(keyword);
             pressToContinue(scanner);
@@ -576,8 +668,6 @@ public class Main {
    * @throws Exception Expection.
    */
 
-  
-
   public static void main(String[] args) throws Exception {
     Scanner scanner = new Scanner(System.in);
     init(scanner);
@@ -593,9 +683,9 @@ public class Main {
     System.out.println(" ");
     System.out.println("Press Enter to continue.");
     scanner.nextLine();
-    
+
     try {
-      for (int i = 0; i <= 2; i++){
+      for (int i = 0; i <= 2; i++) {
         System.out.print(". ");
         Thread.sleep(750);
       }

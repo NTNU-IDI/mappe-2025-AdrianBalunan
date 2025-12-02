@@ -228,6 +228,8 @@ public class Diary {
     }
     List<DiaryEntry> filteredWord = diaryEntries.stream()
         .filter(x -> x.getContent().toLowerCase().contains(word.toLowerCase()))
+        .filter(x -> x.getWorkout().toLowerCase().contains(word.toLowerCase()))
+        .filter(x -> x.getTitle().toLowerCase().contains(word.toLowerCase()))
         .toList();
     if (filteredWord.isEmpty()) {
       System.out.println("No entries found that contains this word: " + word);
