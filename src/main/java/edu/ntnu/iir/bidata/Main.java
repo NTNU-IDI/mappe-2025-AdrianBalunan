@@ -39,18 +39,18 @@ public class Main {
     if (authorName.isEmpty()) {
       authorName = "John Doe";
     }
-    Author author1 = new Author(authorName);
-    AuthorRegistry authors = new AuthorRegistry();
+    final Author author1 = new Author(authorName);
+    final AuthorRegistry authors = new AuthorRegistry();
     authors.addAuthor(author1);
 
     System.out.print("Add filler content? Recommended to test the systems functionality (y/n): ");
     String fillerChoice = scanner.nextLine();
     if (fillerChoice.equalsIgnoreCase("y")) {
       // Filler content:
-      Author author2 = new Author("Steve");
+      final Author author2 = new Author("Steve");
       authors.addAuthor(author2);
 
-      DiaryEntry entry1 = new DiaryEntry(
+      final DiaryEntry entry1 = new DiaryEntry(
           author2,
           "First Entry",
           "This is the first Entry, workout feelt great",
@@ -58,7 +58,7 @@ public class Main {
           "23-10-2024");
       Diary1.addEntry(entry1);
 
-      DiaryEntry entry3 = new DiaryEntry(
+      final DiaryEntry entry3 = new DiaryEntry(
           author2,
           "Second Entry",
           "Did somethings here and there but nothing too crazy",
@@ -66,7 +66,7 @@ public class Main {
           "30-10-2024");
       Diary1.addEntry(entry3);
 
-      DiaryEntry entry4 = new DiaryEntry(
+      final DiaryEntry entry4 = new DiaryEntry(
           author2,
           "Third Entry",
           "Gym closed so i went outside",
@@ -74,10 +74,10 @@ public class Main {
           "31-10-2024");
       Diary1.addEntry(entry4);
 
-      Author author3 = new Author("Jane Doe");
+      final Author author3 = new Author("Jane Doe");
       authors.addAuthor(author3);
 
-      DiaryEntry entry2 = new DiaryEntry(
+      final DiaryEntry entry2 = new DiaryEntry(
           author3,
           "Woahhhhhhh",
           "Look im using the system, workout was alright.",
@@ -218,15 +218,15 @@ public class Main {
           }
 
           System.out.println("Add your content (your thoughts and evaluations):");
-          String content = scanner.nextLine();
+          final String content = scanner.nextLine();
 
           System.out.println("Include details about your workout:");
-          String workout = scanner.nextLine();
+          final String workout = scanner.nextLine();
 
-          Author foundAuthor = authors.getAuthorById(userParse);
+          final Author foundAuthor = authors.getAuthorById(userParse);
 
           try {
-            DiaryEntry entry = new DiaryEntry(authors, foundAuthor, name, content, workout);
+            final DiaryEntry entry = new DiaryEntry(authors, foundAuthor, name, content, workout);
             d.addEntry(entry);
 
             System.out.println(" ");
@@ -306,7 +306,7 @@ public class Main {
           int tempParse = userParse;
 
           try {
-            boolean entryExists = d.getEntries().stream()
+            final boolean entryExists = d.getEntries().stream()
                 .anyMatch(x -> x.getId() == tempParse);
             if (!entryExists) {
               throw new ArrayIndexOutOfBoundsException();
@@ -398,10 +398,10 @@ public class Main {
         case 9:
           System.out.println("----- Adding an Author -----");
           System.out.print("Write the Author's name you want to add: ");
-          String authorName = scanner.nextLine();
+          final String authorName = scanner.nextLine();
 
           try {
-            Author newAuthor = new Author(authorName);
+            final Author newAuthor = new Author(authorName);
 
             System.out.println(" ");
             System.out.println("-- Author, " + newAuthor.getAuthorName() + " is added. --");
