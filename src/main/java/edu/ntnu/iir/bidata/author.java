@@ -65,6 +65,6 @@ public class Author {
    */
   @Override
   public String toString() {
-    return "Forfatter ID: " + authorId + ", Navn: " + authorName;
+    return "Author ID: " + authorId + ", Name: " + authorName;
   }
 }

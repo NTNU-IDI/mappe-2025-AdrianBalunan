@@ -13,7 +13,7 @@ public class Main {
    * Initalizes and creates variables and objects.
    * 
    * @param scanner Scanner object
-   * @throws Exception
+   * @throws Exception thrown inside
    */
   public static void init(Scanner scanner) throws Exception {
     // Welcome:
@@ -25,7 +25,6 @@ public class Main {
 
     pressToContinue(scanner);
 
-    // Make
     System.out.print(
         "What would you like to name your Diary (Press enter for default name: SportsDiary): ");
     String inputName = scanner.nextLine();
@@ -142,6 +141,7 @@ public class Main {
       int userParse = 0;
       switch (valg) {
         case 1:
+
           try {
             d.seeAll();
             pressToContinue(scanner);
@@ -506,6 +506,7 @@ public class Main {
 
       System.out.print("Enter your number of choice (1-5):");
       String valg2Input = scanner.nextLine();
+
       try {
         valg2 = Integer.parseInt(valg2Input);
       } catch (Exception e) {
@@ -626,6 +627,11 @@ public class Main {
             System.out.println("X- Please type in your date at the spesified format. -X");
             pressToContinue(scanner);
             continue;
+          } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("No entries found in this date");
+
+            pressToContinue(scanner);
+            continue;
           } catch (Exception e) {
             System.out.println("Unknown Error, returning...");
             continue;
@@ -643,6 +649,10 @@ public class Main {
             pressToContinue(scanner);
           } catch (IllegalArgumentException e) {
             System.out.println("X- Your Search word cant be empty -X");
+            pressToContinue(scanner);
+            continue;
+          } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("No entries found that contains this word: " + keyword);
             pressToContinue(scanner);
             continue;
           } catch (Exception e) {

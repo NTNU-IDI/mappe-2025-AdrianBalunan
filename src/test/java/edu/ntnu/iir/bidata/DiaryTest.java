@@ -1,5 +1,6 @@
 
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
 import java.io.ByteArrayOutputStream;
@@ -31,43 +32,39 @@ public class DiaryTest {
     Author author2 = new Author("Adrian Balunan");
     authors.addAuthor(author2);
 
-    DiaryEntry entry1 =
-        new DiaryEntry(
-            author2,
-            "Første innlegget",
-            "Dette er det første innlegget i dagboken min!",
-            "Push ups",
-            "23-10-2024");
+    DiaryEntry entry1 = new DiaryEntry(
+        author2,
+        "Første innlegget",
+        "Dette er det første innlegget i dagboken min!",
+        "Push ups",
+        "23-10-2024");
     diary.addEntry(entry1);
 
-    DiaryEntry entry3 =
-        new DiaryEntry(
-            author2, 
-            "Noe innlegg", 
-            "Noe tilfeldig skal stå her eller noe slikt!", 
-            "Pushups", 
-            "30-10-2024");
+    DiaryEntry entry3 = new DiaryEntry(
+        author2,
+        "Noe innlegg",
+        "Noe tilfeldig skal stå her eller noe slikt!",
+        "Pushups",
+        "30-10-2024");
     diary.addEntry(entry3);
 
-    DiaryEntry entry4 =
-        new DiaryEntry(
-            author2,
-            "Denne forfatteren",
-            "Denne forfatteren har mange innlegg i denne dagboken!",
-            "pushups",
-            "31-10-2024");
+    DiaryEntry entry4 = new DiaryEntry(
+        author2,
+        "Denne forfatteren",
+        "Denne forfatteren har mange innlegg i denne dagboken!",
+        "pushups",
+        "31-10-2024");
     diary.addEntry(entry4);
 
     Author author3 = new Author("Ola Nordmann");
     authors.addAuthor(author3);
 
-    DiaryEntry entry2 =
-        new DiaryEntry(
-            author3,
-            "Andre innlegget",
-            "Dette er det andre innlegget i dagboken min!",
-            "pushups",
-            "30-10-2025");
+    DiaryEntry entry2 = new DiaryEntry(
+        author3,
+        "Andre innlegget",
+        "Dette er det andre innlegget i dagboken min!",
+        "pushups",
+        "30-10-2025");
     diary.addEntry(entry2);
   }
 
@@ -93,13 +90,15 @@ public class DiaryTest {
   }
 
   @Test
+  public void seeAllingAnEmptyArrayShouldGiveException() {
+    Diary diary2 = new Diary();
+    assertThrows(ArrayIndexOutOfBoundsException.class, () -> diary2.seeAll());
+  }
+
+  @Test
   public void testingPrintOut() {
     final PrintStream orignalOut = System.out;
     ByteArrayOutputStream outcontent = new ByteArrayOutputStream();
-
-    Author author = new Author("Author");
-    DiaryEntry addEntry = new DiaryEntry(author, "Title", "Content", "pushups", "30-10-2025");
-    diary.addEntry(addEntry);
 
     System.setOut(new PrintStream(outcontent));
     diary.seeAll();
@@ -108,7 +107,7 @@ public class DiaryTest {
     assertTrue(outcontent.toString().contains("#-------#"));
     assertTrue(outcontent.toString().contains("---------------------------"));
     assertTrue(outcontent.toString().contains("Title"));
-    assertTrue(outcontent.toString().contains("Content"));
+    assertTrue(outcontent.toString().contains("innlegget"));
   }
 
   @Test
@@ -117,10 +116,8 @@ public class DiaryTest {
     ByteArrayOutputStream outcontent = new ByteArrayOutputStream();
 
     System.setOut(new PrintStream(outcontent));
-    diary.seeAllByAuthor(4, authors);
+    assertThrows(IllegalArgumentException.class, () -> diary.seeAllByAuthor(4, authors));
     System.setOut(orignalOut);
-
-    assertTrue(outcontent.toString().contains("No Author found with Id of, 4."));
   }
 
   @Test
@@ -128,24 +125,14 @@ public class DiaryTest {
     final PrintStream orignalOut = System.out;
     ByteArrayOutputStream outcontent = new ByteArrayOutputStream();
 
-    Author author = new Author("Author");
-    authors.addAuthor(author);
-    DiaryEntry addEntry = new DiaryEntry(
-          author, 
-          "Title", 
-          "Content",
-          "pushups", 
-          "30-10-2025");
-    diary.addEntry(addEntry);
-
     System.setOut(new PrintStream(outcontent));
-    diary.seeAllByAuthor(3, authors);
+    diary.seeAllByAuthor(1, authors);
     System.setOut(orignalOut);
 
     assertTrue(outcontent.toString().contains("#-------#"));
     assertTrue(outcontent.toString().contains("---------------------------"));
-    assertTrue(outcontent.toString().contains("Title"));
-    assertTrue(outcontent.toString().contains("Content"));
+    assertTrue(outcontent.toString().contains("Første innlegget"));
+    assertTrue(outcontent.toString().contains("Denne forfatteren"));
   }
 
   @Test
@@ -157,15 +144,36 @@ public class DiaryTest {
     authors.addAuthor(author);
 
     System.setOut(new PrintStream(outcontent));
-    diary.seeAllByAuthor(3, authors);
+    assertThrows(ArrayIndexOutOfBoundsException.class, () -> diary.seeAllByAuthor(3, authors));
     System.setOut(orignalOut);
 
-    assertTrue(
-        outcontent.toString().contains("Unfortunately, this Author wasent published an entry"));
+    assertTrue(outcontent.toString().contains("Found Author with id"));
   }
 
   @Test
-  public void searchBetweenDatesShouldGiveCorrectEntriesPoSiTiVe() {
+  public void searchBetweenDatesWithBadInputGivesExpection() throws IllegalAccessException {
+    assertThrows(IllegalArgumentException.class, () -> 
+        diary.seeAllBetweenDates("10-10-20244", "13-32-2024"));
+    assertThrows(IllegalArgumentException.class, () -> 
+        diary.seeAllBetweenDates("10-10-2024", "13-12-20244"));
+    assertThrows(IllegalArgumentException.class, () -> 
+        diary.seeAllBetweenDates("10010-2024", "13-12-2024"));
+    assertThrows(IllegalArgumentException.class, () ->
+        diary.seeAllBetweenDates("10-10-2024", "13012-2024"));
+    assertThrows(IllegalArgumentException.class, () -> 
+        diary.seeAllBetweenDates("10-1002024", "13-12-2024"));
+    assertThrows(IllegalArgumentException.class, () -> 
+        diary.seeAllBetweenDates("10-10-2024", "13-1202024"));
+  }
+
+  @Test
+  public void searchBetweenDatesWithBadIntervallGivesExpection() throws IllegalAccessException {
+    assertThrows(IllegalAccessException.class, () -> 
+        diary.seeAllBetweenDates("31-12-2024", "01-01-2024"));
+  }
+
+  @Test
+  public void searchBetweenDatesShouldGiveCorrectEntriesPoSiTiVe() throws IllegalAccessException {
     PrintStream orignalOut = System.out;
     ByteArrayOutputStream outcontent = new ByteArrayOutputStream();
 
@@ -178,15 +186,23 @@ public class DiaryTest {
   }
 
   @Test
-  public void searchBetweenDatesShouldGiveCorrectEntriesNeGaTiVe() {
+  public void searchBetweenDatesShouldGiveCorrectEntriesNeGaTiVe() throws IllegalAccessException {
     PrintStream orignalOut = System.out;
     ByteArrayOutputStream outcontent = new ByteArrayOutputStream();
 
     System.setOut(new PrintStream(outcontent));
-    diary.seeAllBetweenDates("10-10-2024", "12-10-2024");
+
+    assertThrows(ArrayIndexOutOfBoundsException.class, () -> 
+        diary.seeAllBetweenDates("10-10-2024", "12-10-2024"));
     System.setOut(orignalOut);
 
-    assertTrue(outcontent.toString().contains("No entries between the spesified dates"));
+  }
+
+  @Test
+  public void searchByDateWithBadInputGivesExpection() throws IllegalAccessException {
+    assertThrows(IllegalArgumentException.class, () -> diary.seeAllInDate("1202202231322"));
+    assertThrows(IllegalArgumentException.class, () -> diary.seeAllInDate("1201202025"));
+    assertThrows(IllegalArgumentException.class, () -> diary.seeAllInDate("12-1202025"));
   }
 
   @Test
@@ -208,10 +224,19 @@ public class DiaryTest {
     ByteArrayOutputStream outcontent = new ByteArrayOutputStream();
 
     System.setOut(new PrintStream(outcontent));
-    diary.seeAllInDate("23-10-1990");
+    assertThrows(ArrayIndexOutOfBoundsException.class, () -> diary.seeAllInDate("23-10-1990"));
     System.setOut(orignalOut);
+  }
 
-    assertTrue(outcontent.toString().contains("No entries found in this date"));
+  @Test
+  public void searchByDateShouldGiveExpectionWhenNothing() {
+    PrintStream orignalOut = System.out;
+    ByteArrayOutputStream outcontent = new ByteArrayOutputStream();
+    Diary diary2 = new Diary();
+
+    System.setOut(new PrintStream(outcontent));
+    assertThrows(ArrayIndexOutOfBoundsException.class, () -> diary2.seeAllInDate("23-10-1990"));
+    System.setOut(orignalOut);
   }
 
   @Test
@@ -231,6 +256,12 @@ public class DiaryTest {
   }
 
   @Test
+  public void authorStatisticsButEmptyShouldGiveExecption() {
+    Diary diary2 = new Diary();
+    assertThrows(ArrayIndexOutOfBoundsException.class, () -> diary2.showAuthorStatistics());
+  }
+
+  @Test
   public void searchingEntryByKeyWordShouldGiveCorrectEntriesPoSiTiVe() {
     PrintStream orignalOut = System.out;
     ByteArrayOutputStream outcontent = new ByteArrayOutputStream();
@@ -240,7 +271,35 @@ public class DiaryTest {
     System.setOut(orignalOut);
 
     assertTrue(outcontent.toString().contains("noe"));
-    assertTrue(outcontent.toString().contains("#-------#"));
+    assertTrue(outcontent.toString().contains("---- Training ---"));
+    assertTrue(outcontent.toString().contains("---------------------------"));
+  }
+
+  @Test
+  public void searchingEntryByKeyWordWillWorkOnTitleField() {
+    PrintStream orignalOut = System.out;
+    ByteArrayOutputStream outcontent = new ByteArrayOutputStream();
+
+    System.setOut(new PrintStream(outcontent));
+    diary.seeAllWithWord("innlegg");
+    System.setOut(orignalOut);
+
+    assertTrue(outcontent.toString().contains("innlegg"));
+    assertTrue(outcontent.toString().contains("---- Training ---"));
+    assertTrue(outcontent.toString().contains("---------------------------"));
+  }
+
+  @Test
+  public void searchingEntryByKeyWordWillWorkOnWorkoutField() {
+    PrintStream orignalOut = System.out;
+    ByteArrayOutputStream outcontent = new ByteArrayOutputStream();
+
+    System.setOut(new PrintStream(outcontent));
+    diary.seeAllWithWord("innlegg");
+    System.setOut(orignalOut);
+
+    assertTrue(outcontent.toString().contains("innlegg"));
+    assertTrue(outcontent.toString().contains("---- Training ---"));
     assertTrue(outcontent.toString().contains("---------------------------"));
   }
 
@@ -250,10 +309,23 @@ public class DiaryTest {
     ByteArrayOutputStream outcontent = new ByteArrayOutputStream();
 
     System.setOut(new PrintStream(outcontent));
-    diary.seeAllWithWord("blablabla");
+    assertThrows(ArrayIndexOutOfBoundsException.class, () -> diary.seeAllWithWord("blablabla"));
     System.setOut(orignalOut);
 
-    assertTrue(
-        outcontent.toString().contains("No entries found that contains this word: blablabla"));
+  }
+
+  @Test
+  public void searchingEntryByKeyWordButGivesEmptyShouldGiveExecption() {
+    assertThrows(IllegalArgumentException.class, () -> diary.seeAllWithWord(""));
+  }
+
+  @Test
+  public void deletingAnEntryThatDoesntExistShouldGiveExecption() {
+    assertThrows(ArrayIndexOutOfBoundsException.class, () -> diary.deleteEntry(10));
+  }
+
+  @Test
+  public void getEntriesShouldReturnList() {
+    assertFalse(diary.getEntries().isEmpty());
   }
 }

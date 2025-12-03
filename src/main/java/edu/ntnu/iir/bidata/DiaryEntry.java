@@ -47,21 +47,23 @@ public class DiaryEntry {
    * Contructur for the DiaryEntry class, with input parameters. Relase date is
    * automatically set to
    * the current date and time, and custimized using a formatter
+   * Tailored for user-input use.
    *
    * @param author  input Author
    * @param title   input title
    * @param content input content
    * @param workout input workout
    * @throws ArrayIndexOutOfBoundsException If the author doesnt exist.
-   * @throws IllegalArgumentException The parameters are empty
+   * @throws IllegalArgumentException       The parameters are empty
    */
-  public DiaryEntry(AuthorRegistry authors, Author author, String title, String content, String workout) {
+  public DiaryEntry(AuthorRegistry authors, 
+      Author author, String title, String content, String workout) {
     if (!authors.getAuthors().contains(author)) {
       throw new ArrayIndexOutOfBoundsException();
     }
     this.author = author;
 
-    if (title == null || title.trim().isEmpty() || content == null || content.trim().isEmpty() 
+    if (title == null || title.trim().isEmpty() || content == null || content.trim().isEmpty()
         || workout == null
         || workout.isEmpty()) {
       throw new IllegalArgumentException();
@@ -69,7 +71,7 @@ public class DiaryEntry {
     this.title = title;
     this.content = content;
     this.workout = workout;
-    
+
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy (HH:mm:ss)");
     this.releaseDate = LocalDateTime.now().format(formatter);
     this.id = nextId++;
@@ -89,9 +91,36 @@ public class DiaryEntry {
    * @param releaseDate input release date. Hours, minutes and seconds to 00:00:00
    * @param workout     input workout
    */
-  public DiaryEntry(Author author, String title, String content, String workout, String releaseDate) {
+  public DiaryEntry(Author author, 
+      String title, String content, String workout, String releaseDate) {
     this.author = author;
     this.releaseDate = releaseDate + " (00:00:00)";
+    this.id = nextId++;
+    this.title = title;
+    this.content = content;
+    this.workout = workout;
+  }
+
+  /**
+   * Contructur for the DiaryEntry class, with input parameters AND with custom
+   * release date.
+   * ALso used for only with filler content and testing.
+   * Hours,
+   * minutes and
+   * seconds will be
+   * 00:00:00.
+   *
+   * @param author      input Author
+   * @param title       input title
+   * @param content     input content
+   * @param workout     input workout
+   */
+  public DiaryEntry(Author author, String title, String content, String workout) {
+    this.author = author;
+    
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy (HH:mm:ss)");
+    this.releaseDate = LocalDateTime.now().format(formatter);
+    
     this.id = nextId++;
     this.title = title;
     this.content = content;
@@ -170,7 +199,7 @@ public class DiaryEntry {
     return author;
   }
 
-  private void updateReleasedate(){
+  private void updateReleasedate() {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy (HH:mm:ss)");
     this.releaseDate = "(Edited on):" + LocalDateTime.now().format(formatter);
   }
@@ -213,7 +242,7 @@ public class DiaryEntry {
     this.workout = inputWorkout;
     updateReleasedate();
   }
-  
+
   /**
    * Unique toString method that prints out all attributes of the DiaryEntry
    * object The seeAll

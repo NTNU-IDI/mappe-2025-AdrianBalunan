@@ -138,7 +138,8 @@ public class Diary {
     } else {
       System.out.println(
           "Found Author with id, " + authorId + ": " + foundAuthor.getAuthorName() + ".");
-      List<DiaryEntry> filiteredAuthor = diaryEntries.stream().filter(x -> x.getAuthorId() == authorId).toList();
+      List<DiaryEntry> filiteredAuthor = diaryEntries.stream()
+          .filter(x -> x.getAuthorId() == authorId).toList();
       if (filiteredAuthor.isEmpty()) {
         throw new ArrayIndexOutOfBoundsException();
       } else {
@@ -158,7 +159,7 @@ public class Diary {
    * @throws IllegalArgumentException If the input is not at the spesified format (dd-MM-yyyy)
    * @throws ArrayIndexOutOfBoundsException If the correct interval show no entries
    */
-  public void seeAllBetweenDates(String inputStart, String inputEnd) throws IllegalAccessException{
+  public void seeAllBetweenDates(String inputStart, String inputEnd) throws IllegalAccessException {
     if (inputStart.length() != 10
         || inputEnd.length() != 10
         || inputEnd.charAt(2) != '-'
@@ -172,7 +173,7 @@ public class Diary {
     LocalDate start = LocalDate.parse(inputStart, formatter);
     LocalDate end = LocalDate.parse(inputEnd, formatter);
 
-    if (start.isAfter(end) || end.isBefore(start)) {
+    if (start.isAfter(end)) {
       throw new IllegalAccessException();
     } 
 
@@ -210,7 +211,7 @@ public class Diary {
         .filter(e -> e.getReleaseDate().substring(0, 10).equalsIgnoreCase(date))
         .toList();
     if (filteredDates.isEmpty()) {
-      System.out.println("No entries found in this date");
+      throw new ArrayIndexOutOfBoundsException();
     } else {
       System.out.println("# Entries found for: " + date + " #");
       printout(filteredDates);
@@ -227,12 +228,12 @@ public class Diary {
       throw new IllegalArgumentException();
     }
     List<DiaryEntry> filteredWord = diaryEntries.stream()
-        .filter(x -> x.getContent().toLowerCase().contains(word.toLowerCase()))
-        .filter(x -> x.getWorkout().toLowerCase().contains(word.toLowerCase()))
-        .filter(x -> x.getTitle().toLowerCase().contains(word.toLowerCase()))
+        .filter(x -> x.getContent().toLowerCase().contains(word.toLowerCase()) 
+        || x.getWorkout().toLowerCase().contains(word.toLowerCase())
+        || x.getTitle().toLowerCase().contains(word.toLowerCase()))
         .toList();
     if (filteredWord.isEmpty()) {
-      System.out.println("No entries found that contains this word: " + word);
+      throw new ArrayIndexOutOfBoundsException();
     } else {
       System.out.println("# All entries with content that includes this word: " + word + " #");
       printout(filteredWord);

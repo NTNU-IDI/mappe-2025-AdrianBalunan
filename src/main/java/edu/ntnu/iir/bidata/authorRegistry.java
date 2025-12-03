@@ -1,6 +1,5 @@
 
 import java.util.ArrayList;
-import java.util.EmptyStackException;
 
 /**
  * AuthorRegistry class contains a list of authors and methods to manage them.

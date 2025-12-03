@@ -1,5 +1,7 @@
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
@@ -10,7 +12,6 @@ import org.junit.Test;
  * 
  * @author Adrian Balunan
  */
-
 
 public class AuthorTest {
   /** Attribute Tests. */
@@ -29,6 +30,7 @@ public class AuthorTest {
   public void secondAuthorObjectIdShouldBeTwo() {
     Author author1 = new Author("Author1");
     Author author2 = new Author("Author2");
+    assertNotEquals(2, author1.getAuthorId());
     assertEquals(2, author2.getAuthorId());
   }
 
@@ -41,6 +43,11 @@ public class AuthorTest {
   @Test
   public void toStringReturnsCorrect() {
     Author author1 = new Author("Author1");
-    assertTrue(author1.toString().equals("Forfatter ID: 1, Navn: Author1"));
+    assertTrue(author1.toString().equals("Author ID: 1, Name: Author1"));
+  }
+
+  @Test
+  public void emptyNameShouldGiveExpection() {
+    assertThrows(IllegalArgumentException.class, () -> new Author(""));
   }
 }
