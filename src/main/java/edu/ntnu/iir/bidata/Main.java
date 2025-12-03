@@ -520,7 +520,6 @@ public class Main {
       int userParse = 0;
       switch (valg2) {
         case 1:
-
           try {
             System.out.println("----- Searching Entries by Author -----");
             authors.seeAll();
