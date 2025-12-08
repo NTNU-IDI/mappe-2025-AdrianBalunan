@@ -450,7 +450,7 @@ public class Main {
           try {
             authors.deleteById(tempParse);
             List<DiaryEntry> deletedAuthorEntries = d.getEntries().stream()
-                .filter(x -> x.getAuthorId() == tempParse)
+                .filter(x -> x.getAuthorObject().getAuthorId() == tempParse)
                 .toList();
 
             for (DiaryEntry authorEntry : deletedAuthorEntries) {

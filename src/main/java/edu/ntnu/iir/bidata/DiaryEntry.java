@@ -11,8 +11,6 @@ import java.time.format.DateTimeFormatter;
 public class DiaryEntry {
   /** DiaryEntry Attributes. */
 
-  /* Release date of the entry in LocalDateTime. */
-  private String releaseDate;
 
   /**
    * Accessible and available Id_counter, makes sure that after each occurrence of
@@ -20,13 +18,6 @@ public class DiaryEntry {
    * a unique ID.
    */
   private static int nextId = 1;
-
-  /**
-   * Used to reset nextId counter.
-   */
-  public static void resetEntryNextId() {
-    nextId = 1;
-  }
 
   /** Actual unique ID for the DiaryEntry object. */
   private final int id;
@@ -42,6 +33,16 @@ public class DiaryEntry {
 
   /** Contains details of your workout. */
   private String workout;
+
+  /* Release date of the entry in LocalDateTime Format but String. */
+  private String releaseDate;
+
+  /**
+   * Used to reset nextId counter. Used in testing
+   */
+  public static void resetEntryNextId() {
+    nextId = 1;
+  }
 
   /**
    * Contructur for the DiaryEntry class, with input parameters. Relase date is
@@ -154,14 +155,6 @@ public class DiaryEntry {
     return content;
   }
 
-  /**
-   * Getter-method for getting the Author name.
-   *
-   * @return Returns the Author of the entrys name
-   */
-  public String getAuthorName() {
-    return author.getAuthorName();
-  }
 
   /**
    * Getter-method for getting the workout.
@@ -172,14 +165,6 @@ public class DiaryEntry {
     return workout;
   }
 
-  /**
-   * Getter-method for getting the Author ID.
-   *
-   * @return Returns the author of the entrys ID
-   */
-  public int getAuthorId() {
-    return author.getAuthorId();
-  }
 
   /**
    * Getter-method for getting the ID.

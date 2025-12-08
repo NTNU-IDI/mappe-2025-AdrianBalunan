@@ -19,10 +19,10 @@ public class AuthorRegistry {
   /**
    * Method to add an Author to the ArrayList Authors.
    *
-   * @param f input Author
+   * @param author input Author
    */
-  public void addAuthor(Author f) {
-    authors.add(f);
+  public void addAuthor(Author author) {
+    authors.add(author);
   }
 
   /**

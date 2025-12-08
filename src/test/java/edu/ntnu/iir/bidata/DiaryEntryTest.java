@@ -50,7 +50,7 @@ public class DiaryEntryTest {
 
   @Test
   public void authorsNameShouldBePrinted() {
-    assertTrue(entry.getAuthorName().equals("Author1"));
+    assertTrue(entry.getAuthorObject().getAuthorName().equals("Author1"));
   }
 
   @Test
@@ -143,13 +143,13 @@ public class DiaryEntryTest {
         "This is useless text used for testing dada, ",
         "Pushups 3x15",
         "01-01-2025");
-    assertEquals(1, entry1.getAuthorId());
-    assertEquals(1, entry2.getAuthorId());
+    assertEquals(1, entry1.getAuthorObject().getAuthorId());
+    assertEquals(1, entry2.getAuthorObject().getAuthorId());
   }
 
   @Test
   public void gettingAuthorNameShouldWork() {
-    assertTrue(entry.getAuthorName().equals("Author1"));
+    assertTrue(entry.getAuthorObject().getAuthorName().equals("Author1"));
   }
 
   @Test

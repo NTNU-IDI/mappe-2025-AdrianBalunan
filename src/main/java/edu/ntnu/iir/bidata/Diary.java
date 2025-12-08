@@ -100,9 +100,9 @@ public class Diary {
             System.out.println("Title: " + entry.getTitle());
             System.out.println(
                 "Author: "
-                    + entry.getAuthorName()
+                    + entry.getAuthorObject().getAuthorName()
                     + " (ID: "
-                    + entry.getAuthorId()
+                    + entry.getAuthorObject().getAuthorId()
                     + ")");
             System.out.println(entry.getReleaseDate());
             System.out.println("---- Training ---");
@@ -139,7 +139,7 @@ public class Diary {
       System.out.println(
           "Found Author with id, " + authorId + ": " + foundAuthor.getAuthorName() + ".");
       List<DiaryEntry> filiteredAuthor = diaryEntries.stream()
-          .filter(x -> x.getAuthorId() == authorId).toList();
+          .filter(x -> x.getAuthorObject().getAuthorId() == authorId).toList();
       if (filiteredAuthor.isEmpty()) {
         throw new ArrayIndexOutOfBoundsException();
       } else {
@@ -200,12 +200,11 @@ public class Diary {
    *  
    */
   public void seeAllInDate(String date) {
-
     if (date.length() != 10
         || date.charAt(2) != '-'
         || date.charAt(5) != '-') {
       throw new IllegalArgumentException();
-        
+
     }
     List<DiaryEntry> filteredDates = diaryEntries.stream()
         .filter(e -> e.getReleaseDate().substring(0, 10).equalsIgnoreCase(date))
@@ -300,9 +299,9 @@ public class Diary {
           System.out.println("Title: " + entry.getTitle());
           System.out.println(
               "Author: "
-                  + entry.getAuthorName()
+                  + entry.getAuthorObject().getAuthorName()
                   + " (ID: "
-                  + entry.getAuthorId()
+                  + entry.getAuthorObject().getAuthorId()
                   + ")");
           System.out.println(entry.getReleaseDate());
           System.out.println("---- Training ---");
